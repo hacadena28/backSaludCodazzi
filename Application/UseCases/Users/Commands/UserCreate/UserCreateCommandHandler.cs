@@ -1,4 +1,5 @@
 ﻿using Application.UseCases.User.Queries.GetUser;
+using Application.UseCases.Users.Queries.GetUser;
 using Domain.Enums;
 using Domain.Services;
 
@@ -30,6 +31,7 @@ public class UserCreateCommandHandler : IRequestHandler<UserCreateCommand, UserD
             request.Person.Birthdate
         );
         var user = new Domain.Entities.User(request.Password, Role.Patient, patient);
+        await _service.CreateUser(user);
         return new UserDtoEmpty();
     }
 }

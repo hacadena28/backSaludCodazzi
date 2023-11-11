@@ -1,4 +1,5 @@
 using Application.UseCases.User.Queries.GetUser;
+using Application.UseCases.Users.Queries.GetUser;
 using Domain.Enums;
 using MediatR;
 

@@ -4,6 +4,7 @@ using Application.UseCases.User.Commands.UserDelete;
 using Application.UseCases.User.Commands.UserUpdate;
 using Application.UseCases.User.Queries.GetUser;
 using Application.UseCases.Users.Commands.UserCreate;
+using Application.UseCases.Users.Queries.GetUser;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Api.Controllers;
