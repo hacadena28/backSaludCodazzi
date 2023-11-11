@@ -19,7 +19,7 @@ public class EpsTest
 
         _eps.EnableState();
 
-        Assert.Equal(EpsState.Active, _eps.GetState());
+        Assert.Equal(EpsState.Active, _eps.State);
     }
 
     [Fact]
@@ -32,6 +32,6 @@ public class EpsTest
 
         _eps.DisableState();
 
-        Assert.Equal(EpsState.Inactive, _eps.GetState());
+        Assert.Equal(EpsState.Inactive, _eps.State);
     }
 }

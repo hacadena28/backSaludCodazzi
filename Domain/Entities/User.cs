@@ -24,41 +24,6 @@ public class User : EntityBase<Guid>
         Person = person;
     }
 
-    public Guid GetId()
-    {
-        return Id;
-    }
-
-    public string GetIdentification()
-    {
-        return Identification;
-    }
-
-    public string GetPassword()
-    {
-        return Password;
-    }
-
-    public Role GetRole()
-    {
-        return Role;
-    }
-
-    public Guid GetPersonId()
-    {
-        return PersonId;
-    }
-
-    public Person GetPerson()
-    {
-        return Person;
-    }
-
-    public bool Login()
-    {
-        return true;
-    }
-
     public void ChangePassword(string password)
     {
         Password = password;

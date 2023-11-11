@@ -14,21 +14,6 @@ public class Eps : EntityBase<Guid>
         State = state;
     }
 
-    public Guid GetId()
-    {
-        return Id;
-    }
-
-    public string GetEpsName()
-    {
-        return Name;
-    }
-
-    public EpsState GetState()
-    {
-        return State;
-    }
-
     public void EnableState()
     {
         State = EpsState.Active;
