@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Application.UseCases.Eps.Commands.EpsCreate;
 using Application.UseCases.Eps.Commands.EpsUpdate;
 using Application.UseCases.Eps.Queries.GetEps;
-using Application.UseCases.User.Commands.UserCreate;
 using Application.UseCases.User.Commands.UserUpdate;
 using Application.UseCases.User.Queries.GetUser;
 using Domain.Entities;
