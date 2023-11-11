@@ -100,7 +100,7 @@ public class PatientConfig : IEntityTypeConfiguration<Patient>
         builder
             .Property(x => x.DocumentType)
             .IsRequired()
-            .HasMaxLength(20);
+            .HasConversion<string>();
         builder
             .Property(x => x.DocumentNumber)
             .IsRequired()

@@ -18,10 +18,10 @@ public class UserCreateCommandHandler : IRequestHandler<UserCreateCommand, UserD
     public async Task<UserDtoEmpty> Handle(UserCreateCommand request, CancellationToken cancellationToken)
     {
         if(request.Role == Role.Patient)
-        await _service.CreateUser(
-            new Domain.Entities.User(request.Identification, request.Password, request.Role, request.PersonId,
-                request.Person)
-        );
+            await _service.CreateUser(
+                new Domain.Entities.User(request.Identification, request.Password, request.Role, request.PersonId,
+                    request.Person)
+            );
         return new UserDtoEmpty();
     }
 }
