@@ -1,4 +1,3 @@
-using System.Collections;
 using Domain.Enums;
 
 namespace Domain.Entities;

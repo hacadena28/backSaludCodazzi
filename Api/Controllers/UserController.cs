@@ -1,9 +1,9 @@
 using Api.Examples.UserExamples;
 using Api.Filters;
-using Application.UseCases.User.Commands.UserCreate;
 using Application.UseCases.User.Commands.UserDelete;
 using Application.UseCases.User.Commands.UserUpdate;
 using Application.UseCases.User.Queries.GetUser;
+using Application.UseCases.Users.Commands.UserCreate;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Api.Controllers;

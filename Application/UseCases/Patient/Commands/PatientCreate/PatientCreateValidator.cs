@@ -3,7 +3,7 @@ using Domain.Tests;
 
 namespace Application.UseCases.Patient.Commands.PatientCreate;
 
-public class PatientCreateValidator : AbstractValidator<PatientCreateCommand>
+public class PatientCreateValidator : AbstractValidator<PatientCreateCommand2>
 {
     public PatientCreateValidator()
     {

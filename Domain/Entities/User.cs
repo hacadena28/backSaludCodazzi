@@ -4,23 +4,20 @@ namespace Domain.Entities;
 
 public class User : EntityBase<Guid>
 {
-    public string Identification { get; set; }
     public string Password { get; set; }
     public Role Role { get; set; }
 
     public Guid PersonId { get; set; }
-    public Person Person { get; set; }
+    public virtual Person Person { get; set; }
 
     public User()
     {
     }
 
-    public User(string identification, string password, Role role, Guid personId, Person person)
+    public User(string password, Role role, Person person)
     {
-        Identification = identification;
         Password = password;
         Role = role;
-        PersonId = personId;
         Person = person;
     }
 

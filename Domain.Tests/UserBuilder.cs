@@ -5,18 +5,11 @@ namespace Domain.Tests;
 
 public class UserBuilder
 {
-    private string Identification;
     private string Password;
     private Role Role;
     private Guid PersonId;
     private Person Person;
     private Guid Id;
-
-    public UserBuilder WithIdentification(string identificacion)
-    {
-        Identification = identificacion;
-        return this;
-    }
 
     public UserBuilder WithPassword(string password)
     {
@@ -44,6 +37,6 @@ public class UserBuilder
 
     public User Build()
     {
-        return new User(Identification, Password, Role, PersonId, Person);
+        return new User(Password, Role, Person);
     }
 }

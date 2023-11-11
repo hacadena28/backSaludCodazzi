@@ -29,7 +29,6 @@ namespace Application.UseCases.User.Commands.UserUpdate
 
             if (existingUser.Id == request.Id)
             {
-                existingUser.Identification = request.Identification;
                 existingUser.Password = request.Password;
                 existingUser.Role = request.Role;
 

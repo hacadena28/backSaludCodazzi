@@ -50,11 +50,6 @@ public class UserConfig : IEntityTypeConfiguration<User>
             .ToTable("User", SchemaNames.Base);
 
         builder
-            .Property(x => x.Identification)
-            .IsRequired()
-            .HasMaxLength(10);
-
-        builder
             .Property(x => x.Password)
             .IsRequired()
             .HasMaxLength(50);

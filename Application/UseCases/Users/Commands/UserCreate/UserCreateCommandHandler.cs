@@ -17,7 +17,19 @@ public class UserCreateCommandHandler : IRequestHandler<UserCreateCommand, UserD
 
     public async Task<UserDtoEmpty> Handle(UserCreateCommand request, CancellationToken cancellationToken)
     {
-        var user = new Domain.Entities.User();
+        var patient = new Domain.Entities.Patient(
+            request.Person.FirstName,
+            request.Person.SecondName,
+            request.Person.LastName,
+            request.Person.SecondLastName,
+            request.Person.DocumentType,
+            request.Person.DocumentNumber,
+            request.Person.Email,
+            request.Person.Phone,
+            request.Person.Address,
+            request.Person.Birthdate
+        );
+        var user = new Domain.Entities.User(request.Password, Role.Patient, patient);
         return new UserDtoEmpty();
     }
 }

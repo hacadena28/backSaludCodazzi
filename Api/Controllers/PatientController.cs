@@ -22,7 +22,7 @@ public class PatientController
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(PatientDto), StatusCodes.Status200OK)]
-    public async Task<PatientDtoEmpty> Create(PatientCreateCommand command) => await _mediator.Send(command);
+    public async Task<PatientDtoEmpty> Create(PatientCreateCommand2 command2) => await _mediator.Send(command2);
 
     [HttpGet]
     [SwaggerRequestExample(typeof(PatientQuery), typeof(GetPatientQueryExample))]

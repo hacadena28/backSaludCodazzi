@@ -15,7 +15,6 @@ public class UserTest
     public void ChangePassword()
     {
         _user = new UserBuilder()
-            .WithIdentification(_identification)
             .WithPassword(_password)
             .WithRole(_rol)
             .Build();
@@ -26,7 +25,6 @@ public class UserTest
     public void RecoveryPassword()
     {
         _user = new UserBuilder()
-            .WithIdentification(_identification)
             .WithPassword(_password)
             .WithRole(_rol)
             .Build();

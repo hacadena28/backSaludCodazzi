@@ -1,8 +1,6 @@
 using Domain.Entities;
 using Domain.Ports;
 
-
-
 namespace Domain.Services;
 
 [DomainService]

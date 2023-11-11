@@ -5,9 +5,9 @@ using Domain.Tests;
 
 namespace Api.Examples.PatientExamples
 {
-    public class PatientCreateCommandExample : IMultipleExamplesProvider<PatientCreateCommand>
+    public class PatientCreateCommandExample : IMultipleExamplesProvider<PatientCreateCommand2>
     {
-        public IEnumerable<SwaggerExample<PatientCreateCommand>> GetExamples()
+        public IEnumerable<SwaggerExample<PatientCreateCommand2>> GetExamples()
         {
             var id = new Guid();
             var _firstName = "heli";
@@ -21,7 +21,7 @@ namespace Api.Examples.PatientExamples
             var _address = "calle 18D";
             var _birthdate = new DateTime(2001, 04, 28);
 
-            var patientCommand = new PatientCreateCommand(
+            var patientCommand = new PatientCreateCommand2(
                 _firstName,
                 _secondName,
                 _lastName,

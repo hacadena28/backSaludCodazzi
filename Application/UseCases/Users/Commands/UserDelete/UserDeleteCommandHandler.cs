@@ -3,7 +3,7 @@ using Application.UseCases.User.Queries.GetUser;
 using Domain.Ports;
 using Domain.Services;
 
-namespace Application.UseCases.User.Commands.UserDelete
+namespace Application.UseCases.Users.Commands.UserDelete
 {
     public class UserDeleteCommandHandler : IRequestHandler<UserDeleteCommand, UserDtoEmpty>
     {

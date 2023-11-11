@@ -5,7 +5,7 @@ using Domain.Tests;
 
 namespace Application.UseCases.Patient.Commands.PatientCreate;
 
-public record PatientCreateCommand(
+public record PatientCreateCommand2(
     string firstName, string secondName, string lastName, string secondLastName, TypeDocument documentType,
     string documentNumber, string email, long phone, string address, DateTime birthdate
 ) : IRequest<PatientDtoEmpty>;
