@@ -9,7 +9,6 @@ public class UserBuilder
     private Role Role;
     private Guid PersonId;
     private Person Person;
-    private Guid Id;
 
     public UserBuilder WithPassword(string password)
     {

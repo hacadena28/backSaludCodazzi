@@ -7,7 +7,6 @@ public class EpsBuilder
 {
     private string Name;
     private EpsState State;
-    private Guid Id;
 
     public EpsBuilder WithName(string name)
     {

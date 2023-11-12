@@ -1,6 +1,6 @@
 using Domain.Enums;
 using Domain.Tests;
 
-namespace Application.UseCases.User.Queries.GetUser;
+namespace Application.UseCases.Users.Queries.GetUser;
 
-public record UserDto(Guid id, string identification, string password, Role role);
+public record UserDto(Guid Id, Role Role);

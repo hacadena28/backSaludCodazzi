@@ -2,12 +2,11 @@ using Domain.Enums;
 
 namespace Domain.Entities;
 
-public class Patient : Person
+public class Doctor : Person
 {
-    public Guid EpsId { get; set; }
-    public virtual Eps Eps { get; set; }
+    public string Specialization { get; set; }
 
-    public Patient
+    public Doctor
     (
         string firstName,
         string secondName,
@@ -18,14 +17,15 @@ public class Patient : Person
         string email,
         string phone,
         string address,
-        DateTime birthdate, Eps eps
+        DateTime birthdate,
+        string specialization
     ) : base(firstName, secondName, lastName, secondLastName, documentType, documentNumber, email, phone, address,
         birthdate)
     {
-        Eps = eps;
+        Specialization = specialization;
     }
 
-    public Patient()
+    public Doctor()
     {
     }
 }

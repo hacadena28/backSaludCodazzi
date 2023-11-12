@@ -1,4 +1,4 @@
-﻿using Application.UseCases.User.Queries.GetUser;
+﻿using Application.UseCases.Users.Queries.GetUser;
 
 namespace Api.Examples.UserExamples
 {

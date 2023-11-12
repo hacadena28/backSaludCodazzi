@@ -1,8 +1,8 @@
 using Api.Examples.UserExamples;
 using Api.Filters;
-using Application.UseCases.User.Commands.UserDelete;
-using Application.UseCases.User.Commands.UserUpdate;
-using Application.UseCases.User.Queries.GetUser;
+using Application.UseCases.Users.Commands.UserDelete;
+using Application.UseCases.Users.Commands.UserUpdate;
+using Application.UseCases.Users.Queries.GetUser;
 using Application.UseCases.Users.Commands.UserCreate;
 using Application.UseCases.Users.Queries.GetUser;
 using Swashbuckle.AspNetCore.Annotations;
@@ -23,7 +23,11 @@ public class UserController
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
-    public async Task<UserDtoEmpty> Create(UserCreateCommand command) => await _mediator.Send(command);
+    public async Task Create(UserCreateCommand command)
+    {
+        
+        await _mediator.Send(command);
+    }
 
     [HttpGet]
     [SwaggerRequestExample(typeof(UserQuery), typeof(GetUserQueryExample))]

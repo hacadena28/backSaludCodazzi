@@ -17,7 +17,7 @@ public class PatientCreateCommandHandler : IRequestHandler<PatientCreateCommand2
     public async Task<PatientDtoEmpty> Handle(PatientCreateCommand2 request, CancellationToken cancellationToken)
     {
         await _service.CreatePatient(
-            new Domain.Entities.Patient(request.firstName, request.secondName, request.lastName, request.secondLastName,request.documentType,request.documentNumber,request.email,request.phone,request.address,request.birthdate)
+            new Domain.Entities.Patient(request.firstName, request.secondName, request.lastName, request.secondLastName,request.documentType,request.documentNumber,request.email,request.phone,request.address,request.birthdate,request.eps)
         );
         return new PatientDtoEmpty();
     }

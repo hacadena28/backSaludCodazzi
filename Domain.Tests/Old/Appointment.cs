@@ -3,14 +3,14 @@ using Domain.Exceptions;
 
 namespace Domain.Entities;
 
-public class Appointment
+public class Appointment2
 {
     private const int MinimumNumberDayToCancelled = 1;
 
     public AppointmentState State { get; private set; }
     public DateTime StartDate { get; private set; }
 
-    public Appointment(DateTime startDate)
+    public Appointment2(DateTime startDate)
     {
         StartDate = startDate;
     }

@@ -7,5 +7,5 @@ namespace Application.UseCases.Patient.Commands.PatientCreate;
 
 public record PatientCreateCommand2(
     string firstName, string secondName, string lastName, string secondLastName, TypeDocument documentType,
-    string documentNumber, string email, long phone, string address, DateTime birthdate
+    string documentNumber, string email, string phone, string address, DateTime birthdate, Domain.Entities.Eps eps
 ) : IRequest<PatientDtoEmpty>;

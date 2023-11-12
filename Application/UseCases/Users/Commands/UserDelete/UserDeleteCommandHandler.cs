@@ -1,5 +1,5 @@
-using Application.UseCases.User.Commands.UserDelete;
-using Application.UseCases.User.Queries.GetUser;
+using Application.UseCases.Users.Commands.UserDelete;
+using Application.UseCases.Users.Queries.GetUser;
 using Application.UseCases.Users.Queries.GetUser;
 using Domain.Ports;
 using Domain.Services;

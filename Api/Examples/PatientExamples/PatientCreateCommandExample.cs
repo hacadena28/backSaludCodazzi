@@ -17,9 +17,10 @@ namespace Api.Examples.PatientExamples
             var _documentType = TypeDocument.IdentificationCard;
             var _documentNumber = "1007824012";
             var _email = "Heli@gmail.com";
-            var _phone = 3206870778;
+            var _phone = "3206870778";
             var _address = "calle 18D";
             var _birthdate = new DateTime(2001, 04, 28);
+            var _eps = new Eps("cosalud");
 
             var patientCommand = new PatientCreateCommand2(
                 _firstName,
@@ -31,7 +32,8 @@ namespace Api.Examples.PatientExamples
                 _email,
                 _phone,
                 _address,
-                _birthdate
+                _birthdate,
+                _eps
             );
 
             yield return SwaggerExample.Create("patientCreateCommand", patientCommand);

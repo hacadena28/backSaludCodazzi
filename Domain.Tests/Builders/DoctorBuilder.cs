@@ -3,7 +3,7 @@ using Domain.Enums;
 
 namespace Domain.Tests;
 
-public class PatientBuilder
+public class DoctorBuilder
 {
     private string FirstName;
     private string SecondName;
@@ -12,76 +12,81 @@ public class PatientBuilder
     private TypeDocument DocumentType;
     private string DocumentNumber;
     private string Email;
-    private long Phone;
+    private string Phone;
     private string Address;
     private DateTime Birthdate;
-    private Guid Id;
+    private string Specialization;
 
-    public PatientBuilder WithFirstName(string firstName)
+    public DoctorBuilder WithFirstName(string firstName)
     {
         FirstName = firstName;
         return this;
     }
 
-    public PatientBuilder WithSecondName(string secondName)
+    public DoctorBuilder WithSecondName(string secondName)
     {
         SecondName = secondName;
         return this;
     }
 
-    public PatientBuilder WithLastName(string lastName)
+    public DoctorBuilder WithLastName(string lastName)
     {
         LastName = lastName;
         return this;
     }
 
-    public PatientBuilder WithSecondLastName(string secondLastName)
+    public DoctorBuilder WithSecondLastName(string secondLastName)
     {
         SecondLastName = secondLastName;
         return this;
     }
 
-    public PatientBuilder WithDocumentType(TypeDocument documentType)
+    public DoctorBuilder WithDocumentType(TypeDocument documentType)
     {
         DocumentType = documentType;
         return this;
     }
 
-    public PatientBuilder WithDocumentNumber(string documentNumber)
+    public DoctorBuilder WithDocumentNumber(string documentNumber)
     {
         DocumentNumber = documentNumber;
         return this;
     }
 
 
-    public PatientBuilder WithEmail(string email)
+    public DoctorBuilder WithEmail(string email)
     {
         Email = email;
         return this;
     }
 
-    public PatientBuilder WithPhone(long phone)
+    public DoctorBuilder WithPhone(string phone)
     {
         Phone = phone;
         return this;
     }
 
-    public PatientBuilder WithAddress(string address)
+    public DoctorBuilder WithAddress(string address)
     {
         Address = address;
         return this;
     }
 
-    public PatientBuilder WithBirthdate(DateTime birthdate)
+    public DoctorBuilder WithBirthdate(DateTime birthdate)
     {
         Birthdate = birthdate;
         return this;
     }
-
-
-    public Patient Build()
+    public DoctorBuilder WithSpecialization(string specialization)
     {
-        return new Patient(FirstName, SecondName, LastName, SecondLastName, DocumentType, DocumentNumber, Email, Phone,
-            Address, Birthdate);
+        Specialization = specialization;
+        return this;
+    }
+
+
+    public Doctor Build()
+    {
+        return new Doctor(FirstName, SecondName, LastName, SecondLastName, DocumentType, DocumentNumber, Email, Phone,
+            Address, Birthdate,Specialization);
     }
 }

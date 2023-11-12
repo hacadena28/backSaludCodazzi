@@ -1,8 +1,9 @@
-using Application.UseCases.User.Queries.GetUser;
+using Application.UseCases.Users.Queries.GetUser;
+using Application.UseCases.Users.Queries.GetUser;
 using Domain.Ports;
 using Domain.Services;
 
-namespace Application.UseCases.User.Commands.UserUpdate
+namespace Application.UseCases.Users.Commands.UserUpdate
 {
     public class UserUpdateCommandHandler : IRequestHandler<UserUpdateCommand, UserDto>
     {

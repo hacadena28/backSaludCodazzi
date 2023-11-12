@@ -1,6 +1,6 @@
 using Domain.Ports;
 
-namespace Application.UseCases.User.Queries.GetUser;
+namespace Application.UseCases.Users.Queries.GetUser;
 
 public class UserQueryHandler : IRequestHandler<UserQuery, List<UserDto>>
 {

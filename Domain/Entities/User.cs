@@ -20,14 +20,4 @@ public class User : EntityBase<Guid>
         Role = role;
         Person = person;
     }
-
-    public void ChangePassword(string password)
-    {
-        Password = password;
-    }
-
-    public string RecoveryPassword()
-    {
-        return Password;
-    }
 }

@@ -18,5 +18,6 @@ public class PatientCreateValidator : AbstractValidator<PatientCreateCommand2>
             .Must(num => num.ToString().Length >= 9 && num.ToString().Length <= 15);
         RuleFor(_ => _.address).NotNull().NotEmpty().MinimumLength(4).MaximumLength(40);
         RuleFor(_ => _.birthdate).NotNull().NotEmpty();
+        RuleFor(_ => _.birthdate).NotNull();
     }
 }

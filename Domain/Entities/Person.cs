@@ -3,7 +3,6 @@ using Domain.Enums;
 
 namespace Domain.Entities;
 
-[NotMapped]
 public abstract class Person : EntityBase<Guid>
 {
     public string FirstName { get; set; }
@@ -13,13 +12,13 @@ public abstract class Person : EntityBase<Guid>
     public TypeDocument DocumentType { get; set; }
     public string DocumentNumber { get; set; }
     public string Email { get; set; }
-    public long Phone { get; set; }
+    public string Phone { get; set; }
     public string Address { get; set; }
     public DateTime Birthdate { get; set; }
 
     public Person(
         string firstName, string secondName, string lastName, string secondLastName, TypeDocument documentType,
-        string documentNumber, string email, long phone, string address, DateTime birthdate)
+        string documentNumber, string email, string phone, string address, DateTime birthdate)
     {
         FirstName = firstName;
         SecondName = secondName;
