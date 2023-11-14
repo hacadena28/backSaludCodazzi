@@ -5,11 +5,11 @@ using Domain.Tests;
 
 namespace Api.Examples.UserExamples
 {
-    public class UserCreateResponseExample : IMultipleExamplesProvider<UserDtoEmpty>
+    public class UserCreateResponseExample : IMultipleExamplesProvider<EmptyUserDto>
     {
-        public IEnumerable<SwaggerExample<UserDtoEmpty>> GetExamples()
+        public IEnumerable<SwaggerExample<EmptyUserDto>> GetExamples()
         {
-            var userDtoEmpy = new UserDtoEmpty();
+            var userDtoEmpy = new EmptyUserDto();
             yield return SwaggerExample.Create("crearAlarmaRequest", userDtoEmpy);
         }
     }

@@ -2,7 +2,6 @@ using Domain.Entities;
 using Domain.Ports;
 
 
-
 namespace Domain.Services;
 
 [DomainService]
@@ -18,6 +17,11 @@ public class UserService
     public async Task CreateUser(User user)
     {
         await _userRepository.AddAsync(user);
+    }
+
+    public async Task<User> GetById(User user)
+    {
+        return await _userRepository.GetByIdAsync(user.Id);
     }
 
     public async Task UpdatedUser(User user)

@@ -1,16 +1,17 @@
-﻿using Application.UseCases.Users.Commands.UserCreate;
+﻿using Application.UseCases.Eps.Commands.EpsCreate;
+using Application.UseCases.Eps.Queries.GetEps;
+using Application.UseCases.Users.Commands.UserCreatePatient;
 using Domain.Entities;
 using Domain.Enums;
 
 namespace Api.Examples.UserExamples
 {
-    public class UserCreateCommandExample : IMultipleExamplesProvider<UserCreateCommand>
+    public class UserCreatePatientCommandExample : IMultipleExamplesProvider<UserCreatePatientCommand>
     {
-        public IEnumerable<SwaggerExample<UserCreateCommand>> GetExamples()
+        public IEnumerable<SwaggerExample<UserCreatePatientCommand>> GetExamples()
         {
-            var userCommand = new UserCreateCommand(
+            var userCommand = new UserCreatePatientCommand(
                 "StrongPassword",
-                Role.Patient,
                 new PatientCreateCommand(
                     "Jane",
                     "Doe",
@@ -22,7 +23,7 @@ namespace Api.Examples.UserExamples
                     "9876543210",
                     "456 Oak Street",
                     new DateTime(1985, 5, 10),
-                    new Eps("cosalud")
+                    new EpsDto(new Guid(), "cosalud444", EpsState.Active)
                 )
             );
             yield return SwaggerExample.Create("userCreateCommand", userCommand);

@@ -1,10 +1,6 @@
-using Api.Examples.PatientExamples;
 using Api.Filters;
-using Application.UseCases.Patient.Commands.PatientCreate;
-using Application.UseCases.Patient.Commands.PatientDelete;
 using Application.UseCases.Patient.Commands.PatientUpdate;
 using Application.UseCases.Patient.Queries.GetPatient;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace Api.Controllers;
 
@@ -16,17 +12,8 @@ public class PatientController
 
     public PatientController(IMediator mediator) => _mediator = mediator;
 
-    [HttpPost]
-    // [SwaggerRequestExample(typeof(PatientCreateCommand), typeof(PatientCreateCommandExample))]
-    [SwaggerResponseExample(StatusCodes.Status200OK, typeof(PatientCreateResponseExample))]
-    [SwaggerResponseExample(400, typeof(ErrorResponse))]
-    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(PatientDto), StatusCodes.Status200OK)]
-    public async Task<PatientDtoEmpty> Create(PatientCreateCommand2 command2) => await _mediator.Send(command2);
 
     [HttpGet]
-    [SwaggerRequestExample(typeof(PatientQuery), typeof(GetPatientQueryExample))]
-    [SwaggerResponseExample(StatusCodes.Status200OK, typeof(PatientCreateResponseExample))]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(PatientDto), StatusCodes.Status200OK)]
@@ -38,13 +25,4 @@ public class PatientController
         var updatedPatient = await _mediator.Send(command);
         return updatedPatient;
     }
-
-    [HttpDelete("{id}")]
-    public async Task<PatientDtoEmpty> Delete(Guid id)
-    {
-        var deletePatient = await _mediator.Send(new PatientDeleteCommand(id));
-        return deletePatient;
-    }
-    
-    
 }

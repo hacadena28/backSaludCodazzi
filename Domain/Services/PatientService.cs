@@ -18,6 +18,11 @@ public class PatientService
         await _patientRepository.AddAsync(patient);
     }
 
+    public async Task<Patient> GetById(Patient patient)
+    {
+        return await _patientRepository.GetByIdAsync(patient);
+    }
+
     public async Task UpdatePatient(Patient patient)
     {
         await _patientRepository.UpdateAsync(patient);

@@ -18,6 +18,10 @@ public class EpsService
     {
         await _epsRepository.AddAsync(eps);
     }
+    public async Task<Eps> GetById(Eps eps)
+    {
+        return await _epsRepository.GetByIdAsync(eps.Id);
+    }
 
     public async Task UpdatedEps(Eps eps)
     {
