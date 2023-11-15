@@ -52,10 +52,9 @@ public class UserController
 
 
     [HttpPut]
-    public async Task<UserDto> Update(UserUpdateCommand command)
+    public async Task Update(UserUpdateCommand command)
     {
         var updatedUser = await _mediator.Send(command);
-        return updatedUser;
     }
 
     [HttpDelete]
