@@ -2,4 +2,4 @@ using Domain.Enums;
 
 namespace Application.UseCases.Patient.Queries.GetPatient;
 
-public record PatientDtoEmpty();
+public record EmptyPatientDto();

@@ -24,7 +24,7 @@ namespace Application.UseCases.Doctor.Commands.DoctorUpdate
 
             if (existingDoctor == null)
             {
-                throw new Exception("El paciente no se encontró o no existe.");
+                throw new Exception("El doctor no se encontró o no existe.");
             }
 
             if (existingDoctor.Id == request.Id)

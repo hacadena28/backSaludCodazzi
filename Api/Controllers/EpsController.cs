@@ -22,7 +22,7 @@ public class EpsController
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(EpsDto), StatusCodes.Status200OK)]
-    public async Task<EpsDtoEmpty> Create(EpsCreateCommand command) => await _mediator.Send(command);
+    public async Task<EmptyEpsDto> Create(EpsCreateCommand command) => await _mediator.Send(command);
 
     [HttpGet]
     [SwaggerRequestExample(typeof(EpsQuery), typeof(GetEpsQueryExample))]
@@ -40,7 +40,7 @@ public class EpsController
     }
 
     [HttpDelete("{id}")]
-    public async Task<EpsDtoEmpty> Delete(Guid id)
+    public async Task<EmptyEpsDto> Delete(Guid id)
     {
         var deleteEps = await _mediator.Send(new EpsDeleteCommand(id));
         return deleteEps;

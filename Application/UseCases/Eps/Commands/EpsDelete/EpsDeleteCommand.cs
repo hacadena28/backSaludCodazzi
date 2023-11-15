@@ -4,5 +4,5 @@ using MediatR;
 
 namespace Application.UseCases.Eps.Commands.EpsDelete
 {
-    public record EpsDeleteCommand(Guid Id):IRequest<EpsDtoEmpty> ;
+    public record EpsDeleteCommand(Guid Id):IRequest<EmptyEpsDto> ;
 }

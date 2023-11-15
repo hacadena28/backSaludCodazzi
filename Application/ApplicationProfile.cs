@@ -1,3 +1,4 @@
+using Application.UseCases.Appointment.Queries.GetAppointment;
 using Application.UseCases.Doctor.Queries.GetDoctor;
 using Application.UseCases.Eps.Queries.GetEps;
 using Application.UseCases.Patient.Queries.GetPatient;
@@ -10,7 +11,7 @@ namespace Application
     {
         public ApplicationProfile()
         {
-            // CreateMap<Appointment, AppointmentDto>().ReverseMap();
+            CreateMap<Appointment, AppointmentDto>().ReverseMap();
             CreateMap<Doctor, DoctorDto>().ReverseMap();
             CreateMap<Eps, EpsDto>().ReverseMap();
             // CreateMap<MedicalHistory, MedicalHistoryDto>().ReverseMap();
