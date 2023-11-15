@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Ports;
 
 
@@ -26,11 +27,20 @@ public class UserService
 
     public async Task UpdatedUser(User user)
     {
+        user = await ChangePassword(user);
         await _userRepository.UpdateAsync(user);
     }
 
     public async Task DeleteUser(User user)
     {
         await _userRepository.DeleteAsync(user);
+    }
+
+    private async Task<User> ChangePassword(User user)
+    {
+        var userRequest = await _userRepository.GetByIdAsync(user.Id);
+        if (user.Password != userRequest.Password) userRequest.ChangePassword(user.Password);
+        else throw new ThePasswordHasToBeDifferent(Messages.ThePasswordHasToBeDifferent);
+        return userRequest;
     }
 }

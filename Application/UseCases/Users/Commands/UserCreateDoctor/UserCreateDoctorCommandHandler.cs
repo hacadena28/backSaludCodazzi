@@ -1,4 +1,5 @@
 ﻿using Application.UseCases.Users.Queries.GetUser;
+using Domain.Entities;
 using Domain.Enums;
 using Domain.Services;
 
@@ -17,22 +18,8 @@ public class UserCreateDoctorCommandHandler : IRequestHandler<UserCreateDoctorCo
 
     public async Task<EmptyUserDto> Handle(UserCreateDoctorCommand request, CancellationToken cancellationToken)
     {
-        
-        
-        var doctor = new Domain.Entities.Doctor(
-            request.Doctor.FirstName,
-            request.Doctor.SecondName,
-            request.Doctor.LastName,
-            request.Doctor.SecondLastName,
-            request.Doctor.DocumentType,
-            request.Doctor.DocumentNumber,
-            request.Doctor.Email,
-            request.Doctor.Phone,
-            request.Doctor.Address,
-            request.Doctor.Birthdate,
-            request.Doctor.Specialization
-        );
-        var user = new Domain.Entities.User(request.Password, Role.Doctor, doctor);
+        var user = _mapper.Map<User>(request);
+        user.Role = Role.Doctor;
         await _userService.CreateUser(user);
         return new EmptyUserDto();
     }

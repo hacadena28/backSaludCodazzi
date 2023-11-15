@@ -26,20 +26,25 @@ public class EpsController
 
     [HttpGet]
     [SwaggerRequestExample(typeof(EpsQuery), typeof(GetEpsQueryExample))]
-    [SwaggerResponseExample(StatusCodes.Status200OK, typeof(EpsCreateResponseExample))]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(EpsDto), StatusCodes.Status200OK)]
     public async Task<List<EpsDto>> Get() => await _mediator.Send(new EpsQuery());
 
     [HttpPut]
-    public async Task<EpsDto> Update(EpsUpdateCommand command)
+    [SwaggerRequestExample(typeof(EpsCreateCommand), typeof(EpsCreateCommandExample))]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(EpsDto), StatusCodes.Status200OK)]
+    public async Task Update(EpsUpdateCommand command)
     {
         var updatedEps = await _mediator.Send(command);
-        return updatedEps;
     }
 
     [HttpDelete("{id}")]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(EpsDto), StatusCodes.Status200OK)]
     public async Task<EmptyEpsDto> Delete(Guid id)
     {
         var deleteEps = await _mediator.Send(new EpsDeleteCommand(id));

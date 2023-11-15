@@ -14,9 +14,11 @@ namespace Application
             CreateMap<Appointment, AppointmentDto>().ReverseMap();
             CreateMap<Doctor, DoctorDto>().ReverseMap();
             CreateMap<Eps, EpsDto>().ReverseMap();
+            CreateMap<EpsDto, Eps>().ReverseMap();
             // CreateMap<MedicalHistory, MedicalHistoryDto>().ReverseMap();
             CreateMap<Patient, PatientDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<UserDto, User>().ReverseMap();
         }
     }
 }

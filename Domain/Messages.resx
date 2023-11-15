@@ -39,4 +39,10 @@
     <data name="YouCannotEnableItIsAlreadyEnabled" xml:space="preserve">
         <value>El estado de la eps ya esta habilitado</value>
     </data>
+    <data name="NumberOfCharactersRequired" xml:space="preserve">
+        <value>El atributo no cumple el numero de caracteres requerido</value>
+    </data>
+    <data name="ThePasswordHasToBeDifferent" xml:space="preserve">
+        <value>La contraseña tiene que ser diferente</value>
+    </data>
 </root>

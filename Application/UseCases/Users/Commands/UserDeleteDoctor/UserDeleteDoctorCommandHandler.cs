@@ -8,17 +8,18 @@ namespace Application.UseCases.Users.Commands.UserDeleteDoctor
     {
         private readonly UserService _userService;
         private readonly DoctorService _doctorService;
+        private readonly IMapper _mapper;
 
         public UserDeleteDoctorCommandHandler(UserService userService, DoctorService doctorService, IMapper mapper)
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _doctorService = doctorService ?? throw new ArgumentNullException(nameof(doctorService));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<EmptyUserDto> Handle(UserDeleteDoctorCommand request, CancellationToken cancellationToken)
         {
-            var user = new User();
-            user.Id = request.Id;
+            var user = _mapper.Map<User>(request);
             var existingUser = await _userService.GetById(user);
             var doctor = new Domain.Entities.Doctor();
             doctor.Id = existingUser.PersonId;

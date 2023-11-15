@@ -1,3 +1,4 @@
+using Application.Common.Exceptions;
 using Application.UseCases.Users.Queries.GetUser;
 using Domain.Entities;
 using Domain.Ports;
@@ -5,7 +6,7 @@ using Domain.Services;
 
 namespace Application.UseCases.Users.Commands.UserUpdate
 {
-    public class UserUpdateCommandHandler : IRequestHandler<UserUpdateCommand, UserDto>
+    public class UserUpdateCommandHandler : IRequestHandler<UserUpdateCommand, EmptyUserDto>
     {
         private readonly UserService _userService;
         private readonly IMapper _mapper;
@@ -16,15 +17,13 @@ namespace Application.UseCases.Users.Commands.UserUpdate
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<UserDto> Handle(UserUpdateCommand request, CancellationToken cancellationToken)
+        public async Task<EmptyUserDto> Handle(UserUpdateCommand request, CancellationToken cancellationToken)
         {
-            var user = new User();
-            user.Id = request.Id;
-            var existingUser = await _userService.GetById(user);
+            var existingUser = await _userService.GetById(_mapper.Map<User>(request));
 
             if (existingUser == null)
             {
-                throw new Exception("El usuario no se encontró o no existe.");
+                throw new EntityNotFound(Messages.EntityNotFound);
             }
 
             if (existingUser.Id == request.Id)
@@ -35,12 +34,10 @@ namespace Application.UseCases.Users.Commands.UserUpdate
 
                 var updatedUser = await _userService.GetById(existingUser);
 
-                return _mapper.Map<UserDto>(updatedUser);
+                return _mapper.Map<EmptyUserDto>(updatedUser);
             }
-            else
-            {
-                throw new Exception("Los id No Coinciden");
-            }
+
+            return new EmptyUserDto();
         }
     }
 }

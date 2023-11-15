@@ -6,7 +6,7 @@ public class UserCreatePatientValidator : AbstractValidator<UserCreatePatientCom
 {
     public UserCreatePatientValidator()
     {
-        RuleFor(c => c.Password).NotNull().NotEmpty().MinimumLength(2).MaximumLength(50);
+        RuleFor(c => c.Password).NotNull().NotEmpty().MinimumLength(8).MaximumLength(50);
         RuleFor(c => c.Patient).NotNull();
     }
 }

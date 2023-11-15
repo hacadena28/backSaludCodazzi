@@ -1,4 +1,5 @@
 using Domain.Enums;
+using Domain.Exceptions;
 
 namespace Domain.Entities;
 
@@ -14,10 +15,25 @@ public class User : EntityBase<Guid>
     {
     }
 
+
     public User(string password, Role role, Person person)
     {
-        Password = password;
+        Password = password.Length >= 8
+            ? password
+            : throw new NumberOfCharactersRequired(Messages.NumberOfCharactersRequired);
         Role = role;
         Person = person;
+    }
+
+    public void ChangePassword(string password)
+    {
+        if (Password == password)
+        {
+            throw new ThePasswordHasToBeDifferent(Messages.ThePasswordHasToBeDifferent);
+        }
+        else
+        {
+            Password = password;
+        }
     }
 }

@@ -9,8 +9,8 @@
 
 namespace Domain {
     using System;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -21,16 +21,16 @@ namespace Domain {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Messages {
-
+    internal class Messages {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Messages() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -44,7 +44,7 @@ namespace Domain {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -58,7 +58,7 @@ namespace Domain {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Recurso repetido.
         /// </summary>
@@ -67,8 +67,25 @@ namespace Domain {
                 return ResourceManager.GetString("AlredyExistException", resourceCulture);
             }
         }
-
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La fecha debe ser mayor a un dia.
+        /// </summary>
+        internal static string IncorrectAppointmentDateException {
+            get {
+                return ResourceManager.GetString("IncorrectAppointmentDateException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El atributo no cumple el numero de caracteres requerido.
+        /// </summary>
+        internal static string NumberOfCharactersRequired {
+            get {
+                return ResourceManager.GetString("NumberOfCharactersRequired", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to No se encontro el recurso {0}.
         /// </summary>
@@ -77,7 +94,16 @@ namespace Domain {
                 return ResourceManager.GetString("ResourceNotFoundException", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La contraseña tiene que ser diferente.
+        /// </summary>
+        internal static string ThePasswordHasToBeDifferent {
+            get {
+                return ResourceManager.GetString("ThePasswordHasToBeDifferent", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to No puede ser menor de edad.
         /// </summary>
@@ -86,7 +112,7 @@ namespace Domain {
                 return ResourceManager.GetString("UnderAgeException", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to El pais no es correcto debe ser colombia.
         /// </summary>
@@ -95,12 +121,22 @@ namespace Domain {
                 return ResourceManager.GetString("WrongCountryException", resourceCulture);
             }
         }
-
-        public static string IncorrectAppointmentDateException
-        {
-            get
-            {
-                return ResourceManager.GetString("IncorrectAppointmentDateException", resourceCulture);
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El estado de la eps ya esta desabilitado.
+        /// </summary>
+        internal static string YouCannotDisableItIsAlreadyDisabled {
+            get {
+                return ResourceManager.GetString("YouCannotDisableItIsAlreadyDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El estado de la eps ya esta habilitado.
+        /// </summary>
+        internal static string YouCannotEnableItIsAlreadyEnabled {
+            get {
+                return ResourceManager.GetString("YouCannotEnableItIsAlreadyEnabled", resourceCulture);
             }
         }
     }

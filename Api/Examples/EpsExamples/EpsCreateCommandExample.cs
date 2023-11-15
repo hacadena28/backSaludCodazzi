@@ -9,8 +9,7 @@ namespace Api.Examples.EpsExamples
         public IEnumerable<SwaggerExample<EpsCreateCommand>> GetExamples()
         {
             var epsCommand = new EpsCreateCommand(
-                "Cosalud",
-                EpsState.Active
+                "Cosalud"
             );
             yield return SwaggerExample.Create("epsCreateCommand", epsCommand);
         }

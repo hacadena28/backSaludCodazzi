@@ -10,7 +10,6 @@ public class UserQueryHandler : IRequestHandler<UserQuery, List<UserDto>>
     public UserQueryHandler(IGenericRepository<Domain.Entities.User>? repository, IMapper mapper) =>
         (_repository, _mapper) = (repository, mapper);
 
-
     public async Task<List<UserDto>> Handle(UserQuery request, CancellationToken cancellationToken)
     {
         var user = (await _repository.GetAsync()).ToList();

@@ -17,7 +17,7 @@ public class EpsCreateCommandHandler : IRequestHandler<EpsCreateCommand, EmptyEp
     public async Task<EmptyEpsDto> Handle(EpsCreateCommand request, CancellationToken cancellationToken)
     {
         await _service.CreateEps(
-            new Domain.Entities.Eps(request.Name, request.State)
+            _mapper.Map<Domain.Entities.Eps>(request)
         );
         return new EmptyEpsDto();
     }

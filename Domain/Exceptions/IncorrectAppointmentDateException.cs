@@ -2,7 +2,8 @@ using System.Runtime.Serialization;
 
 namespace Domain.Exceptions;
 
-public class IncorrectAppointmentDateException:CoreBusinessException
+[Serializable]
+public class IncorrectAppointmentDateException : CoreBusinessException
 {
     public IncorrectAppointmentDateException()
     {
@@ -16,7 +17,7 @@ public class IncorrectAppointmentDateException:CoreBusinessException
     {
     }
 
-    private  IncorrectAppointmentDateException(SerializationInfo info, StreamingContext context)
+    private IncorrectAppointmentDateException(SerializationInfo info, StreamingContext context)
         : base(info, context)
     {
     }
