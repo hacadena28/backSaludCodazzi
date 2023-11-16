@@ -20,9 +20,9 @@ public class UserService
         await _userRepository.AddAsync(user);
     }
 
-    public async Task<User> GetById(User user)
+    public async Task<User> GetById(Guid id)
     {
-        return await _userRepository.GetByIdAsync(user.Id);
+        return await _userRepository.GetByIdAsync(id);
     }
 
     public async Task UpdatedUser(User user)
@@ -31,9 +31,11 @@ public class UserService
         await _userRepository.UpdateAsync(user);
     }
 
-    public async Task DeleteUser(User user)
+    public async Task DeleteUser(Guid id)
     {
-        await _userRepository.DeleteAsync(user);
+        var userSearched = await _userRepository.GetByIdAsync(id);
+        _ = userSearched ?? throw new CoreBusinessException(Messages.AlredyExistException);
+        await _userRepository.DeleteAsync(userSearched);
     }
 
     private async Task<User> ChangePassword(User user)

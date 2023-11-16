@@ -31,9 +31,6 @@ public class User : EntityBase<Guid>
         {
             throw new ThePasswordHasToBeDifferent(Messages.ThePasswordHasToBeDifferent);
         }
-        else
-        {
-            Password = password;
-        }
+        Password = password;
     }
 }

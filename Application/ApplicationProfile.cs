@@ -26,7 +26,6 @@ namespace Application
             CreateMap<DoctorCreateCommand, Doctor>().ReverseMap();
             
             CreateMap<User, UserDto>().ReverseMap();
-            CreateMap<UserDto, User>().ReverseMap();
             CreateMap<UserCreateDoctorCommand, User>().ReverseMap();
             CreateMap<UserDeleteDoctorCommand, User>().ReverseMap();
             CreateMap<UserCreatePatientCommand, User>().ReverseMap();
