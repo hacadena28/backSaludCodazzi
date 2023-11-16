@@ -18,7 +18,9 @@ public class UserCreateDoctorCommandHandler : IRequestHandler<UserCreateDoctorCo
 
     public async Task<EmptyUserDto> Handle(UserCreateDoctorCommand request, CancellationToken cancellationToken)
     {
+        var doctor = _mapper.Map<Domain.Entities.Doctor>(request.Doctor);
         var user = _mapper.Map<User>(request);
+        user.Person = doctor;
         user.Role = Role.Doctor;
         await _userService.CreateUser(user);
         return new EmptyUserDto();
