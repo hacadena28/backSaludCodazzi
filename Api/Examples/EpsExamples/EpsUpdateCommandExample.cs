@@ -4,14 +4,12 @@ using Domain.Tests;
 
 namespace Api.Examples.EpsExamples
 {
-    public class EpsUpdateCommandExample : IMultipleExamplesProvider<EpsUpdateCommand>
+    public class EpsUpdateCommandExample : IMultipleExamplesProvider<EpsChangeStateCommand>
     {
-        public IEnumerable<SwaggerExample<EpsUpdateCommand>> GetExamples()
+        public IEnumerable<SwaggerExample<EpsChangeStateCommand>> GetExamples()
         {
-            var epsCommand = new EpsUpdateCommand(
-                new Guid(),
-                "Cosalud",
-                EpsState.Active
+            var epsCommand = new EpsChangeStateCommand(
+                new Guid()
             );
             yield return SwaggerExample.Create("epsUpdateCommand", epsCommand);
         }

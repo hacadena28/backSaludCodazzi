@@ -5,4 +5,4 @@ namespace Application.UseCases.Eps.Commands.EpsCreate;
 
 public record EpsCreateCommand(
     string Name
-) : IRequest<EmptyEpsDto>;
+) : IRequest<Unit>;

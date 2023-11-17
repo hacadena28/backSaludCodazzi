@@ -4,12 +4,11 @@ using Domain.Tests;
 
 namespace Api.Examples.EpsExamples
 {
-    public class EpsCreateResponseExample : IMultipleExamplesProvider<EmptyEpsDto>
+    public class EpsCreateResponseExample : IMultipleExamplesProvider<Unit>
     {
-        public IEnumerable<SwaggerExample<EmptyEpsDto>> GetExamples()
+        public IEnumerable<SwaggerExample<Unit>> GetExamples()
         {
-            var epsDtoEmpy = new EmptyEpsDto();
-            yield return SwaggerExample.Create("crearAlarmaRequest", epsDtoEmpy);
+            yield return SwaggerExample.Create("crearAlarmaRequest", Unit.Value);
         }
     }
 }
