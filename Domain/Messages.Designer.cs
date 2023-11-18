@@ -96,6 +96,33 @@ namespace Domain {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El valor ingresado no es numérico.
+        /// </summary>
+        internal static string TheDataIsNotANumber {
+            get {
+                return ResourceManager.GetString("TheDataIsNotANumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La fecha no es valida.
+        /// </summary>
+        internal static string TheDateIsNotValid {
+            get {
+                return ResourceManager.GetString("TheDateIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El correo electrónico no es válido.
+        /// </summary>
+        internal static string TheEmailIsNotValid {
+            get {
+                return ResourceManager.GetString("TheEmailIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La contraseña tiene que ser diferente.
         /// </summary>
         internal static string ThePasswordHasToBeDifferent {

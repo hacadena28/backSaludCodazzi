@@ -1,4 +1,6 @@
-﻿namespace Application.UseCases.Users.Commands.UserCreateDoctor;
+﻿using Domain.Enums;
+
+namespace Application.UseCases.Users.Commands.UserCreateDoctor;
 
 public class UserCreateDoctorValidator : AbstractValidator<UserCreateDoctorCommand>
 {
@@ -6,5 +8,16 @@ public class UserCreateDoctorValidator : AbstractValidator<UserCreateDoctorComma
     {
         RuleFor(c => c.Password).NotNull().NotEmpty().MinimumLength(8).MaximumLength(50);
         RuleFor(c => c.Doctor).NotNull();
+        RuleFor(c => c.Doctor.FirstName).NotNull().MinimumLength(2).MaximumLength(40);
+        RuleFor(c => c.Doctor.SecondName).NotNull().MinimumLength(2).MaximumLength(40);
+        RuleFor(c => c.Doctor.LastName).NotNull().MinimumLength(2).MaximumLength(40);
+        RuleFor(c => c.Doctor.SecondLastName).NotNull().MinimumLength(2).MaximumLength(40);
+        RuleFor(c => c.Doctor.DocumentType).NotNull();
+        RuleFor(c => c.Doctor.DocumentNumber).NotNull();
+        RuleFor(c => c.Doctor.Email).NotNull();
+        RuleFor(c => c.Doctor.Phone).NotNull();
+        RuleFor(c => c.Doctor.Address).NotNull();
+        RuleFor(c => c.Doctor.Birthdate).NotNull();
+        RuleFor(c => c.Doctor.Specialization).NotNull();
     }
 }
