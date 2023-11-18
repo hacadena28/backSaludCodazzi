@@ -19,24 +19,10 @@ namespace Application.UseCases.Users.Commands.UserUpdate
 
         public async Task<EmptyUserDto> Handle(UserUpdateCommand request, CancellationToken cancellationToken)
         {
-            var existingUser = await _userService.GetById(_mapper.Map<User>(request));
-
-            if (existingUser == null)
-            {
-                throw new EntityNotFound(Messages.EntityNotFound);
-            }
-
-            if (existingUser.Id == request.Id)
-            {
-                existingUser.Password = request.Password;
-
-                await _userService.UpdatedUser(existingUser);
-
-                var updatedUser = await _userService.GetById(existingUser);
-
-                return _mapper.Map<EmptyUserDto>(updatedUser);
-            }
-
+            var user = new User();
+            user.Id = request.Id;
+            user.Password = request.Password;
+            await _userService.UpdatedUser(user);
             return new EmptyUserDto();
         }
     }

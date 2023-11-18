@@ -17,6 +17,7 @@ public class Eps : EntityBase<Guid>
         Name = name.Length >= 2 ? Name : throw new NumberOfCharactersRequired(Messages.NumberOfCharactersRequired);
         State = state;
     }
+    public Eps(){}
 
 
     public void ChangeState()

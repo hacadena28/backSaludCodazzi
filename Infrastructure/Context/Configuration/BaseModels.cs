@@ -22,7 +22,8 @@ public class UserConfig : IEntityTypeConfiguration<User>
         builder
             .HasOne(x => x.Person)
             .WithOne()
-            .IsRequired();
+            .IsRequired()
+            ;
     }
 }
 

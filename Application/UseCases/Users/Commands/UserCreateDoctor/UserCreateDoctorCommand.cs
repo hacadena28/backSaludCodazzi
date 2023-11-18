@@ -8,4 +8,4 @@ public record DoctorCreateCommand(
     string DocumentNumber, string Email, string Phone, string Address, DateTime Birthdate, string Specialization
 );
 
-public record UserCreateDoctorCommand(string Password, DoctorCreateCommand Doctor) : IRequest<EmptyUserDto>;
+public record UserCreateDoctorCommand(string Password, DoctorCreateCommand Doctor) : IRequest<Unit>;

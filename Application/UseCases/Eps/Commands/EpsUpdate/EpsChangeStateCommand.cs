@@ -4,5 +4,5 @@ using MediatR;
 
 namespace Application.UseCases.Eps.Commands.EpsUpdate
 {
-    public record EpsUpdateCommand(Guid Id, string? EpsName, EpsState? State) : IRequest<EmptyEpsDto>;
+    public record EpsChangeStateCommand(Guid Id) : IRequest<Unit>;
 }

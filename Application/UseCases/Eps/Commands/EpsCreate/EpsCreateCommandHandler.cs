@@ -3,7 +3,7 @@ using Domain.Services;
 
 namespace Application.UseCases.Eps.Commands.EpsCreate;
 
-public class EpsCreateCommandHandler : IRequestHandler<EpsCreateCommand, EmptyEpsDto>
+public class EpsCreateCommandHandler : IRequestHandler<EpsCreateCommand>
 {
     private readonly EpsService _service;
     private readonly IMapper _mapper;
@@ -14,11 +14,10 @@ public class EpsCreateCommandHandler : IRequestHandler<EpsCreateCommand, EmptyEp
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
-    public async Task<EmptyEpsDto> Handle(EpsCreateCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(EpsCreateCommand request, CancellationToken cancellationToken)
     {
-        await _service.CreateEps(
-            _mapper.Map<Domain.Entities.Eps>(request)
-        );
-        return new EmptyEpsDto();
+        var eps = new Domain.Entities.Eps(request.Name);
+        await _service.CreateEps(eps);
+        return Unit.Value;
     }
 }

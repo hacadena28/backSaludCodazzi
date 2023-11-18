@@ -45,4 +45,13 @@
     <data name="ThePasswordHasToBeDifferent" xml:space="preserve">
         <value>La contraseña tiene que ser diferente</value>
     </data>
+    <data name="TheDataIsNotANumber" xml:space="preserve">
+        <value>El valor ingresado no es numérico</value>
+    </data>
+    <data name="TheEmailIsNotValid" xml:space="preserve">
+        <value>El correo electrónico no es válido</value>
+    </data>
+    <data name="TheDateIsNotValid" xml:space="preserve">
+        <value>La fecha no es valida</value>
+    </data>
 </root>
