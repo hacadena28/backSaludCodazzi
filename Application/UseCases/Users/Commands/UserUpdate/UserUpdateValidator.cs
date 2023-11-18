@@ -1,7 +1,4 @@
-﻿using Domain.Enums;
-using Domain.Tests;
-
-namespace Application.UseCases.Users.Commands.UserUpdate
+﻿namespace Application.UseCases.Users.Commands.UserUpdate
 {
     public class UserUpdateValidator : AbstractValidator<UserUpdateCommand>
     {

@@ -1,9 +1,10 @@
 using Api.Examples.EpsExamples;
 using Api.Filters;
-using Application.UseCases.Eps.Commands.EpsCreate;
-using Application.UseCases.Eps.Commands.EpsDelete;
-using Application.UseCases.Eps.Commands.EpsUpdate;
-using Application.UseCases.Eps.Queries.GetEps;
+using Application.Common.Exceptions;
+using Application.UseCases.Epses.Commands.EpsCreate;
+using Application.UseCases.Epses.Commands.EpsDelete;
+using Application.UseCases.Epses.Commands.EpsUpdate;
+using Application.UseCases.Epses.Queries.GetEps;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Api.Controllers;
@@ -31,14 +32,22 @@ public class EpsController
     [ProducesResponseType(typeof(EpsDto), StatusCodes.Status200OK)]
     public async Task<List<EpsDto>> Get() => await _mediator.Send(new EpsQuery());
 
-    [HttpPut]
+    [HttpPut("{id:guid}")]
     [SwaggerRequestExample(typeof(EpsCreateCommand), typeof(EpsCreateCommandExample))]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(EpsDto), StatusCodes.Status200OK)]
-    public async Task ChangeState(EpsChangeStateCommand command) => await _mediator.Send(command);
+    public async Task ChangeState(EpsChangeStateCommand command, Guid id)
+    {
+        if (id != command.Id)
+        {
+            throw new ConflictException("The id of route no is the same of the command");
+        }
 
-    [HttpDelete("{id}")]
+        await _mediator.Send(command);
+    }
+
+    [HttpDelete("{id:guid}")]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(EpsDto), StatusCodes.Status200OK)]

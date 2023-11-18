@@ -1,4 +1,3 @@
-using Application.UseCases.Patient.Queries.GetPatient;
 using Domain.Enums;
 
 namespace Application.UseCases.Appointment.Queries.GetAppointment;

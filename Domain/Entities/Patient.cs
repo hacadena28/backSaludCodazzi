@@ -18,11 +18,12 @@ public class Patient : Person
         string email,
         string phone,
         string address,
-        DateTime birthdate, Eps eps
+        DateTime birthdate,
+        Guid epsId
     ) : base(firstName, secondName, lastName, secondLastName, documentType, documentNumber, email, phone, address,
         birthdate)
     {
-        Eps = eps;
+        EpsId = epsId;
     }
 
     public Patient()

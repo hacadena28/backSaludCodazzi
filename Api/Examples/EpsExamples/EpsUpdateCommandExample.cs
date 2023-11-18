@@ -1,6 +1,4 @@
-﻿using Application.UseCases.Eps.Commands.EpsUpdate;
-using Domain.Enums;
-using Domain.Tests;
+﻿using Application.UseCases.Epses.Commands.EpsUpdate;
 
 namespace Api.Examples.EpsExamples
 {
@@ -9,7 +7,8 @@ namespace Api.Examples.EpsExamples
         public IEnumerable<SwaggerExample<EpsChangeStateCommand>> GetExamples()
         {
             var epsCommand = new EpsChangeStateCommand(
-                new Guid()
+                new Guid(),
+                "SaludTotal"
             );
             yield return SwaggerExample.Create("epsUpdateCommand", epsCommand);
         }

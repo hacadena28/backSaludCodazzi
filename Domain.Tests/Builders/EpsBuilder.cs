@@ -17,7 +17,7 @@ public class EpsBuilder
 
     public Eps Build()
     {
-        return new Eps(Name, State);
+        return new Eps(Name);
     }
 
 

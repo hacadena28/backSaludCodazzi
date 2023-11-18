@@ -17,9 +17,11 @@ public class User : EntityBase<Guid>
 
     public User(string password, Role role, Person person)
     {
-        Password = password.Length >= 8
-            ? password
-            : throw new NumberOfCharactersRequired(Messages.NumberOfCharactersRequired);
+        if (password.Length < 8)
+        {
+            throw new NumberOfCharactersRequired(Messages.NumberOfCharactersRequired);
+        }
+        Password = password;
         Role = role;
         Person = person;
     }

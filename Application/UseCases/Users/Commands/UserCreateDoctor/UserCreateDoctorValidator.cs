@@ -1,6 +1,4 @@
-﻿using Domain.Enums;
-
-namespace Application.UseCases.Users.Commands.UserCreateDoctor;
+﻿namespace Application.UseCases.Users.Commands.UserCreateDoctor;
 
 public class UserCreateDoctorValidator : AbstractValidator<UserCreateDoctorCommand>
 {

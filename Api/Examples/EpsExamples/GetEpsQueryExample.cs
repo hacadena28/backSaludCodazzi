@@ -1,4 +1,4 @@
-﻿using Application.UseCases.Eps.Queries.GetEps;
+﻿using Application.UseCases.Epses.Queries.GetEps;
 
 namespace Api.Examples.EpsExamples
 {

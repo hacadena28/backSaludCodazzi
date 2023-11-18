@@ -1,6 +1,6 @@
 using Api.Filters;
-using Application.UseCases.Doctor.Commands.DoctorUpdate;
-using Application.UseCases.Doctor.Queries.GetDoctor;
+using Application.UseCases.Medics.Commands.DoctorUpdate;
+using Application.UseCases.Medics.Queries.GetDoctor;
 
 namespace Api.Controllers;
 

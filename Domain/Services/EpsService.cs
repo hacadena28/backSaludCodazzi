@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Ports;
 
 
@@ -24,9 +25,11 @@ public class EpsService
         return await _epsRepository.GetByIdAsync(epsId);
     }
 
-    public async Task ChangeState(Eps eps)
+    public async Task Update(Guid epsId, string newName)
     {
-        eps.ChangeState();
+        var eps = await _epsRepository.GetByIdAsync(epsId);
+        _ = eps ?? throw new CoreBusinessException(Messages.ResourceNotFoundException);
+        eps.Update(newName);
         await _epsRepository.UpdateAsync(eps);
     }
 

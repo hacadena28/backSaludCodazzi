@@ -14,8 +14,9 @@ public class PatientBuilder
     private string Email;
     private string Phone;
     private string Address;
-    private DateTime Birthdate;
+    private DateTime _birthdate;
     private Eps Eps;
+    private Guid EpsId;
 
     public PatientBuilder WithFirstName(string firstName)
     {
@@ -74,7 +75,7 @@ public class PatientBuilder
 
     public PatientBuilder WithBirthdate(DateTime birthdate)
     {
-        Birthdate = birthdate;
+        _birthdate = birthdate;
         return this;
     }
     public PatientBuilder WithEps(Eps eps)
@@ -87,6 +88,6 @@ public class PatientBuilder
     public Patient Build()
     {
         return new Patient(FirstName, SecondName, LastName, SecondLastName, DocumentType, DocumentNumber, Email, Phone,
-            Address, Birthdate,Eps);
+            Address, _birthdate, EpsId);
     }
 }

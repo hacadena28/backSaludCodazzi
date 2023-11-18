@@ -20,15 +20,18 @@ public class UserService
         await _userRepository.AddAsync(user);
     }
 
-    public async Task<User> GetById(Guid id)
+    public async Task ChangePassword(Guid userId, string newPassword)
     {
-        return await _userRepository.GetByIdAsync(id);
-    }
-
-    public async Task UpdatedUser(User user)
-    {
-        user = await ChangePassword(user);
-        await _userRepository.UpdateAsync(user);
+        var userSearched = await _userRepository.GetByIdAsync(userId);
+        if (newPassword != userSearched.Password)
+        {
+            userSearched.ChangePassword(newPassword);
+        }
+        else
+        {
+            throw new ThePasswordHasToBeDifferent(Messages.ThePasswordHasToBeDifferent);
+        }
+        await _userRepository.UpdateAsync(userSearched);
     }
 
     public async Task DeleteUser(Guid id)
@@ -36,13 +39,5 @@ public class UserService
         var userSearched = await _userRepository.GetByIdAsync(id);
         _ = userSearched ?? throw new CoreBusinessException(Messages.AlredyExistException);
         await _userRepository.DeleteAsync(userSearched);
-    }
-
-    private async Task<User> ChangePassword(User user)
-    {
-        var userRequest = await _userRepository.GetByIdAsync(user.Id);
-        if (user.Password != userRequest.Password) userRequest.ChangePassword(user.Password);
-        else throw new ThePasswordHasToBeDifferent(Messages.ThePasswordHasToBeDifferent);
-        return userRequest;
     }
 }

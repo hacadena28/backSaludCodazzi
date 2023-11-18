@@ -1,6 +1,4 @@
-﻿using Application.UseCases.Eps.Commands.EpsCreate;
-using Application.UseCases.Eps.Queries.GetEps;
-using Application.UseCases.Users.Commands.UserCreatePatient;
+﻿using Application.UseCases.Users.Commands.UserCreatePatient;
 using Application.UseCases.Users.Commands.UserUpdate;
 using Domain.Entities;
 using Domain.Enums;

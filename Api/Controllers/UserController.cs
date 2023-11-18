@@ -4,9 +4,7 @@ using Application.UseCases.Users.Commands.UserCreateDoctor;
 using Application.UseCases.Users.Commands.UserUpdate;
 using Application.UseCases.Users.Queries.GetUser;
 using Application.UseCases.Users.Commands.UserCreatePatient;
-using Application.UseCases.Users.Commands.UserDeleteDoctor;
-using Application.UseCases.Users.Commands.UserDeletePatient;
-using Domain.Entities;
+using Application.UseCases.Users.Commands.UserDelete;
 
 namespace Api.Controllers;
 
@@ -18,8 +16,7 @@ public class UserController
 
     public UserController(IMediator mediator) => _mediator = mediator;
 
-    [HttpPost]
-    [Route("api/user/createPatient")]
+    [HttpPost("patient")]
     [SwaggerRequestExample(typeof(UserCreatePatientCommand), typeof(UserCreatePatientCommandExample))]
     [SwaggerResponseExample(StatusCodes.Status200OK, typeof(UserCreateResponseExample))]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
@@ -30,8 +27,7 @@ public class UserController
         await _mediator.Send(command);
     }
 
-    [HttpPost]
-    [Route("api/user/createDoctor")]
+    [HttpPost("doctor")]
     [SwaggerRequestExample(typeof(UserCreateDoctorCommand), typeof(UserCreateDoctorCommandExample))]
     [SwaggerResponseExample(StatusCodes.Status200OK, typeof(UserCreateResponseExample))]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
@@ -54,18 +50,11 @@ public class UserController
     [HttpPut]
     public async Task Update(UserUpdateCommand command)
     {
-        var updatedUser = await _mediator.Send(command);
+        await _mediator.Send(command);
     }
 
     [HttpDelete]
-    [Route("api/user/deletePatient")]
-    public async Task Delete(UserDeletePatientCommand command)
-    {
-        await _mediator.Send(command);
-    }
-    [HttpDelete]
-    [Route("api/user/deleteDoctor")]
-    public async Task Delete(UserDeleteDoctorCommand command)
+    public async Task Delete(UserDeleteCommand command)
     {
         await _mediator.Send(command);
     }

@@ -1,5 +1,4 @@
 using Domain.Enums;
-using Domain.Exceptions;
 
 namespace Domain.Entities;
 
@@ -8,22 +7,16 @@ public class Eps : EntityBase<Guid>
     public string Name { get; set; }
     public EpsState State { get; set; }
 
-    public Eps
-    (
-        string name,
-        EpsState state = EpsState.Active
-    )
+    public Eps(string name)
     {
-        Name = name.Length >= 2 ? Name : throw new NumberOfCharactersRequired(Messages.NumberOfCharactersRequired);
-        State = state;
+        Name = name;
+        State = EpsState.Active;
     }
     public Eps(){}
 
 
-    public void ChangeState()
+    public void Update(string name)
     {
-        if (State == EpsState.Active)
-            State = EpsState.Inactive;
-        else State = EpsState.Active;
+        if (Name.Equals(name) is not true) Name = name;
     }
 }
