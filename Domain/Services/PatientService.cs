@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Ports;
 
 namespace Domain.Services;
@@ -13,23 +14,20 @@ public class PatientService
         _patientRepository = patientRepository;
     }
 
-    public async Task CreatePatient(Patient patient)
+    public async Task<Patient> GetById(Guid patientId)
     {
-        await _patientRepository.AddAsync(patient);
+        return await _patientRepository.GetByIdAsync(patientId);
     }
 
-    public async Task<Patient> GetById(Patient patient)
+    public async Task UpdatePatient(Guid id, string firstName, string secondName, string lastName,
+        string secondLastName, string email, string phone,
+        string address)
     {
-        return await _patientRepository.GetByIdAsync(patient);
-    }
+        var patientSearched = await _patientRepository.GetByIdAsync(id);
+        _ = patientSearched ?? throw new CoreBusinessException(Messages.AlredyExistException);
 
-    public async Task UpdatePatient(Patient patient)
-    {
-        await _patientRepository.UpdateAsync(patient);
-    }
+        patientSearched.Update(firstName, secondName, lastName, secondLastName, email, phone, address);
 
-    public async Task DeletePatient(Patient patient)
-    {
-        await _patientRepository.DeleteAsync(patient);
+        await _patientRepository.UpdateAsync(patientSearched);
     }
 }

@@ -29,4 +29,11 @@ public class Patient : Person
     public Patient()
     {
     }
+
+    public void Update(string? firstName, string? secondName, string? lastName,
+        string? secondLastName, string? email, string? phone,
+        string? address)
+    {
+        base.Update(firstName, secondName, lastName, secondLastName, email, phone, address);
+    }
 }

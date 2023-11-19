@@ -33,11 +33,10 @@ public class EpsController
     public async Task<List<EpsDto>> Get() => await _mediator.Send(new EpsQuery());
 
     [HttpPut("{id:guid}")]
-    [SwaggerRequestExample(typeof(EpsCreateCommand), typeof(EpsCreateCommandExample))]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(EpsDto), StatusCodes.Status200OK)]
-    public async Task ChangeState(EpsChangeStateCommand command, Guid id)
+    public async Task ChangeState(EpsUpdateCommand command, Guid id)
     {
         if (id != command.Id)
         {

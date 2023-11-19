@@ -20,19 +20,42 @@ public class Appointment : EntityBase<Guid>
         AppointmentState state,
         TypeAppointment type,
         string description,
-        Patient patient,
-        Doctor doctor
+        Guid patientId,
+        Guid doctorId
     )
     {
         Date = date;
         State = state;
         Type = type;
         Description = description;
-        Patient = patient;
-        Doctor = doctor;
+        PatientId = patientId;
+        DoctorId = doctorId;
     }
 
     public Appointment()
     {
+    }
+
+    public void Update(DateTime? newDate, AppointmentState? state)
+    {
+        if (newDate.HasValue)
+        {
+            ChangeDate(newDate.Value);
+        }
+
+        if (state != null && !State.Equals(state)) State = (AppointmentState)state;
+    }
+
+    public void ChangeDate(DateTime newDate)
+    {
+        if (newDate != null && !Date.Equals(newDate))
+        {
+            if ((newDate - DateTime.Today).TotalDays <= 1)
+            {
+                throw new Exception("La nueva fecha de la cita debe ser al menos un día posterior a la fecha actual.");
+            }
+
+            Date = newDate;
+        }
     }
 }

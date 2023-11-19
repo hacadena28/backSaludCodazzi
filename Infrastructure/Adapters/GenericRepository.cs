@@ -43,7 +43,6 @@ public class GenericRepository<E> : IGenericRepository<E> where E : DomainEntity
             {
                 if (relatedEntity is { DeletedOn: null }) await DeleteAsync(relatedEntity);
             }
-
         }
 
         await CommitAsync();

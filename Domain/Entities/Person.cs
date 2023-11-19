@@ -40,7 +40,7 @@ public abstract class Person : EntityBase<Guid>
         Email = email;
         Phone = phone;
         Address = address;
-        Birthdate = birthdate;
+        Birthdate = (IsValidDateOfBirth(birthdate) ? birthdate : throw new CoreBusinessException("Fecha invalida"));
     }
 
     public Person()
@@ -50,5 +50,19 @@ public abstract class Person : EntityBase<Guid>
     private bool IsValidDateOfBirth(DateTime dateOfBirth)
     {
         return dateOfBirth <= DateTime.Today;
+    }
+
+    public void Update(string? firstName, string? secondName, string? lastName,
+        string? secondLastName, string? email, string? phone,
+        string? address)
+    {
+        if (firstName != null && !FirstName.Equals(firstName) && firstName != "") FirstName = firstName;
+        if (secondName != null && !SecondName.Equals(secondName) && secondName != "") SecondName = secondName;
+        if (lastName != null && !LastName.Equals(lastName) && lastName != "") LastName = lastName;
+        if (secondLastName != null && !SecondLastName.Equals(secondLastName) && secondLastName != "")
+            SecondLastName = secondLastName;
+        if (email != null && !Email.Equals(email) && email != "") Email = email;
+        if (phone != null && !Phone.Equals(phone) && phone != "") Phone = phone;
+        if (address != null && !Address.Equals(address) && address != "") Address = address;
     }
 }

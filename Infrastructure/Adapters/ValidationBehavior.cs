@@ -30,8 +30,6 @@ public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TReque
             failures.Select(f => f.ElementAt(0))
         );
 
-    throw new ValidationException(failureMessages);
-
-
+        throw new ValidationException(failureMessages);
     }
 }

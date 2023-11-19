@@ -1,4 +1,5 @@
 using Api.Filters;
+using Application.Common.Exceptions;
 using Application.UseCases.Medics.Commands.DoctorUpdate;
 using Application.UseCases.Medics.Queries.GetDoctor;
 
@@ -19,10 +20,16 @@ public class DoctorController
     [ProducesResponseType(typeof(DoctorDto), StatusCodes.Status200OK)]
     public async Task<List<DoctorDto>> Get() => await _mediator.Send(new DoctorQuery());
 
-    [HttpPut]
-    public async Task<DoctorDto> Update(DoctorUpdateCommand command)
+    [HttpPut("{id:guid}")]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    public async Task Update(DoctorUpdateCommand command, Guid id)
     {
-        var updatedDoctor = await _mediator.Send(command);
-        return updatedDoctor;
+        if (id != command.Id)
+        {
+            throw new ConflictException("The id of route no is the same of the command");
+        }
+
+        await _mediator.Send(command);
     }
 }

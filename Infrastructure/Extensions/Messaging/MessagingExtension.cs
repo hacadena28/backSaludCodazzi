@@ -9,14 +9,16 @@ public static class MessagingExtension
 {
     public static IServiceCollection AddRabbitSupport(this IServiceCollection services, IConfiguration config)
     {
-        var port = int.Parse(Environment.GetEnvironmentVariable("RABBITPORT") ?? config.GetValue<string>("RABBITMQ:PORT"));
+        var port = int.Parse(Environment.GetEnvironmentVariable("RABBITPORT") ??
+                             config.GetValue<string>("RABBITMQ:PORT"));
         var factory = new ConnectionFactory
         {
             HostName = Environment.GetEnvironmentVariable("RABBITHOST") ?? config.GetValue<string>("RABBITMQ:HOST"),
             UserName = Environment.GetEnvironmentVariable("RABBITUSER") ?? config.GetValue<string>("RABBITMQ:USER"),
             Password = Environment.GetEnvironmentVariable("RABBITPASS") ?? config.GetValue<string>("RABBITMQ:PASS"),
             Port = port,
-            VirtualHost = Environment.GetEnvironmentVariable("RABBITVHOST") ?? config.GetValue<string>("RABBITMQ:VHOST"),
+            VirtualHost =
+                Environment.GetEnvironmentVariable("RABBITVHOST") ?? config.GetValue<string>("RABBITMQ:VHOST"),
             AutomaticRecoveryEnabled = true
         };
 

@@ -20,20 +20,20 @@ public class UserCreateDoctorCommandHandler : IRequestHandler<UserCreateDoctorCo
     public async Task<Unit> Handle(UserCreateDoctorCommand request, CancellationToken cancellationToken)
     {
         var doctor = new Doctor(
-            request.Doctor.FirstName,
-            request.Doctor.SecondName,
-            request.Doctor.LastName,
-            request.Doctor.SecondLastName,
+            request.Doctor.FirstName.Trim(),
+            request.Doctor.SecondName.Trim(),
+            request.Doctor.LastName.Trim(),
+            request.Doctor.SecondLastName.Trim(),
             request.Doctor.DocumentType,
-            request.Doctor.DocumentNumber,
-            request.Doctor.Email,
-            request.Doctor.Phone,
-            request.Doctor.Address,
+            request.Doctor.DocumentNumber.Trim(),
+            request.Doctor.Email.Trim(),
+            request.Doctor.Phone.Trim(),
+            request.Doctor.Address.Trim(),
             request.Doctor.Birthdate,
-            request.Doctor.Specialization
+            request.Doctor.Specialization.Trim()
         );
 
-        var user = new User(request.Password, Role.Doctor, doctor);
+        var user = new User(request.Password.Trim(), Role.Doctor, doctor);
         await _doctorRepository.AddAsync(doctor);
         await _userService.CreateUser(user);
         return Unit.Value;

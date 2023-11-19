@@ -21,16 +21,16 @@ public class MedicalHistory : EntityBase<Guid>
         string description,
         string diagnosis,
         string treatment,
-        Doctor doctor,
-        Patient patient
+        Guid doctorId,
+        Guid patientId
     )
     {
         Date = date;
         Description = description;
         Diagnosis = diagnosis;
         Treatment = treatment;
-        Doctor = doctor;
-        Patient = patient;
+        DoctorId = doctorId;
+        PatientId = patientId;
     }
 
     public MedicalHistory()

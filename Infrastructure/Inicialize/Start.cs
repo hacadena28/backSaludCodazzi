@@ -5,6 +5,7 @@ namespace Infrastructure.Inicialize
     public class Start
     {
         private readonly PersistenceContext _context;
+
         public Start(PersistenceContext context)
         {
             _context = context;

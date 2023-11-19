@@ -28,6 +28,7 @@ public class UserService
     public async Task UpdateUser(Guid userId, string newPassword)
     {
         var userSearched = await _userRepository.GetByIdAsync(userId);
+        _ = userSearched ?? throw new CoreBusinessException(Messages.AlredyExistException);
         if (newPassword != userSearched.Password)
         {
             userSearched.ChangePassword(newPassword);
@@ -40,10 +41,8 @@ public class UserService
         await _userRepository.UpdateAsync(userSearched);
     }
 
-    public async Task DeleteUser(Guid id)
+    public async Task DeleteUser(User user)
     {
-        var userSearched = await _userRepository.GetByIdAsync(id);
-        _ = userSearched ?? throw new CoreBusinessException(Messages.AlredyExistException);
-        await _userRepository.DeleteAsync(userSearched);
+        await _userRepository.DeleteAsync(user);
     }
 }

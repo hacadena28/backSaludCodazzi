@@ -1,4 +1,6 @@
 using Domain.Entities;
+using Domain.Enums;
+using Domain.Exceptions;
 using Domain.Ports;
 
 namespace Domain.Services;
@@ -13,24 +15,27 @@ public class AppointmentService
         _appointmentRepository = appointmentRepository;
     }
 
-    public async Task CreateAppointment(Appointment appointment)
+    public async Task Create(Appointment appointment)
     {
         await _appointmentRepository.AddAsync(appointment);
     }
+
     public async Task<Appointment> GetById(Appointment appointment)
     {
         return await _appointmentRepository.GetByIdAsync(appointment.Id);
     }
 
-    public async Task UpdateAppointment(Appointment appointment)
+    public async Task Update(Guid id, DateTime newDate, AppointmentState state)
     {
-        await _appointmentRepository.UpdateAsync(appointment);
+        var appointmentSearched = await _appointmentRepository.GetByIdAsync(id);
+        _ = appointmentSearched ?? throw new CoreBusinessException(Messages.ResourceNotFoundException);
+        appointmentSearched.Update(newDate, state);
+
+        await _appointmentRepository.UpdateAsync(appointmentSearched);
     }
 
-    public async Task DeleteAppointment(Appointment appointment)
+    public async Task Delete(Appointment appointment)
     {
         await _appointmentRepository.DeleteAsync(appointment);
     }
-
-
 }

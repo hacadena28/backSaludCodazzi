@@ -1,57 +1,34 @@
-using Application.UseCases.Medics.Queries.GetDoctor;
+using Domain.Entities;
 using Domain.Ports;
 using Domain.Services;
 
 namespace Application.UseCases.Medics.Commands.DoctorUpdate
 {
-    public class DoctorUpdateCommandHandler : IRequestHandler<DoctorUpdateCommand, DoctorDto>
+    public class DoctorUpdateCommandHandler : IRequestHandler<DoctorUpdateCommand>
     {
         private readonly DoctorService _doctorService;
-        private readonly IMapper _mapper;
-        private readonly IGenericRepository<Domain.Entities.Doctor> _doctorRepository;
+        private readonly IGenericRepository<Doctor> _doctorRepository;
 
         public DoctorUpdateCommandHandler(DoctorService doctorService,
-            IGenericRepository<Domain.Entities.Doctor> doctorRepository, IMapper mapper)
+            IGenericRepository<Doctor> doctorRepository)
         {
             _doctorService = doctorService ?? throw new ArgumentNullException(nameof(doctorService));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _doctorRepository = doctorRepository ?? throw new ArgumentNullException(nameof(doctorRepository));
         }
 
-        public async Task<DoctorDto> Handle(DoctorUpdateCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DoctorUpdateCommand request, CancellationToken cancellationToken)
         {
-            var existingDoctor = await _doctorRepository.GetByIdAsync(request.Id);
+            await _doctorService.UpdateDoctor(request.Id,
+                request.FirstName,
+                request.SecondName,
+                request.LastName,
+                request.SecondLastName,
+                request.Email,
+                request.Phone,
+                request.Address
+            );
 
-            if (existingDoctor == null)
-            {
-                throw new Exception("El doctor no se encontró o no existe.");
-            }
-
-            if (existingDoctor.Id == request.Id)
-            {
-                existingDoctor.FirstName = request.firstName;
-                existingDoctor.SecondName = request.secondName;
-                existingDoctor.LastName = request.lastName;
-                existingDoctor.SecondLastName = request.secondLastName;
-                existingDoctor.DocumentType = request.documentType;
-                existingDoctor.DocumentNumber = request.documentNumber;
-                existingDoctor.Email = request.email;
-                existingDoctor.Phone = request.phone;
-                existingDoctor.Address = request.address;
-                existingDoctor.Birthdate = request.birthdate;
-                existingDoctor.Specialization = request.specialization;
-
-
-                await _doctorService.UpdateDoctor(existingDoctor);
-
-                var updatedDoctor = await _doctorRepository.GetByIdAsync(request.Id);
-
-                return _mapper.Map<DoctorDto>(updatedDoctor);
-            }
-            else
-            {
-                throw new Exception("Los id No Coinciden");
-            }
+            return Unit.Value;
         }
     }
 }

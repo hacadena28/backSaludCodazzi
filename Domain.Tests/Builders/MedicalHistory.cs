@@ -1,50 +1,49 @@
 using Domain.Entities;
-using Domain.Enums;
 
-namespace Domain.Tests;
+namespace Domain.Tests.Builders;
 
 public class MedicalHistoryBuilder
 {
-    private DateTime Date;
-    private string Description;
-    private string Diagnosis;
-    private string Treatment;
-    private Doctor Doctor;
-    private Patient Patient;
+    private DateTime _date;
+    private string _description;
+    private string _diagnosis;
+    private string _treatment;
+    private Guid _doctorId;
+    private Guid _patientId;
 
     public MedicalHistoryBuilder WithDate(DateTime date)
     {
-        Date = date;
+        _date = date;
         return this;
     }
 
     public MedicalHistoryBuilder WithDescription(string description)
     {
-        Description = description;
+        _description = description;
         return this;
     }
 
     public MedicalHistoryBuilder WithDiagnosis(string diagnosis)
     {
-        Diagnosis = diagnosis;
+        _diagnosis = diagnosis;
         return this;
     }
 
     public MedicalHistoryBuilder WithTreatment(string treatment)
     {
-        Treatment = treatment;
+        _treatment = treatment;
         return this;
     }
 
-    public MedicalHistoryBuilder WithDoctor(Doctor doctor)
+    public MedicalHistoryBuilder WithDoctor(Guid doctorId)
     {
-        Doctor = doctor;
+        _doctorId = doctorId;
         return this;
     }
 
-    public MedicalHistoryBuilder WithPatient(Patient patient)
+    public MedicalHistoryBuilder WithPatient(Guid patientId)
     {
-        Patient = patient;
+        _patientId = patientId;
         return this;
     }
 
@@ -52,12 +51,12 @@ public class MedicalHistoryBuilder
     {
         return new MedicalHistory
         (
-            Date,
-            Description,
-            Diagnosis,
-            Treatment,
-            Doctor,
-            Patient
+            _date,
+            _description,
+            _diagnosis,
+            _treatment,
+            _doctorId,
+            _patientId
         );
     }
 }

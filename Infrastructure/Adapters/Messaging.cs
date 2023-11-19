@@ -17,7 +17,7 @@ public class Messaging : IMessaging
         using var channel = _brokerConn.CreateModel();
         var args = new Dictionary<string, object>
         {
-            {"x-message-deduplication", true }
+            { "x-message-deduplication", true }
         };
 
         channel.QueueDeclare(queue: queue, durable: true, exclusive: false,
@@ -29,6 +29,8 @@ public class Messaging : IMessaging
         var properties = channel.CreateBasicProperties();
         properties.CorrelationId = Guid.NewGuid().ToString();
         properties.Persistent = true;
-        await Task.Run(() => channel.BasicPublish(exchange: "", routingKey: queue, basicProperties: properties, body: body)).ConfigureAwait(false);
+        await Task.Run(() =>
+                channel.BasicPublish(exchange: "", routingKey: queue, basicProperties: properties, body: body))
+            .ConfigureAwait(false);
     }
 }

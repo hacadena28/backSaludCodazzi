@@ -2,11 +2,11 @@
 
 namespace Api.Examples.EpsExamples
 {
-    public class EpsUpdateCommandExample : IMultipleExamplesProvider<EpsChangeStateCommand>
+    public class EpsUpdateCommandExample : IMultipleExamplesProvider<EpsUpdateCommand>
     {
-        public IEnumerable<SwaggerExample<EpsChangeStateCommand>> GetExamples()
+        public IEnumerable<SwaggerExample<EpsUpdateCommand>> GetExamples()
         {
-            var epsCommand = new EpsChangeStateCommand(
+            var epsCommand = new EpsUpdateCommand(
                 new Guid(),
                 "SaludTotal"
             );

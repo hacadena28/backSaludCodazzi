@@ -28,4 +28,13 @@ public class Doctor : Person
     public Doctor()
     {
     }
+
+    public void Update(string? firstName, string? secondName, string? lastName,
+        string? secondLastName, string? email, string? phone,
+        string? address, string? specialization)
+    {
+        base.Update(firstName, secondName, lastName, secondLastName, email, phone, address);
+        if (specialization != null && !Specialization.Equals(specialization) && specialization != "")
+            Specialization = specialization;
+    }
 }

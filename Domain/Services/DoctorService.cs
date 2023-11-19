@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Ports;
 
 namespace Domain.Services;
@@ -13,23 +14,18 @@ public class DoctorService
         _doctorRepository = doctorRepository;
     }
 
-    public async Task CreateDoctor(Doctor doctor)
+    public async Task<Doctor> GetById(Guid doctorId)
     {
-        await _doctorRepository.AddAsync(doctor);
+        return await _doctorRepository.GetByIdAsync(doctorId);
     }
 
-    public async Task<Doctor> GetById(Doctor doctor)
+    public async Task UpdateDoctor(Guid id, string firstName, string secondName, string lastName,
+        string secondLastName, string email, string phone,
+        string address)
     {
-        return await _doctorRepository.GetByIdAsync(doctor.Id);
-    }
-
-    public async Task UpdateDoctor(Doctor doctor)
-    {
-        await _doctorRepository.UpdateAsync(doctor);
-    }
-
-    public async Task DeleteDoctor(Doctor doctor)
-    {
-        await _doctorRepository.DeleteAsync(doctor);
+        var doctorSearched = await _doctorRepository.GetByIdAsync(id);
+        _ = doctorSearched ?? throw new CoreBusinessException(Messages.ResourceNotFoundException);
+        doctorSearched.Update(firstName, secondName, lastName, secondLastName, email, phone, address);
+        await _doctorRepository.UpdateAsync(doctorSearched);
     }
 }

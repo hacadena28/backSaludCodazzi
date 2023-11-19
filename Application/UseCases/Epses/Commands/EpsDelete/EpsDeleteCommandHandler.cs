@@ -8,15 +8,11 @@ namespace Application.UseCases.Epses.Commands.EpsDelete
         private readonly EpsService _epsService;
         private readonly IGenericRepository<Domain.Entities.Eps> _epsRepository;
 
-        private readonly IMapper _mapper;
 
-
-        public EpsDeleteCommandHandler(EpsService epsService, IGenericRepository<Domain.Entities.Eps> epsRepository,
-            IMapper mapper)
+        public EpsDeleteCommandHandler(EpsService epsService, IGenericRepository<Domain.Entities.Eps> epsRepository)
         {
             _epsService = epsService ?? throw new ArgumentNullException(nameof(epsService));
             _epsRepository = epsRepository ?? throw new ArgumentNullException(nameof(epsRepository));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<Unit> Handle(EpsDeleteCommand request, CancellationToken cancellationToken)

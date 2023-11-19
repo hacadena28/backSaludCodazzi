@@ -9,8 +9,10 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace Infrastructure.Extensions.OpenApi;
 
-public static class OpenApiDocumentationExtensions {
-    public static IServiceCollection AddOpenApiDocumentation(this IServiceCollection svc) {
+public static class OpenApiDocumentationExtensions
+{
+    public static IServiceCollection AddOpenApiDocumentation(this IServiceCollection svc)
+    {
         svc.Configure<RouteOptions>(options => options.LowercaseUrls = true);
         svc.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
         svc.AddSwaggerGen();

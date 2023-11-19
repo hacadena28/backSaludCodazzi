@@ -13,22 +13,13 @@ public class MedicalHistoryService
         _medicalHistoryRepository = medicalHistoryRepository;
     }
 
-    public async Task CreateMedicalHistory(MedicalHistory medicalHistory)
+    public async Task Create(MedicalHistory medicalHistory)
     {
         await _medicalHistoryRepository.AddAsync(medicalHistory);
     }
+
     public async Task<MedicalHistory> GetById(MedicalHistory medicalHistory)
     {
         return await _medicalHistoryRepository.GetByIdAsync(medicalHistory.Id);
-    }
-
-    public async Task UpdateMedicalHistory(MedicalHistory medicalHistory)
-    {
-        await _medicalHistoryRepository.UpdateAsync(medicalHistory);
-    }
-
-    public async Task DeleteMedicalHistory(MedicalHistory medicalHistory)
-    {
-        await _medicalHistoryRepository.DeleteAsync(medicalHistory);
     }
 }

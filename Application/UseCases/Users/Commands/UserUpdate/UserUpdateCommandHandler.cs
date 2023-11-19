@@ -5,17 +5,15 @@ namespace Application.UseCases.Users.Commands.UserUpdate
     public class UserUpdateCommandHandler : IRequestHandler<UserUpdateCommand>
     {
         private readonly UserService _userService;
-        private readonly IMapper _mapper;
 
-        public UserUpdateCommandHandler(UserService userService, IMapper mapper)
+        public UserUpdateCommandHandler(UserService userService)
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<Unit> Handle(UserUpdateCommand request, CancellationToken cancellationToken)
         {
-            await _userService.UpdateUser(request.Id, request.Password);
+            await _userService.UpdateUser(request.Id, request.Password.Trim());
             return new Unit();
         }
     }

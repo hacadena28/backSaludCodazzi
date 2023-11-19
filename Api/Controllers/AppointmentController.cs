@@ -1,9 +1,10 @@
 using Api.Examples.AppointmentExamples;
 using Api.Filters;
-using Application.UseCases.Appointment.Commands.AppointmentCreate;
-using Application.UseCases.Appointment.Commands.AppointmentDelete;
-using Application.UseCases.Appointment.Commands.AppointmentUpdate;
+using Application.Common.Exceptions;
 using Application.UseCases.Appointment.Queries.GetAppointment;
+using Application.UseCases.Appointments.Commands.AppointmentCreate;
+using Application.UseCases.Appointments.Commands.AppointmentDelete;
+using Application.UseCases.Appointments.Commands.AppointmentUpdate;
 
 namespace Api.Controllers;
 
@@ -21,7 +22,7 @@ public class AppointmentController
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
-    public async Task<EmptyAppointmentDto> Create(AppointmentCreateCommand command) => await _mediator.Send(command);
+    public async Task Create(AppointmentCreateCommand command) => await _mediator.Send(command);
 
     [HttpGet]
     [SwaggerRequestExample(typeof(AppointmentQuery), typeof(GetAppointmentQueryExample))]
@@ -31,17 +32,23 @@ public class AppointmentController
     [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
     public async Task<List<AppointmentDto>> Get() => await _mediator.Send(new AppointmentQuery());
 
-    [HttpPut]
-    public async Task<AppointmentDto> Update(AppointmentUpdateCommand command)
+    [HttpPut("{id:guid}")]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
+    public async Task Update(AppointmentUpdateCommand command, Guid id)
     {
-        var updatedAppointment = await _mediator.Send(command);
-        return updatedAppointment;
+        if (id != command.Id)
+        {
+            throw new ConflictException("The id of route no is the same of the command");
+        }
+
+        await _mediator.Send(command);
     }
 
-    [HttpDelete("{id}")]
-    public async Task<EmptyAppointmentDto> Delete(Guid id)
-    {
-        var deleteAppointment = await _mediator.Send(new AppointmentDeleteCommand(id));
-        return deleteAppointment;
-    }
+    [HttpDelete("{id:guid}")]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
+    public async Task Delete(Guid id) => await _mediator.Send(new AppointmentDeleteCommand(id));
 }

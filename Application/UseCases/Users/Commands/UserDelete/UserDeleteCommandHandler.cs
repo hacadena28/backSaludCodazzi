@@ -40,7 +40,7 @@ namespace Application.UseCases.Users.Commands.UserDelete
                 await _patientRepository.DeleteAsync(patient);
             }
 
-            await _userService.DeleteUser(request.Id);
+            await _userService.DeleteUser(user);
             return new Unit();
         }
     }

@@ -1,5 +1,6 @@
 using Api.Examples.UserExamples;
 using Api.Filters;
+using Application.Common.Exceptions;
 using Application.UseCases.Users.Commands.UserCreateDoctor;
 using Application.UseCases.Users.Commands.UserUpdate;
 using Application.UseCases.Users.Queries.GetUser;
@@ -47,15 +48,24 @@ public class UserController
     public async Task<List<UserDto>> Get() => await _mediator.Send(new UserQuery());
 
 
-    [HttpPut]
-    public async Task Update(UserUpdateCommand command)
+    [HttpPut("{id:guid}")]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+    public async Task Update(UserUpdateCommand command, Guid id)
     {
+        if (id != command.Id)
+        {
+            throw new ConflictException("The id of route no is the same of the command");
+        }
+
         await _mediator.Send(command);
     }
 
-    [HttpDelete]
-    public async Task Delete(UserDeleteCommand command)
-    {
-        await _mediator.Send(command);
-    }
+
+    [HttpDelete("{id:guid}")]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+    public async Task Delete(Guid id) => await _mediator.Send(new UserDeleteCommand(id));
 }

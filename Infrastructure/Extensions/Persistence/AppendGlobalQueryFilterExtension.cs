@@ -6,7 +6,8 @@ namespace Infrastructure.Extensions.Persistence;
 
 public static class ModelBuilderExtensions
 {
-    public static ModelBuilder AppendGlobalQueryFilter<TInterface>(this ModelBuilder modelBuilder, Expression<Func<TInterface, bool>> filter)
+    public static ModelBuilder AppendGlobalQueryFilter<TInterface>(this ModelBuilder modelBuilder,
+        Expression<Func<TInterface, bool>> filter)
     {
         // get a list of entities without a baseType that implement the interface TInterface
         var entities = modelBuilder.Model.GetEntityTypes()
@@ -21,7 +22,8 @@ public static class ModelBuilderExtensions
             // get the existing query filter
             if (modelBuilder.Entity(entity).Metadata.GetQueryFilter() is { } existingFilter)
             {
-                var existingFilterBody = ReplacingExpressionVisitor.Replace(existingFilter.Parameters.Single(), parameterType, existingFilter.Body);
+                var existingFilterBody = ReplacingExpressionVisitor.Replace(existingFilter.Parameters.Single(),
+                    parameterType, existingFilter.Body);
 
                 // combine the existing query filter with the new query filter
                 filterBody = Expression.AndAlso(existingFilterBody, filterBody);
