@@ -1,5 +1,6 @@
 using Api.Filters;
 using Application.Common.Exceptions;
+using Application.Common.Helpers.Pagination;
 using Application.UseCases.Patients.Commands.PatientUpdate;
 using Application.UseCases.Patients.Queries.GetPatient;
 
@@ -18,7 +19,7 @@ public class PatientController
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(PatientDto), StatusCodes.Status200OK)]
-    public async Task<List<PatientDto>> Get(int page = 1, int recordsPerPage = 20)
+    public async Task<ResponsePagination<PatientDto>> Get(int page = 1, int recordsPerPage = 20)
     {
         return await _mediator.Send(new PatientQuery
         {

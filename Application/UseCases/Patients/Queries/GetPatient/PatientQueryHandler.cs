@@ -1,8 +1,9 @@
+using Application.Common.Helpers.Pagination;
 using Domain.Ports;
 
 namespace Application.UseCases.Patients.Queries.GetPatient;
 
-public class PatientQueryHandler : IRequestHandler<PatientQuery, List<PatientDto>>
+public class PatientQueryHandler : IRequestHandler<PatientQuery, ResponsePagination<PatientDto>>
 {
     private readonly IGenericRepository<Domain.Entities.Patient> _repository;
     private readonly IMapper _mapper;
@@ -11,10 +12,17 @@ public class PatientQueryHandler : IRequestHandler<PatientQuery, List<PatientDto
         (_repository, _mapper) = (repository, mapper);
 
 
-    public async Task<List<PatientDto>> Handle(PatientQuery request, CancellationToken cancellationToken)
+    public async Task<ResponsePagination<PatientDto>> Handle(PatientQuery request, CancellationToken cancellationToken)
     {
-        
-        var patient = (await _repository.GetAsync()).ToList();
-        return _mapper.Map<List<PatientDto>>(patient);
+
+        var patientsPaginated = await _repository.GetPagedAsync(request.Page, request.RecordsPerPage);
+        var dataPaginated = _mapper.Map<List<PatientDto>>(patientsPaginated.Records);
+        return new ResponsePagination<PatientDto>
+        {
+            Page = request.Page,
+            Records = dataPaginated,
+            TotalPages = patientsPaginated.TotalPages,
+            TotalRecords = patientsPaginated.TotalRecords
+        };
     }
 }

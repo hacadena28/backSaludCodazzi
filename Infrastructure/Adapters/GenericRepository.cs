@@ -48,6 +48,23 @@ public class GenericRepository<E> : IGenericRepository<E> where E : DomainEntity
         await CommitAsync();
     }
 
+    public async Task<PagedResult<E>> GetPagedAsync(int page, int pageSize)
+    {
+        var result = new PagedResult<E>
+        {
+            TotalRecords = await _context.Set<E>().CountAsync()
+        };
+
+        result.TotalPages = (int)Math.Ceiling(result.TotalRecords / (double)pageSize);
+
+        result.Records = await _context.Set<E>()
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return result;
+    }
+
     public async Task<IEnumerable<E>> GetAsync(Expression<Func<E, bool>>? filter = null,
         Func<IQueryable<E>, IOrderedQueryable<E>>? orderBy = null, string includeStringProperties = "",
         bool isTracking = false)
