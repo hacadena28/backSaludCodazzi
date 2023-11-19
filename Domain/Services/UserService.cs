@@ -20,7 +20,12 @@ public class UserService
         await _userRepository.AddAsync(user);
     }
 
-    public async Task ChangePassword(Guid userId, string newPassword)
+    public async Task<User> GetById(Guid userId)
+    {
+        return await _userRepository.GetByIdAsync(userId);
+    }
+
+    public async Task UpdateUser(Guid userId, string newPassword)
     {
         var userSearched = await _userRepository.GetByIdAsync(userId);
         if (newPassword != userSearched.Password)
@@ -31,6 +36,7 @@ public class UserService
         {
             throw new ThePasswordHasToBeDifferent(Messages.ThePasswordHasToBeDifferent);
         }
+
         await _userRepository.UpdateAsync(userSearched);
     }
 

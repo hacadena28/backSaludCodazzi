@@ -15,7 +15,7 @@ namespace Application.UseCases.Users.Commands.UserUpdate
 
         public async Task<Unit> Handle(UserUpdateCommand request, CancellationToken cancellationToken)
         {
-            await _userService.ChangePassword(request.Id, request.Password);
+            await _userService.UpdateUser(request.Id, request.Password);
             return new Unit();
         }
     }

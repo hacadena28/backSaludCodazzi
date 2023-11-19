@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Enums;
+using Domain.Ports;
 using Domain.Services;
 
 namespace Application.UseCases.Users.Commands.UserCreatePatient;
@@ -7,12 +8,12 @@ namespace Application.UseCases.Users.Commands.UserCreatePatient;
 public class UserCreatePatientCommandHandler : IRequestHandler<UserCreatePatientCommand>
 {
     private readonly UserService _userService;
-    private readonly IMapper _mapper;
+    private readonly IGenericRepository<Patient> _patientRepository;
 
-    public UserCreatePatientCommandHandler(UserService userService, EpsService epsService, IMapper mapper)
+    public UserCreatePatientCommandHandler(UserService userService, IGenericRepository<Patient> patientRepository)
     {
         _userService = userService ?? throw new ArgumentNullException(nameof(userService));
-        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        _patientRepository = patientRepository ?? throw new ArgumentNullException(nameof(patientRepository));
     }
 
     public async Task<Unit> Handle(UserCreatePatientCommand request, CancellationToken cancellationToken)
@@ -30,8 +31,9 @@ public class UserCreatePatientCommandHandler : IRequestHandler<UserCreatePatient
             request.Patient.Birthdate,
             request.Patient.EpsId
         );
-        
+
         var user = new User(request.Password, Role.Patient, patient);
+        await _patientRepository.AddAsync(patient);
         await _userService.CreateUser(user);
         return new Unit();
     }

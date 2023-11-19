@@ -20,7 +20,9 @@ public class UserConfig : IEntityTypeConfiguration<User>
             .IsRequired()
             .HasMaxLength(10);
         builder
-            .HasOne(x => x.Person);
+            .HasOne(x => x.Person)
+            .WithOne()
+            .HasForeignKey<User>(x => x.PersonId);
     }
 }
 
@@ -106,9 +108,12 @@ public class MedicalHistoryConfig : IEntityTypeConfiguration<MedicalHistory>
         builder
             .HasOne(x => x.Doctor)
             .WithOne()
+            .HasForeignKey<MedicalHistory>(x => x.DoctorId)
             .IsRequired();
         builder
-            .HasOne(x => x.Patient);
+            .HasOne(x => x.Patient)
+            .WithOne()
+            .HasForeignKey<MedicalHistory>(x => x.PatientId);
     }
 }
 
@@ -205,8 +210,12 @@ public class AppointmentConfig : IEntityTypeConfiguration<Appointment>
             .IsRequired()
             .HasMaxLength(255);
         builder
-            .HasOne(x => x.Doctor);
+            .HasOne(x => x.Doctor)
+            .WithOne()
+            .HasForeignKey<Appointment>(x => x.DoctorId);
         builder
-            .HasOne(x => x.Patient);
+            .HasOne(x => x.Patient)
+            .WithOne()
+            .HasForeignKey<Appointment>(x => x.PatientId);
     }
 }
