@@ -18,7 +18,14 @@ public class PatientController
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(PatientDto), StatusCodes.Status200OK)]
-    public async Task<List<PatientDto>> Get() => await _mediator.Send(new PatientQuery());
+    public async Task<List<PatientDto>> Get(int page = 1, int recordsPerPage = 20)
+    {
+        return await _mediator.Send(new PatientQuery
+        {
+            Page = page,
+            RecordsPerPage = recordsPerPage
+        });
+    }
 
     [HttpPut("{id:guid}")]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]

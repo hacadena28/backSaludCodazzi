@@ -42,11 +42,10 @@ public class Appointment : EntityBase<Guid>
         {
             ChangeDate(newDate.Value);
         }
-
         if (state != null && !State.Equals(state)) State = (AppointmentState)state;
     }
 
-    public void ChangeDate(DateTime newDate)
+    private void ChangeDate(DateTime newDate)
     {
         if (newDate != null && !Date.Equals(newDate))
         {

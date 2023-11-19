@@ -13,6 +13,7 @@ public class PatientQueryHandler : IRequestHandler<PatientQuery, List<PatientDto
 
     public async Task<List<PatientDto>> Handle(PatientQuery request, CancellationToken cancellationToken)
     {
+        
         var patient = (await _repository.GetAsync()).ToList();
         return _mapper.Map<List<PatientDto>>(patient);
     }
