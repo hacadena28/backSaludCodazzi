@@ -1,8 +1,6 @@
-using Application.UseCases.Users.Queries.GetUser;
 using Domain.Enums;
 
 namespace Application.UseCases.Users.Commands.UserCreatePatient;
-
 
 public record PatientCreateCommand(
     string FirstName, string SecondName, string LastName, string SecondLastName, TypeDocument DocumentType,

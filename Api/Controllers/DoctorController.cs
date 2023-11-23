@@ -1,5 +1,6 @@
 using Api.Filters;
 using Application.Common.Exceptions;
+using Application.Common.Helpers.Pagination;
 using Application.UseCases.Medics.Commands.DoctorUpdate;
 using Application.UseCases.Medics.Queries.GetDoctor;
 
@@ -18,7 +19,14 @@ public class DoctorController
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(DoctorDto), StatusCodes.Status200OK)]
-    public async Task<List<DoctorDto>> Get() => await _mediator.Send(new DoctorQuery());
+    public async Task<ResponsePagination<DoctorDto>> Get(int page = 1, int recordsPerPage = 20)
+    {
+        return await _mediator.Send(new PaginationDoctorQuery
+        {
+            Page = page,
+            RecordsPerPage = recordsPerPage
+        });
+    }
 
     [HttpPut("{id:guid}")]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]

@@ -1,13 +1,10 @@
-﻿using Application.UseCases.Users.Queries.GetUser;
-
-namespace Api.Examples.UserExamples
+﻿namespace Api.Examples.UserExamples
 {
-    public class UserCreateResponseExample : IMultipleExamplesProvider<EmptyUserDto>
+    public class UserCreateResponseExample : IMultipleExamplesProvider<Unit>
     {
-        public IEnumerable<SwaggerExample<EmptyUserDto>> GetExamples()
+        public IEnumerable<SwaggerExample<Unit>> GetExamples()
         {
-            var userDtoEmpy = new EmptyUserDto();
-            yield return SwaggerExample.Create("crearAlarmaRequest", userDtoEmpy);
+            yield return SwaggerExample.Create("crearAlarmaRequest", Unit.Value);
         }
     }
 }

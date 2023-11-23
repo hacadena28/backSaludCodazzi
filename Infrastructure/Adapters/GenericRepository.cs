@@ -65,6 +65,51 @@ public class GenericRepository<E> : IGenericRepository<E> where E : DomainEntity
         return result;
     }
 
+
+    public async Task<PagedResult<E>> GetPagedFilterAsync(int page, int pageSize,
+        Expression<Func<E, bool>>? filter =
+            null,
+        Func<IQueryable<E>, IOrderedQueryable<E>>? orderBy = null, string includeStringProperties = "",
+        bool isTracking = false)
+    {
+        IQueryable<E> query = _context.Set<E>();
+
+        if (filter != null)
+        {
+            query = query.Where(filter);
+        }
+
+        if (!string.IsNullOrEmpty(includeStringProperties))
+        {
+            foreach (var includeProperty in includeStringProperties.Split
+                         (new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+        }
+
+        var resultPagination = new PagedResult<E>
+        {
+            TotalRecords = await query.CountAsync()
+        };
+
+        resultPagination.TotalPages = (int)Math.Ceiling(resultPagination.TotalRecords / (double)pageSize);
+
+        if (orderBy != null)
+        {
+            resultPagination.Records = await orderBy(query)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync().ConfigureAwait(false);
+
+            return resultPagination;
+        }
+
+        resultPagination.Records = (!isTracking) ? await query.AsNoTracking().ToListAsync() : await query.ToListAsync();
+
+        return resultPagination;
+    }
+
     public async Task<IEnumerable<E>> GetAsync(Expression<Func<E, bool>>? filter = null,
         Func<IQueryable<E>, IOrderedQueryable<E>>? orderBy = null, string includeStringProperties = "",
         bool isTracking = false)

@@ -1,6 +1,4 @@
-﻿using Domain.Enums;
-
-namespace Application.UseCases.MedicalHistorys.Commands.MedicalHistoryCreate;
+﻿namespace Application.UseCases.MedicalHistorys.Commands.MedicalHistoryCreate;
 
 public class MedicalHistoryCreateValidator : AbstractValidator<MedicalHistoryCreateCommand>
 {

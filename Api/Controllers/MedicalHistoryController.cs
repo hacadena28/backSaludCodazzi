@@ -1,5 +1,6 @@
 using Api.Examples.MedicalHistoryExamples;
 using Api.Filters;
+using Application.Common.Helpers.Pagination;
 using Application.UseCases.MedicalHistorys.Commands.MedicalHistoryCreate;
 using Application.UseCases.MedicalHistorys.Queries.GetMedicalHistory;
 
@@ -22,10 +23,15 @@ public class MedicalHistory
     public async Task Create(MedicalHistoryCreateCommand command) => await _mediator.Send(command);
 
     [HttpGet]
-    [SwaggerRequestExample(typeof(MedicalHistoryQuery), typeof(GetMedicalHistoryQueryExample))]
-    [SwaggerResponseExample(StatusCodes.Status200OK, typeof(MedicalHistoryCreateResponseExample))]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(MedicalHistoryDto), StatusCodes.Status200OK)]
-    public async Task<List<MedicalHistoryDto>> Get() => await _mediator.Send(new MedicalHistoryQuery());
+    public async Task<ResponsePagination<MedicalHistoryDto>> Get(int page = 1, int recordsPerPage = 20)
+    {
+        return await _mediator.Send(new PaginationMedicalHistoryQuery
+        {
+            Page = page,
+            RecordsPerPage = recordsPerPage
+        });
+    }
 }

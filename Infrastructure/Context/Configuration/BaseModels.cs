@@ -102,11 +102,6 @@ public class MedicalHistoryConfig : IEntityTypeConfiguration<MedicalHistory>
             .IsRequired()
             .HasMaxLength(255);
         builder
-            .HasOne(x => x.Doctor)
-            .WithOne()
-            .HasForeignKey<MedicalHistory>(x => x.DoctorId)
-            .IsRequired();
-        builder
             .HasOne(x => x.Patient)
             .WithOne()
             .HasForeignKey<MedicalHistory>(x => x.PatientId)
@@ -195,6 +190,14 @@ public class AppointmentConfig : IEntityTypeConfiguration<Appointment>
             .IsRequired()
             .HasMaxLength(20);
         builder
+            .Property(x => x.AppointmentStartDate)
+            .IsRequired()
+            .HasMaxLength(20);
+        builder
+            .Property(x => x.AppointmentFinalDate)
+            .IsRequired()
+            .HasMaxLength(20);
+        builder
             .Property(x => x.State)
             .IsRequired()
             .HasMaxLength(20);
@@ -207,14 +210,19 @@ public class AppointmentConfig : IEntityTypeConfiguration<Appointment>
             .IsRequired()
             .HasMaxLength(255);
         builder
-            .HasOne(x => x.Doctor)
-            .WithMany()
-            .HasForeignKey(x => x.DoctorId)
-            .IsRequired();
-        builder
             .HasOne(x => x.Patient)
             .WithMany()
             .HasForeignKey(x => x.PatientId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.NoAction);
+        builder
+            .HasOne(x => x.MedicalHistory)
+            .WithOne()
+            .HasForeignKey<Appointment>(x => x.MedicalHistoryId);
+        builder
+            .HasOne(x => x.Doctor)
+            .WithMany()
+            .HasForeignKey(x => x.DoctorId)
             .IsRequired();
     }
 }

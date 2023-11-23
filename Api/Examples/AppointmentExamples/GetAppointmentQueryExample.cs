@@ -1,12 +1,12 @@
-﻿using Application.UseCases.Appointment.Queries.GetAppointment;
+﻿using Application.UseCases.Appointments.Queries.GetAppointments;
 
 namespace Api.Examples.AppointmentExamples
 {
-    public class GetAppointmentQueryExample : IMultipleExamplesProvider<AppointmentQuery>
+    public class GetAppointmentQueryExample : IMultipleExamplesProvider<PaginationAppointmentQuery>
     {
-        public IEnumerable<SwaggerExample<AppointmentQuery>> GetExamples()
+        public IEnumerable<SwaggerExample<PaginationAppointmentQuery>> GetExamples()
         {
-            var appointmentQuery = new AppointmentQuery();
+            var appointmentQuery = new PaginationAppointmentQuery();
             yield return SwaggerExample.Create("appointmentQuery", appointmentQuery);
         }
     }

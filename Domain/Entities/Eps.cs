@@ -12,11 +12,19 @@ public class Eps : EntityBase<Guid>
         Name = name;
         State = EpsState.Active;
     }
-    public Eps(){}
+
+    public Eps()
+    {
+    }
 
 
     public void Update(string name)
     {
         if (Name.Equals(name) is not true) Name = name;
+    }
+
+    private void ChangeState(EpsState newState)
+    {
+        if (newState != State) State = newState;
     }
 }

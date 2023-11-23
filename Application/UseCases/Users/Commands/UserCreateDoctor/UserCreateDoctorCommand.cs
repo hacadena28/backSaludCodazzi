@@ -1,4 +1,3 @@
-using Application.UseCases.Users.Queries.GetUser;
 using Domain.Enums;
 
 namespace Application.UseCases.Users.Commands.UserCreateDoctor;

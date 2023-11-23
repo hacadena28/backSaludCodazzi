@@ -2,11 +2,11 @@
 
 namespace Api.Examples.EpsExamples
 {
-    public class GetEpsQueryExample : IMultipleExamplesProvider<EpsQuery>
+    public class GetEpsQueryExample : IMultipleExamplesProvider<PaginationEpsQuery>
     {
-        public IEnumerable<SwaggerExample<EpsQuery>> GetExamples()
+        public IEnumerable<SwaggerExample<PaginationEpsQuery>> GetExamples()
         {
-            var epsQuery = new EpsQuery();
+            var epsQuery = new PaginationEpsQuery();
             yield return SwaggerExample.Create("epsQuery", epsQuery);
         }
     }

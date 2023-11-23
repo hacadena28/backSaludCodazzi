@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Exceptions;
 using Domain.Ports;
 
@@ -24,6 +25,29 @@ public class UserService
     {
         return await _userRepository.GetByIdAsync(userId);
     }
+
+    public async Task<IEnumerable<User>> GetUsersByRole(Role role)
+    {
+        return await _userRepository.GetAsync(
+            filter: u => u.Role == role,
+            orderBy: null,
+            includeStringProperties: "Person",
+            isTracking: false
+        );
+    }
+
+    public async Task<PagedResult<User>> GetUsersPaginationByRole(int page, int pageSize, Role role)
+    {
+        return await _userRepository.GetPagedFilterAsync(
+            page,
+            pageSize,
+            filter: u => u.Role == role,
+            orderBy: null,
+            includeStringProperties: "Person",
+            isTracking: false
+        );
+    }
+
 
     public async Task UpdateUser(Guid userId, string newPassword)
     {

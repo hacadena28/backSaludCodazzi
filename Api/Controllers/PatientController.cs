@@ -21,7 +21,7 @@ public class PatientController
     [ProducesResponseType(typeof(PatientDto), StatusCodes.Status200OK)]
     public async Task<ResponsePagination<PatientDto>> Get(int page = 1, int recordsPerPage = 20)
     {
-        return await _mediator.Send(new PatientQuery
+        return await _mediator.Send(new PaginationPatientQuery
         {
             Page = page,
             RecordsPerPage = recordsPerPage

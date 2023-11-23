@@ -25,11 +25,11 @@ public class AppointmentService
         return await _appointmentRepository.GetByIdAsync(appointment.Id);
     }
 
-    public async Task Update(Guid id, DateTime newDate, AppointmentState state)
+    public async Task RescheduleAppointment(Guid id, DateTime newDate)
     {
         var appointmentSearched = await _appointmentRepository.GetByIdAsync(id);
         _ = appointmentSearched ?? throw new CoreBusinessException(Messages.ResourceNotFoundException);
-        appointmentSearched.Update(newDate, state);
+        appointmentSearched.RescheduleAppointment(newDate);
 
         await _appointmentRepository.UpdateAsync(appointmentSearched);
     }
@@ -37,5 +37,23 @@ public class AppointmentService
     public async Task Delete(Appointment appointment)
     {
         await _appointmentRepository.DeleteAsync(appointment);
+    }
+
+    public async Task CancelAppointment(Guid id)
+    {
+        var appointmentSearched = await _appointmentRepository.GetByIdAsync(id);
+        _ = appointmentSearched ?? throw new CoreBusinessException(Messages.ResourceNotFoundException);
+        appointmentSearched.CancelAppointment();
+
+        await _appointmentRepository.UpdateAsync(appointmentSearched);
+    }
+
+    public async Task AppointmentAttended(Guid id)
+    {
+        var appointmentSearched = await _appointmentRepository.GetByIdAsync(id);
+        _ = appointmentSearched ?? throw new CoreBusinessException(Messages.ResourceNotFoundException);
+        appointmentSearched.AppointmentAttended();
+
+        await _appointmentRepository.UpdateAsync(appointmentSearched);
     }
 }

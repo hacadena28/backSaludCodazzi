@@ -1,6 +1,7 @@
 using Api.Examples.EpsExamples;
 using Api.Filters;
 using Application.Common.Exceptions;
+using Application.Common.Helpers.Pagination;
 using Application.UseCases.Epses.Commands.EpsCreate;
 using Application.UseCases.Epses.Commands.EpsDelete;
 using Application.UseCases.Epses.Commands.EpsUpdate;
@@ -26,11 +27,19 @@ public class EpsController
     public async Task Create(EpsCreateCommand command) => await _mediator.Send(command);
 
     [HttpGet]
-    [SwaggerRequestExample(typeof(EpsQuery), typeof(GetEpsQueryExample))]
+    [SwaggerRequestExample(typeof(PaginationEpsQuery), typeof(GetEpsQueryExample))]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(EpsDto), StatusCodes.Status200OK)]
-    public async Task<List<EpsDto>> Get() => await _mediator.Send(new EpsQuery());
+    public async Task<ResponsePagination<EpsDto>> Get(int page = 1, int recordsPerPage = 20)
+    {
+        return await _mediator.Send(new PaginationEpsQuery
+        {
+            Page = page,
+            RecordsPerPage = recordsPerPage
+        });
+    }
+
 
     [HttpPut("{id:guid}")]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]

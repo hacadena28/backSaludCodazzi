@@ -1,4 +1,4 @@
-﻿using Application.UseCases.Appointments.Commands.AppointmentCreate;
+﻿using Application.UseCases.Appointments.Commands.AppointmentsCreate;
 using Domain.Enums;
 using Domain.Tests;
 
@@ -9,6 +9,7 @@ namespace Api.Examples.AppointmentExamples
         public IEnumerable<SwaggerExample<AppointmentCreateCommand>> GetExamples()
         {
             var appointmentCommand = new AppointmentCreateCommand(
+                DateTime.Now,
                 DateTime.Now,
                 TypeAppointment.General,
                 "Dolor de muelas",

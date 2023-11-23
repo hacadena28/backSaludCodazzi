@@ -37,7 +37,6 @@ public class MedicalHistoryCreateCommandHandler : IRequestHandler<MedicalHistory
             request.Description,
             request.Diagnosis,
             request.Treatment,
-            request.DoctorId,
             request.PatientId
         );
 

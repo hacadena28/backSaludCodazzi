@@ -1,5 +1,4 @@
-﻿using Application.UseCases.Appointment.Queries.GetAppointment;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Enums;
 using Domain.Tests;
 

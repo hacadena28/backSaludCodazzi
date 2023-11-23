@@ -1,10 +1,11 @@
 using Api.Examples.AppointmentExamples;
 using Api.Filters;
 using Application.Common.Exceptions;
-using Application.UseCases.Appointment.Queries.GetAppointment;
-using Application.UseCases.Appointments.Commands.AppointmentCreate;
-using Application.UseCases.Appointments.Commands.AppointmentDelete;
+using Application.Common.Helpers.Pagination;
+using Application.UseCases.Appointments.Commands.AppointmentsCreate;
+using Application.UseCases.Appointments.Commands.AppointmentsDelete;
 using Application.UseCases.Appointments.Commands.AppointmentUpdate;
+using Application.UseCases.Appointments.Queries.GetAppointments;
 
 namespace Api.Controllers;
 
@@ -25,12 +26,17 @@ public class AppointmentController
     public async Task Create(AppointmentCreateCommand command) => await _mediator.Send(command);
 
     [HttpGet]
-    [SwaggerRequestExample(typeof(AppointmentQuery), typeof(GetAppointmentQueryExample))]
-    [SwaggerResponseExample(StatusCodes.Status200OK, typeof(AppointmentCreateResponseExample))]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
-    public async Task<List<AppointmentDto>> Get() => await _mediator.Send(new AppointmentQuery());
+    public async Task<ResponsePagination<AppointmentDto>> Get(int page = 1, int recordsPerPage = 20)
+    {
+        return await _mediator.Send(new PaginationAppointmentQuery
+        {
+            Page = page,
+            RecordsPerPage = recordsPerPage
+        });
+    }
 
     [HttpPut("{id:guid}")]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]

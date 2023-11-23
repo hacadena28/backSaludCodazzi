@@ -2,11 +2,11 @@
 
 namespace Api.Examples.MedicalHistoryExamples
 {
-    public class GetMedicalHistoryQueryExample : IMultipleExamplesProvider<MedicalHistoryQuery>
+    public class GetMedicalHistoryQueryExample : IMultipleExamplesProvider<PaginationMedicalHistoryQuery>
     {
-        public IEnumerable<SwaggerExample<MedicalHistoryQuery>> GetExamples()
+        public IEnumerable<SwaggerExample<PaginationMedicalHistoryQuery>> GetExamples()
         {
-            var medicalHistoryQuery = new MedicalHistoryQuery();
+            var medicalHistoryQuery = new PaginationMedicalHistoryQuery();
             yield return SwaggerExample.Create("MedicalHistoryQuery", medicalHistoryQuery);
         }
     }
