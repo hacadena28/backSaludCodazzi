@@ -13,8 +13,8 @@ public class Appointment : EntityBase<Guid>
 
     public Guid PatientId { get; set; }
     public virtual Patient Patient { get; set; }
-    public Guid MedicalHistoryId { get; set; }
-    public virtual MedicalHistory MedicalHistory { get; set; }
+    public Guid? MedicalHistoryId { get; set; }
+    public virtual MedicalHistory? MedicalHistory { get; set; }
     public Guid DoctorId { get; set; }
     public virtual Doctor Doctor { get; set; }
 

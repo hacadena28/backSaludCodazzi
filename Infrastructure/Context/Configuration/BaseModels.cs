@@ -126,6 +126,54 @@ public class EpsConfig : IEntityTypeConfiguration<Eps>
     }
 }
 
+public class AdminConfig : IEntityTypeConfiguration<Admin>
+{
+    public void Configure(EntityTypeBuilder<Admin> builder)
+    {
+        builder
+            .ToTable("Admin", SchemaNames.Base);
+        builder
+            .Property(x => x.FirstName)
+            .IsRequired()
+            .HasMaxLength(40);
+        builder
+            .Property(x => x.SecondName)
+            .IsRequired()
+            .HasMaxLength(40);
+        builder
+            .Property(x => x.LastName)
+            .IsRequired()
+            .HasMaxLength(40);
+        builder
+            .Property(x => x.SecondLastName)
+            .IsRequired()
+            .HasMaxLength(40);
+        builder
+            .Property(x => x.DocumentType)
+            .IsRequired();
+        builder
+            .Property(x => x.DocumentNumber)
+            .IsRequired()
+            .HasMaxLength(20);
+        builder
+            .Property(x => x.Email)
+            .IsRequired()
+            .HasMaxLength(40);
+        builder
+            .Property(x => x.Phone)
+            .IsRequired()
+            .HasMaxLength(20);
+        builder
+            .Property(x => x.Address)
+            .IsRequired()
+            .HasMaxLength(40);
+        builder
+            .Property(x => x.Birthdate)
+            .IsRequired()
+            .HasMaxLength(20);
+    }
+}
+
 public class DoctortConfig : IEntityTypeConfiguration<Doctor>
 {
     public void Configure(EntityTypeBuilder<Doctor> builder)
@@ -218,7 +266,8 @@ public class AppointmentConfig : IEntityTypeConfiguration<Appointment>
         builder
             .HasOne(x => x.MedicalHistory)
             .WithOne()
-            .HasForeignKey<Appointment>(x => x.MedicalHistoryId);
+            .HasForeignKey<Appointment>(x => x.MedicalHistoryId)
+            .IsRequired(false);
         builder
             .HasOne(x => x.Doctor)
             .WithMany()

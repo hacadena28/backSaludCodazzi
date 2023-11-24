@@ -20,9 +20,35 @@ public class AppointmentService
         await _appointmentRepository.AddAsync(appointment);
     }
 
-    public async Task<Appointment> GetById(Appointment appointment)
+    public async Task<Appointment> GetById(Guid appointmentId)
     {
-        return await _appointmentRepository.GetByIdAsync(appointment.Id);
+        return await _appointmentRepository.GetByIdAsync(appointmentId);
+    }
+
+    public async Task<PagedResult<Appointment>> GetByPatientId(Guid patientId, int page, int pageSize)
+    {
+        var result = await _appointmentRepository.GetPagedFilterAsync(
+            page: page,
+            pageSize: pageSize,
+            filter: e => e.PatientId == patientId,
+            orderBy: null,
+            includeStringProperties: "",
+            isTracking: false);
+
+        return result;
+    }
+
+    public async Task<PagedResult<Appointment>> GetByDoctorId(Guid doctorId, int page, int pageSize)
+    {
+        var result = await _appointmentRepository.GetPagedFilterAsync(
+            page: page,
+            pageSize: pageSize,
+            filter: e => e.DoctorId == doctorId,
+            orderBy: null,
+            includeStringProperties: "",
+            isTracking: false);
+
+        return result;
     }
 
     public async Task RescheduleAppointment(Guid id, DateTime newDate)
@@ -56,4 +82,5 @@ public class AppointmentService
 
         await _appointmentRepository.UpdateAsync(appointmentSearched);
     }
+
 }

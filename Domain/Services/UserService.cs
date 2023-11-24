@@ -10,10 +10,15 @@ namespace Domain.Services;
 public class UserService
 {
     private readonly IGenericRepository<User> _userRepository;
+    private readonly IGenericRepository<Doctor> _doctorRepository;
+    private readonly IGenericRepository<Patient> _patientRepository;
 
-    public UserService(IGenericRepository<User> userRepository)
+    public UserService(IGenericRepository<User> userRepository, IGenericRepository<Doctor> doctorRepository,
+        IGenericRepository<Patient> patientRepository)
     {
         _userRepository = userRepository;
+        _doctorRepository = doctorRepository;
+        _patientRepository = patientRepository;
     }
 
     public async Task CreateUser(User user)
@@ -34,6 +39,42 @@ public class UserService
             includeStringProperties: "Person",
             isTracking: false
         );
+    }
+
+    public async Task<User> GetUsersDoctorByDocumentNumber(string documentNumber)
+    {
+        var searchedDoctor = await _doctorRepository.GetPagedFilterAsync(page: 1, pageSize: 20,
+            filter: d => d.DocumentNumber == documentNumber,
+            orderBy: null,
+            includeStringProperties: "",
+            isTracking: false);
+
+        var searchedUser = await _userRepository.GetAsync(
+            filter: u => u.PersonId == searchedDoctor.Records.FirstOrDefault().Id,
+            orderBy: null,
+            includeStringProperties: "Person",
+            isTracking: false
+        );
+
+        return searchedUser.FirstOrDefault();
+    }
+
+    public async Task<User> GetUsersPatientByDocumentNumber(string documentNumber)
+    {
+        var searchedPatient = await _patientRepository.GetPagedFilterAsync(page: 1, pageSize: 20,
+            filter: p => p.DocumentNumber == documentNumber,
+            orderBy: null,
+            includeStringProperties: "",
+            isTracking: false);
+
+        var searchedUser = await _userRepository.GetAsync(
+            filter: u => u.PersonId == searchedPatient.Records.FirstOrDefault().Id,
+            orderBy: null,
+            includeStringProperties: "Person",
+            isTracking: false
+        );
+
+        return searchedUser.FirstOrDefault();
     }
 
     public async Task<PagedResult<User>> GetUsersPaginationByRole(int page, int pageSize, Role role)

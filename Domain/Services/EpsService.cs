@@ -25,6 +25,19 @@ public class EpsService
         return await _epsRepository.GetByIdAsync(epsId);
     }
 
+    public async Task<Eps> GetByName(string name)
+    {
+        var result = await _epsRepository.GetPagedFilterAsync(
+            page: 1,
+            pageSize: 20,
+            filter: e => e.Name == name,
+            orderBy: null,
+            includeStringProperties: "",
+            isTracking: false);
+
+        return result.Records.FirstOrDefault();
+    }
+
     public async Task Update(Guid epsId, string newName)
     {
         var eps = await _epsRepository.GetByIdAsync(epsId);

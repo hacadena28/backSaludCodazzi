@@ -34,10 +34,14 @@ namespace Application.UseCases.Users.Commands.UserDelete
                 var doctor = await _doctorRepository.GetByIdAsync(user.PersonId);
                 await _doctorRepository.DeleteAsync(doctor);
             }
-            else
+            else if(user.Role == Role.Patient)
             {
                 var patient = await _patientRepository.GetByIdAsync(user.PersonId);
                 await _patientRepository.DeleteAsync(patient);
+            }
+            else
+            {
+                
             }
 
             await _userService.DeleteUser(user);

@@ -19,6 +19,18 @@ public class PatientService
         return await _patientRepository.GetByIdAsync(patientId);
     }
 
+    public async Task<Patient> GetPatientByDocumentNumber(string documentNumber)
+    {
+        var searchedPatient = await _patientRepository.GetPagedFilterAsync(page: 1, pageSize: 20,
+            filter: p => p.DocumentNumber == documentNumber,
+            orderBy: null,
+            includeStringProperties: "",
+            isTracking: false);
+
+        return searchedPatient.Records.FirstOrDefault();
+    }
+
+
     public async Task UpdatePatient(Guid id, string firstName, string secondName, string lastName,
         string secondLastName, string email, string phone,
         string address)

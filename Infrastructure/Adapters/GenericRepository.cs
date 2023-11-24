@@ -66,8 +66,7 @@ public class GenericRepository<E> : IGenericRepository<E> where E : DomainEntity
     }
 
 
-    public async Task<PagedResult<E>> GetPagedFilterAsync(int page, int pageSize,
-        Expression<Func<E, bool>>? filter =
+    public async Task<PagedResult<E>> GetPagedFilterAsync(int page, int pageSize, Expression<Func<E, bool>>? filter =
             null,
         Func<IQueryable<E>, IOrderedQueryable<E>>? orderBy = null, string includeStringProperties = "",
         bool isTracking = false)

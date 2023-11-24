@@ -10,13 +10,16 @@ namespace Application.UseCases.Users.Commands.UserCreatePatient;
 public class UserCreatePatientCommandHandler : IRequestHandler<UserCreatePatientCommand>
 {
     private readonly UserService _userService;
+    private readonly PatientService _patientService;
     private readonly IGenericRepository<Patient> _patientRepository;
     private readonly IGenericRepository<Eps> _epsRepository;
 
-    public UserCreatePatientCommandHandler(UserService userService, IGenericRepository<Patient> patientRepository,
+    public UserCreatePatientCommandHandler(UserService userService, PatientService patientService,
+        IGenericRepository<Patient> patientRepository,
         IGenericRepository<Eps> epsRepository)
     {
         _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+        _patientService = patientService ?? throw new ArgumentNullException(nameof(patientService));
         _patientRepository = patientRepository ?? throw new ArgumentNullException(nameof(patientRepository));
         _epsRepository = epsRepository ?? throw new ArgumentNullException(nameof(epsRepository));
     }
@@ -42,6 +45,12 @@ public class UserCreatePatientCommandHandler : IRequestHandler<UserCreatePatient
             request.Patient.Birthdate,
             request.Patient.EpsId
         );
+
+        var searchedDoctor = await _patientService.GetPatientByDocumentNumber(request.Patient.DocumentNumber);
+        if (searchedDoctor != null)
+        {
+            throw new CoreBusinessException("El usuario ya esta registrado en la base de datos");
+        }
 
         var user = new User(request.Password, Role.Patient, patient);
         await _patientRepository.AddAsync(patient);

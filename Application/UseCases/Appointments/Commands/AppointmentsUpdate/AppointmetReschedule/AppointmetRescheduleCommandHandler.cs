@@ -1,7 +1,7 @@
 using Domain.Ports;
 using Domain.Services;
 
-namespace Application.UseCases.Appointments.Commands.AppointmentUpdate.AppointmetReschedule
+namespace Application.UseCases.Appointments.Commands.AppointmentsUpdate.AppointmetReschedule
 {
     public class AppointmetRescheduleCommandHandler : IRequestHandler<AppointmetRescheduleCommand>
     {

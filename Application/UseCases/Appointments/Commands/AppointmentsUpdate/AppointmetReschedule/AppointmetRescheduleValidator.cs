@@ -1,4 +1,4 @@
-﻿namespace Application.UseCases.Appointments.Commands.AppointmentUpdate.AppointmetReschedule
+﻿namespace Application.UseCases.Appointments.Commands.AppointmentsUpdate.AppointmetReschedule
 {
     public class AppointmetRescheduleValidator : AbstractValidator<AppointmetRescheduleCommand>
     {

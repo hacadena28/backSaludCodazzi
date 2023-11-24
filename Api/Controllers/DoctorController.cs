@@ -3,6 +3,9 @@ using Application.Common.Exceptions;
 using Application.Common.Helpers.Pagination;
 using Application.UseCases.Medics.Commands.DoctorUpdate;
 using Application.UseCases.Medics.Queries.GetDoctor;
+using Application.UseCases.Medics.Queries.GetDoctorByDocumentNumber;
+using Application.UseCases.Medics.Queries.GetDoctorByID;
+using Application.UseCases.Users.Queries.GetPaginationUser;
 
 namespace Api.Controllers;
 
@@ -26,6 +29,24 @@ public class DoctorController
             Page = page,
             RecordsPerPage = recordsPerPage
         });
+    }
+
+    [HttpGet("{id:guid}")]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(DoctorDto), StatusCodes.Status200OK)]
+    public async Task<DoctorDto> GetById(Guid id)
+    {
+        return await _mediator.Send(new DoctorByIdQuery(id));
+    }
+
+    [HttpGet("documentNumber/{documentNumber}")]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+    public async Task<DoctorDto> GetByDocumentNumber(string documentNumber)
+    {
+        return await _mediator.Send(new DoctorByDocumentNumberQuery(documentNumber));
     }
 
     [HttpPut("{id:guid}")]

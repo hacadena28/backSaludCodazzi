@@ -1,21 +1,28 @@
 ﻿using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Services;
 
 namespace Application.UseCases.Epses.Commands.EpsCreate;
 
 public class EpsCreateCommandHandler : IRequestHandler<EpsCreateCommand>
 {
-    private readonly EpsService _service;
+    private readonly EpsService _epsService;
 
-    public EpsCreateCommandHandler(EpsService service)
+    public EpsCreateCommandHandler(EpsService epsService)
     {
-        _service = service ?? throw new ArgumentNullException(nameof(service));
+        _epsService = epsService ?? throw new ArgumentNullException(nameof(epsService));
     }
 
     public async Task<Unit> Handle(EpsCreateCommand request, CancellationToken cancellationToken)
     {
+        var searchedEps = await _epsService.GetByName(request.Name.Trim());
+        if (searchedEps != null)
+        {
+            throw new CoreBusinessException("La Eps ya existe");
+        }
+
         var eps = new Eps(request.Name.Trim());
-        await _service.CreateEps(eps);
+        await _epsService.CreateEps(eps);
         return Unit.Value;
     }
 }

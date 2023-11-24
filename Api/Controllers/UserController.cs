@@ -7,6 +7,7 @@ using Application.UseCases.Users.Commands.UserUpdate;
 using Application.UseCases.Users.Commands.UserCreatePatient;
 using Application.UseCases.Users.Commands.UserDelete;
 using Application.UseCases.Users.Queries.GetPaginationUser;
+using Application.UseCases.Users.Queries.GetUserByDocumentNumber;
 using Application.UseCases.Users.Queries.GetUserByID;
 using Application.UseCases.Users.Queries.GetUserByRol;
 using Application.UseCases.Users.Queries.GetUserPaginationByRol;
@@ -86,6 +87,15 @@ public class UserController
     public async Task<UserDto> GetById(Guid id)
     {
         return await _mediator.Send(new UserByIdQuery(id));
+    }
+
+    [HttpGet("documentNumber/{documentNumber}")]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+    public async Task<UserDto> GetByDocumentNumber(string documentNumber)
+    {
+        return await _mediator.Send(new UserByDocumentNumberQuery(documentNumber));
     }
 
 
