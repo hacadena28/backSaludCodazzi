@@ -1,14 +1,14 @@
 using Domain.Ports;
 using Domain.Services;
 
-namespace Application.UseCases.Appointments.Commands.AppointmentsUpdate.AppointmetAttended
+namespace Application.UseCases.Appointments.Commands.AppointmentsUpdate.AppointmetChangeState
 {
-    public class AppointmetAttendedCommandHandler : IRequestHandler<AppointmetAttendedCommand>
+    public class AppointmetChangeStateCommandHandler : IRequestHandler<AppointmetChangeStateCommand>
     {
         private readonly AppointmentService _appointmentService;
         private readonly IGenericRepository<Domain.Entities.Appointment> _appointmentRepository;
 
-        public AppointmetAttendedCommandHandler(AppointmentService appointmentService,
+        public AppointmetChangeStateCommandHandler(AppointmentService appointmentService,
             IGenericRepository<Domain.Entities.Appointment> appointmentRepository)
         {
             _appointmentService = appointmentService ?? throw new ArgumentNullException(nameof(appointmentService));
@@ -16,11 +16,12 @@ namespace Application.UseCases.Appointments.Commands.AppointmentsUpdate.Appointm
                 appointmentRepository ?? throw new ArgumentNullException(nameof(appointmentRepository));
         }
 
-        public async Task<Unit> Handle(AppointmetAttendedCommand request,
+        public async Task<Unit> Handle(AppointmetChangeStateCommand request,
             CancellationToken cancellationToken)
         {
-            await _appointmentService.CancelAppointment(
-                request.Id);
+            await _appointmentService.ChangeStateAppointment(
+                request.Id, request.State,
+                request.NewDate);
             return Unit.Value;
         }
     }

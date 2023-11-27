@@ -4,13 +4,12 @@ using Application.Common.Exceptions;
 using Application.Common.Helpers.Pagination;
 using Application.UseCases.Appointments.Commands.AppointmentsCreate;
 using Application.UseCases.Appointments.Commands.AppointmentsDelete;
-using Application.UseCases.Appointments.Commands.AppointmentsUpdate.AppointmetAttended;
-using Application.UseCases.Appointments.Commands.AppointmentsUpdate.AppointmetCancel;
-using Application.UseCases.Appointments.Commands.AppointmentsUpdate.AppointmetReschedule;
+using Application.UseCases.Appointments.Commands.AppointmentsUpdate.AppointmetChangeState;
 using Application.UseCases.Appointments.Queries.GetAppointmentByDoctorId;
 using Application.UseCases.Appointments.Queries.GetAppointmentByID;
 using Application.UseCases.Appointments.Queries.GetAppointmentByPatientId;
 using Application.UseCases.Appointments.Queries.GetAppointments;
+using Domain.Enums;
 
 namespace Api.Controllers;
 
@@ -81,39 +80,11 @@ public class AppointmentController
     }
 
 
-    [HttpPut("Cancel/{id:guid}")]
+    [HttpPut("{id:guid}")]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
-    public async Task CancelAppointment(AppointmetCancelCommand command, Guid id)
-    {
-        if (id != command.Id)
-        {
-            throw new ConflictException("The id of route no is the same of the command");
-        }
-
-        await _mediator.Send(command);
-    }
-
-    [HttpPut("attended/{id:guid}")]
-    [SwaggerResponseExample(400, typeof(ErrorResponse))]
-    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
-    public async Task AttendedAppointment(AppointmetAttendedCommand command, Guid id)
-    {
-        if (id != command.Id)
-        {
-            throw new ConflictException("The id of route no is the same of the command");
-        }
-
-        await _mediator.Send(command);
-    }
-
-    [HttpPut("reschedule/{id:guid}")]
-    [SwaggerResponseExample(400, typeof(ErrorResponse))]
-    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
-    public async Task Update(AppointmetRescheduleCommand command, Guid id)
+    public async Task CancelAppointment(AppointmetChangeStateCommand command, Guid id)
     {
         if (id != command.Id)
         {

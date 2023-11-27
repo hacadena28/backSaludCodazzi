@@ -8,6 +8,5 @@ public enum AppointmentState
     Scheduled,
     Rescheduled,
     Canceled,
-    Attended,
-    NoShow
+    Attended
 }

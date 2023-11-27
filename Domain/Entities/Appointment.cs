@@ -1,4 +1,5 @@
 using Domain.Enums;
+using Domain.Exceptions;
 
 namespace Domain.Entities;
 
@@ -45,15 +46,23 @@ public class Appointment : EntityBase<Guid>
 
     public void RescheduleAppointment(DateTime newDate)
     {
-        if (newDate != null && !Date.Equals(newDate))
+        if (State.Equals(AppointmentState.Scheduled))
         {
-            if ((newDate - DateTime.Today).TotalDays <= 1)
+            if (newDate != null && !Date.Equals(newDate))
             {
-                throw new Exception("La nueva fecha de la cita debe ser al menos un día posterior a la fecha actual.");
-            }
+                if ((newDate - DateTime.Today).TotalDays <= 1)
+                {
+                    throw new Exception(
+                        "La nueva fecha de la cita debe ser al menos un día posterior a la fecha actual.");
+                }
 
-            Date = newDate;
-            State = AppointmentState.Rescheduled;
+                Date = newDate;
+                State = AppointmentState.Rescheduled;
+            }
+        }
+        else
+        {
+            throw new CoreBusinessException("Solo se puede reagendar citas que no esten reagendadas");
         }
     }
 
@@ -63,6 +72,10 @@ public class Appointment : EntityBase<Guid>
             State.Equals(AppointmentState.Scheduled) ||
             State.Equals(AppointmentState.Rescheduled))
             State = AppointmentState.Canceled;
+        else
+        {
+            throw new CoreBusinessException("No se puede Cancelar una cita ya atendida o cancelada");
+        }
     }
 
     public void AppointmentAttended()
@@ -72,6 +85,10 @@ public class Appointment : EntityBase<Guid>
         {
             State = AppointmentState.Attended;
             AppointmentFinalDate = DateTime.Now;
+        }
+        else
+        {
+            throw new CoreBusinessException("No se puede cambiar el estado a una cita cancelada o atendida");
         }
     }
 }

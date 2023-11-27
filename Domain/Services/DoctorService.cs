@@ -33,9 +33,9 @@ public class DoctorService
         return response.Records.FirstOrDefault();
     }
 
-    public async Task UpdateDoctor(Guid id, string firstName, string secondName, string lastName,
-        string secondLastName, string email, string phone,
-        string address)
+    public async Task UpdateDoctor(Guid id, string? firstName, string? secondName, string? lastName,
+        string? secondLastName, string? email, string? phone,
+        string? address)
     {
         var doctorSearched = await _doctorRepository.GetByIdAsync(id);
         _ = doctorSearched ?? throw new CoreBusinessException(Messages.ResourceNotFoundException);

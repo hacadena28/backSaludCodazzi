@@ -31,9 +31,9 @@ public class PatientService
     }
 
 
-    public async Task UpdatePatient(Guid id, string firstName, string secondName, string lastName,
-        string secondLastName, string email, string phone,
-        string address)
+    public async Task UpdatePatient(Guid id, string? firstName, string? secondName, string? lastName,
+        string? secondLastName, string? email, string? phone,
+        string? address)
     {
         var patientSearched = await _patientRepository.GetByIdAsync(id);
         _ = patientSearched ?? throw new CoreBusinessException(Messages.AlredyExistException);

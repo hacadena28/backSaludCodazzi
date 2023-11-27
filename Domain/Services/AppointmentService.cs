@@ -51,36 +51,35 @@ public class AppointmentService
         return result;
     }
 
-    public async Task RescheduleAppointment(Guid id, DateTime newDate)
-    {
-        var appointmentSearched = await _appointmentRepository.GetByIdAsync(id);
-        _ = appointmentSearched ?? throw new CoreBusinessException(Messages.ResourceNotFoundException);
-        appointmentSearched.RescheduleAppointment(newDate);
-
-        await _appointmentRepository.UpdateAsync(appointmentSearched);
-    }
-
     public async Task Delete(Appointment appointment)
     {
         await _appointmentRepository.DeleteAsync(appointment);
     }
 
-    public async Task CancelAppointment(Guid id)
+    public async Task ChangeStateAppointment(Guid id, AppointmentState state, DateTime? newDate)
     {
         var appointmentSearched = await _appointmentRepository.GetByIdAsync(id);
         _ = appointmentSearched ?? throw new CoreBusinessException(Messages.ResourceNotFoundException);
-        appointmentSearched.CancelAppointment();
+        if (state.Equals(AppointmentState.Canceled))
+        {
+            appointmentSearched.CancelAppointment();
+        }
+        else if (state.Equals(AppointmentState.Rescheduled))
+        {
+            if (newDate.HasValue)
+            {
+                appointmentSearched.RescheduleAppointment(newDate.Value);
+            }
+        }
+        else if (state.Equals(AppointmentState.Attended))
+        {
+            appointmentSearched.AppointmentAttended();
+        }
+        else
+        {
+            throw new CoreBusinessException("No se puede cambiar el estado a una cita ya atendida");
+        }
 
         await _appointmentRepository.UpdateAsync(appointmentSearched);
     }
-
-    public async Task AppointmentAttended(Guid id)
-    {
-        var appointmentSearched = await _appointmentRepository.GetByIdAsync(id);
-        _ = appointmentSearched ?? throw new CoreBusinessException(Messages.ResourceNotFoundException);
-        appointmentSearched.AppointmentAttended();
-
-        await _appointmentRepository.UpdateAsync(appointmentSearched);
-    }
-
 }

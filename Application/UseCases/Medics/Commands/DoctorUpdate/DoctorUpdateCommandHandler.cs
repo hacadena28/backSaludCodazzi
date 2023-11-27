@@ -19,13 +19,13 @@ namespace Application.UseCases.Medics.Commands.DoctorUpdate
         public async Task<Unit> Handle(DoctorUpdateCommand request, CancellationToken cancellationToken)
         {
             await _doctorService.UpdateDoctor(request.Id,
-                request.FirstName,
-                request.SecondName,
-                request.LastName,
-                request.SecondLastName,
-                request.Email,
-                request.Phone,
-                request.Address
+                request.FirstName?.Trim(),
+                request.SecondName?.Trim(),
+                request.LastName?.Trim(),
+                request.SecondLastName?.Trim(),
+                request.Email?.Trim(),
+                request.Phone?.Trim(),
+                request.Address?.Trim()
             );
 
             return Unit.Value;

@@ -20,13 +20,13 @@ namespace Application.UseCases.Patients.Commands.PatientUpdate
         {
             await _patientService.UpdatePatient(
                 request.Id,
-                request.FirstName.Trim(),
-                request.SecondName.Trim(),
-                request.LastName.Trim(),
-                request.SecondLastName.Trim(),
-                request.Email.Trim(),
-                request.Phone.Trim(),
-                request.Address.Trim());
+                request.FirstName?.Trim(),
+                request.SecondName?.Trim(),
+                request.LastName?.Trim(),
+                request.SecondLastName?.Trim(),
+                request.Email?.Trim(),
+                request.Phone?.Trim(),
+                request.Address?.Trim());
 
             return Unit.Value;
         }
