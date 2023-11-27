@@ -71,14 +71,14 @@ public class UserController
         });
     }
 
-    [HttpGet("{role}")]
-    [SwaggerResponseExample(400, typeof(ErrorResponse))]
-    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
-    public async Task<List<UserDto>> GetByRol(Role role)
-    {
-        return await _mediator.Send(new UserByRolQuery(role));
-    }
+    // [HttpGet("{role}")]
+    // [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    // [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    // [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+    // public async Task<List<UserDto>> GetByRol(Role role)
+    // {
+    //     return await _mediator.Send(new UserByRolQuery(role));
+    // }
 
     [HttpGet("{id:guid}")]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
