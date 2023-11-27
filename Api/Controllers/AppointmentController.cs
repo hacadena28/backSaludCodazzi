@@ -9,6 +9,9 @@ using Application.UseCases.Appointments.Queries.GetAppointmentByDoctorId;
 using Application.UseCases.Appointments.Queries.GetAppointmentByID;
 using Application.UseCases.Appointments.Queries.GetAppointmentByPatientId;
 using Application.UseCases.Appointments.Queries.GetAppointments;
+using Application.UseCases.Appointments.Queries.GetAppointmentsForDoctorByDay;
+using Application.UseCases.Appointments.Queries.GetAppointmentsForDoctorByMonth;
+using Application.UseCases.Appointments.Queries.GetAppointmentsForDoctorByWeek;
 using Domain.Enums;
 
 namespace Api.Controllers;
@@ -79,12 +82,42 @@ public class AppointmentController
         });
     }
 
+    [HttpGet("day")]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
+    public async Task<List<AppointmentDto>> GetAppointmentsForDoctorByDayQuery(Guid doctorId, DateTime date)
+    {
+        return await _mediator.Send(new AppointmentsForDoctorByDayQuery(doctorId, date)
+        );
+    }
+
+    [HttpGet("week")]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
+    public async Task<List<AppointmentDto>> GetAppointmentsForDoctorByWeekQuery(Guid doctorId, int year, int weekNumber)
+    {
+        return await _mediator.Send(new AppointmentsForDoctorByWeekQuery(doctorId, year, weekNumber)
+        );
+    }
+
+    [HttpGet("month")]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
+    public async Task<List<AppointmentDto>> GetAppointmentsForDoctorByMonthQuery(Guid doctorId, int year, int month)
+    {
+        return await _mediator.Send(new AppointmentsForDoctorByMonthQuery(doctorId, year, month)
+        );
+    }
+
 
     [HttpPut("{id:guid}")]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
-    public async Task CancelAppointment(AppointmetChangeStateCommand command, Guid id)
+    public async Task AppointmentChangeState(AppointmetChangeStateCommand command, Guid id)
     {
         if (id != command.Id)
         {
@@ -93,6 +126,7 @@ public class AppointmentController
 
         await _mediator.Send(command);
     }
+
 
     [HttpDelete("{id:guid}")]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]

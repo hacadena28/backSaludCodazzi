@@ -1,3 +1,4 @@
+using System.Globalization;
 using Domain.Entities;
 using Domain.Enums;
 using Domain.Exceptions;
@@ -17,7 +18,14 @@ public class AppointmentService
 
     public async Task Create(Appointment appointment)
     {
-        await _appointmentRepository.AddAsync(appointment);
+        if (await DoctorAvailable(appointment.DoctorId, appointment.AppointmentStartDate))
+        {
+            await _appointmentRepository.AddAsync(appointment);
+        }
+        else
+        {
+            throw new CoreBusinessException("Fecha no disponible");
+        }
     }
 
     public async Task<Appointment> GetById(Guid appointmentId)
@@ -51,6 +59,66 @@ public class AppointmentService
         return result;
     }
 
+    public async Task<IEnumerable<Appointment>> GetAppointmentsForDoctorByMonth(Guid doctorId, int year, int month)
+    {
+        DateTime startDate = new DateTime(year, month, 1);
+        DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+
+
+        var result = await _appointmentRepository.GetAsync(
+            filter: a =>
+                a.DoctorId == doctorId &&
+                a.AppointmentStartDate >= startDate &&
+                a.AppointmentStartDate <= endDate, isTracking: true);
+        return result;
+    }
+
+
+    public async Task<IEnumerable<Appointment>> GetAppointmentsForDoctorByWeek(Guid doctorId, int year, int weekNumber)
+    {
+        DateTime startDateOfWeek = FirstDateOfWeek(year, weekNumber);
+        DateTime endDateOfWeek = startDateOfWeek.AddDays(6);
+
+
+        var result = await _appointmentRepository.GetAsync(
+            filter: a =>
+                a.DoctorId == doctorId &&
+                a.AppointmentStartDate >= startDateOfWeek &&
+                a.AppointmentStartDate <= endDateOfWeek, isTracking:
+            true);
+        return result;
+    }
+
+    public DateTime FirstDateOfWeek(int year, int weekNumber)
+    {
+        DateTime jan1 = new DateTime(year, 1, 1);
+        int daysOffset = DayOfWeek.Thursday - jan1.DayOfWeek + 1;
+        DateTime firstThursday = jan1.AddDays(daysOffset);
+        var cal = CultureInfo.CurrentCulture.Calendar;
+        int firstWeek = cal.GetWeekOfYear(firstThursday, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+        var weekNum = weekNumber;
+        if (firstWeek <= 1)
+        {
+            weekNum -= 1;
+        }
+
+        var result = firstThursday.AddDays(weekNum * 7);
+        return result;
+    }
+
+    public async Task<IEnumerable<Appointment>> GetAppointmentsForDoctorByDay(Guid doctorId, DateTime date)
+    {
+        DateTime startDate = date.Date;
+        DateTime endDate = date.Date.AddDays(1).AddTicks(-1);
+
+
+        var result = await _appointmentRepository.GetAsync(filter: a =>
+            a.DoctorId == doctorId &&
+            a.AppointmentStartDate >= startDate &&
+            a.AppointmentStartDate <= endDate, isTracking: true);
+        return result;
+    }
+
     public async Task Delete(Appointment appointment)
     {
         await _appointmentRepository.DeleteAsync(appointment);
@@ -81,5 +149,18 @@ public class AppointmentService
         }
 
         await _appointmentRepository.UpdateAsync(appointmentSearched);
+    }
+
+    public async Task<bool> DoctorAvailable(Guid doctorId, DateTime date)
+    {
+        var existingAppointments = await _appointmentRepository
+            .GetAsync(
+                filter: a => a.DoctorId == doctorId
+                             && a.State != AppointmentState.Canceled
+                             && a.AppointmentStartDate <= date
+                             && a.AppointmentFinalDate > date
+            );
+
+        return !existingAppointments.Any();
     }
 }

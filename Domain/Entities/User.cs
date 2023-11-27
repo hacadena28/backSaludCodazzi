@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Domain.Enums;
 using Domain.Exceptions;
 
@@ -21,6 +22,7 @@ public class User : EntityBase<Guid>
         {
             throw new NumberOfCharactersRequired(Messages.NumberOfCharactersRequired);
         }
+
         Password = password;
         Role = role;
         Person = person;

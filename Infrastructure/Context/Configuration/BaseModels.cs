@@ -18,7 +18,8 @@ public class UserConfig : IEntityTypeConfiguration<User>
         builder
             .Property(x => x.Role)
             .IsRequired()
-            .HasMaxLength(10);
+            .HasMaxLength(10)
+            .HasConversion<string>();
         builder
             .HasOne(x => x.Person)
             .WithOne()
@@ -122,7 +123,8 @@ public class EpsConfig : IEntityTypeConfiguration<Eps>
         builder
             .Property(x => x.State)
             .IsRequired()
-            .HasMaxLength(10);
+            .HasMaxLength(10)
+            .HasConversion<string>();
     }
 }
 
@@ -248,11 +250,13 @@ public class AppointmentConfig : IEntityTypeConfiguration<Appointment>
         builder
             .Property(x => x.State)
             .IsRequired()
-            .HasMaxLength(20);
+            .HasMaxLength(20)
+            .HasConversion<string>();
         builder
             .Property(x => x.Type)
             .IsRequired()
-            .HasMaxLength(20);
+            .HasMaxLength(20)
+            .HasConversion<string>();
         builder
             .Property(x => x.Description)
             .IsRequired()

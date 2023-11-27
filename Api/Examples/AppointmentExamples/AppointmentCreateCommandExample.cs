@@ -10,7 +10,6 @@ namespace Api.Examples.AppointmentExamples
         {
             var appointmentCommand = new AppointmentCreateCommand(
                 DateTime.Now,
-                DateTime.Now,
                 TypeAppointment.General,
                 "Dolor de muelas",
                 new Guid(),

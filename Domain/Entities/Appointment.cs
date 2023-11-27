@@ -21,7 +21,6 @@ public class Appointment : EntityBase<Guid>
 
     public Appointment
     (
-        DateTime date,
         DateTime appointmentStartDate,
         TypeAppointment type,
         string description,
@@ -29,9 +28,9 @@ public class Appointment : EntityBase<Guid>
         Guid doctorId
     )
     {
-        Date = date;
+        Date = DateTime.Now;
         AppointmentStartDate = appointmentStartDate;
-        AppointmentFinalDate = AppointmentStartDate.AddMinutes(30);
+        AppointmentFinalDate = AppointmentStartDate.AddMinutes(29);
         State = AppointmentState.Scheduled;
         Type = type;
         Description = description;
