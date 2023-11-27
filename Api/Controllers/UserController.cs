@@ -89,13 +89,13 @@ public class UserController
         return await _mediator.Send(new UserByIdQuery(id));
     }
 
-    [HttpGet("documentNumber/{documentNumber}")]
+    [HttpGet("documentNumber/{documentNumber},{role}")]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
-    public async Task<UserDto> GetByDocumentNumber(string documentNumber)
+    public async Task<UserDto> GetByDocumentNumber(string documentNumber,Role role)
     {
-        return await _mediator.Send(new UserByDocumentNumberQuery(documentNumber));
+        return await _mediator.Send(new UserByDocumentNumberQuery(documentNumber,role));
     }
 
 

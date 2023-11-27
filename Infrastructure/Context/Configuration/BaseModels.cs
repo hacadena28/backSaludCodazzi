@@ -272,6 +272,8 @@ public class AppointmentConfig : IEntityTypeConfiguration<Appointment>
             .HasOne(x => x.Doctor)
             .WithMany()
             .HasForeignKey(x => x.DoctorId)
-            .IsRequired();
+            .IsRequired()
+            .OnDelete(DeleteBehavior.NoAction);
+        ;
     }
 }

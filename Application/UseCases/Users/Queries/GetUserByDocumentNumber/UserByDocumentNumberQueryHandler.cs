@@ -1,6 +1,8 @@
 using Application.UseCases.Users.Queries.GetPaginationUser;
 using Application.UseCases.Users.Queries.GetUserByID;
 using Domain.Entities;
+using Domain.Enums;
+using Domain.Exceptions;
 using Domain.Ports;
 using Domain.Services;
 
@@ -18,7 +20,16 @@ public class UserByDocumentNumberQueryHandler : IRequestHandler<UserByDocumentNu
 
     public async Task<UserDto> Handle(UserByDocumentNumberQuery request, CancellationToken cancellationToken)
     {
-        var userFilterById = await _userServices.GetUsersDoctorByDocumentNumber(request.DocumentNumber);
+        User userFilterById = null;
+        if (request.role == Role.Doctor)
+            userFilterById = await _userServices.GetUsersDoctorByDocumentNumber(request.DocumentNumber);
+        else if (request.role == Role.Patient)
+            userFilterById = await _userServices.GetUsersPatientByDocumentNumber(request.DocumentNumber);
+        if (userFilterById == null)
+        {
+            throw new CoreBusinessException("usuario no encontrado");
+        }
+
         var data = _mapper.Map<UserDto>(userFilterById);
         return data;
     }
