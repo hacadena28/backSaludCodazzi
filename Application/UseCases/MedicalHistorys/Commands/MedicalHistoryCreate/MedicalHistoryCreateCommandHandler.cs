@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Common.Exceptions;
+using Domain.Entities;
 using Domain.Enums;
 using Domain.Exceptions;
 using Domain.Ports;
@@ -28,7 +29,7 @@ public class MedicalHistoryCreateCommandHandler : IRequestHandler<MedicalHistory
 
         if (doctor == null || patient == null)
         {
-            throw new CoreBusinessException("La etidad patient o doctor no existe");
+            throw new NotFoundException(Messages.EntityNotFound);
         }
 
         var medicalHistory = new MedicalHistory

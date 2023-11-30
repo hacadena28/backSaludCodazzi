@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using Domain;
 using Domain.Entities.Base;
 using Domain.Ports;
 using Infrastructure.Context;
@@ -17,7 +18,7 @@ public class GenericRepository<E> : IGenericRepository<E> where E : DomainEntity
 
     public async Task<E> AddAsync(E entity)
     {
-        _ = entity ?? throw new ArgumentNullException(nameof(entity), "Entity can not be null");
+        _ = entity ?? throw new ArgumentNullException(nameof(entity),Messages.EntityCanNotBeNull );
         _context.Set<E>().Add(entity);
         await CommitAsync();
         return entity;

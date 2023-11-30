@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Common.Exceptions;
+using Domain.Entities;
 using Domain.Exceptions;
 using Domain.Ports;
 using Domain.Services;
@@ -26,7 +27,7 @@ public class AppointmentCreateCommandHandler : IRequestHandler<AppointmentCreate
 
         if (doctor == null || patient == null)
         {
-            throw new CoreBusinessException("La etidad patient o doctor no existe");
+            throw new NotFoundException(Domain.Messages.ResourceNotFoundException);
         }
 
         var appointment = new Appointment

@@ -1,5 +1,6 @@
 using Api.Examples.EpsExamples;
 using Api.Filters;
+using Application;
 using Application.Common.Exceptions;
 using Application.Common.Helpers.Pagination;
 using Application.UseCases.Epses.Commands.EpsCreate;
@@ -69,7 +70,7 @@ public class EpsController
     {
         if (id != command.Id)
         {
-            throw new ConflictException("The id of route no is the same of the command");
+            throw new ConflictException(Messages.IdDoNotMatch);
         }
 
         await _mediator.Send(command);

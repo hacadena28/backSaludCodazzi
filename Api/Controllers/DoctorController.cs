@@ -1,4 +1,5 @@
 using Api.Filters;
+using Application;
 using Application.Common.Exceptions;
 using Application.Common.Helpers.Pagination;
 using Application.UseCases.Medics.Commands.DoctorUpdate;
@@ -56,7 +57,7 @@ public class DoctorController
     {
         if (id != command.Id)
         {
-            throw new ConflictException("The id of route no is the same of the command");
+            throw new ConflictException(Messages.IdDoNotMatch);
         }
 
         await _mediator.Send(command);

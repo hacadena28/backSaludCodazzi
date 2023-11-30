@@ -1,5 +1,6 @@
 using Api.Examples.UserExamples;
 using Api.Filters;
+using Application;
 using Application.Common.Exceptions;
 using Application.Common.Helpers.Pagination;
 using Application.UseCases.Users.Commands.UserCreateDoctor;
@@ -71,15 +72,6 @@ public class UserController
         });
     }
 
-    // [HttpGet("{role}")]
-    // [SwaggerResponseExample(400, typeof(ErrorResponse))]
-    // [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-    // [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
-    // public async Task<List<UserDto>> GetByRol(Role role)
-    // {
-    //     return await _mediator.Send(new UserByRolQuery(role));
-    // }
-
     [HttpGet("{id:guid}")]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
@@ -93,11 +85,10 @@ public class UserController
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
-    public async Task<UserDto> GetByDocumentNumber(string documentNumber,Role role)
+    public async Task<UserDto> GetByDocumentNumber(string documentNumber, Role role)
     {
-        return await _mediator.Send(new UserByDocumentNumberQuery(documentNumber,role));
+        return await _mediator.Send(new UserByDocumentNumberQuery(documentNumber, role));
     }
-
 
     [HttpPut("{id:guid}")]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
@@ -107,12 +98,10 @@ public class UserController
     {
         if (id != command.Id)
         {
-            throw new ConflictException("The id of route no is the same of the command");
+            throw new ConflictException(Messages.IdDoNotMatch);
         }
-
         await _mediator.Send(command);
     }
-
 
     [HttpDelete("{id:guid}")]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]

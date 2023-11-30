@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Common.Exceptions;
+using Domain.Entities;
 using Domain.Enums;
 using Domain.Exceptions;
 using Domain.Ports;
@@ -39,7 +40,7 @@ public class UserCreateDoctorCommandHandler : IRequestHandler<UserCreateDoctorCo
         var searchedDoctor = await _doctorService.GetDoctorByDocumentNumber(request.Doctor.DocumentNumber);
         if (searchedDoctor != null)
         {
-            throw new CoreBusinessException("El usuario ya esta registrado en la base de datos");
+            throw new AlreadyExistException(Domain.Messages.AlredyExistException);
         }
 
         var user = new User(request.Password.Trim(), Role.Doctor, doctor);

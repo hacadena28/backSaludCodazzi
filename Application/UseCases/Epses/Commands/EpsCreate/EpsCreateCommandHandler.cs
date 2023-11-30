@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Common.Exceptions;
+using Domain.Entities;
 using Domain.Exceptions;
 using Domain.Services;
 
@@ -18,7 +19,7 @@ public class EpsCreateCommandHandler : IRequestHandler<EpsCreateCommand>
         var searchedEps = await _epsService.GetByName(request.Name.Trim());
         if (searchedEps != null)
         {
-            throw new CoreBusinessException("La Eps ya existe");
+            throw new AlreadyExistException(Domain.Messages.AlredyExistException);
         }
 
         var eps = new Eps(request.Name.Trim());

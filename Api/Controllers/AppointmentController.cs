@@ -12,7 +12,9 @@ using Application.UseCases.Appointments.Queries.GetAppointments;
 using Application.UseCases.Appointments.Queries.GetAppointmentsForDoctorByDay;
 using Application.UseCases.Appointments.Queries.GetAppointmentsForDoctorByMonth;
 using Application.UseCases.Appointments.Queries.GetAppointmentsForDoctorByWeek;
+using Domain;
 using Domain.Enums;
+using Messages = Application.Messages;
 
 namespace Api.Controllers;
 
@@ -121,7 +123,7 @@ public class AppointmentController
     {
         if (id != command.Id)
         {
-            throw new ConflictException("The id of route no is the same of the command");
+            throw new ConflictException(Messages.IdDoNotMatch);
         }
 
         await _mediator.Send(command);

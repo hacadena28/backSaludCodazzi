@@ -18,13 +18,24 @@ public class AppointmentService
 
     public async Task Create(Appointment appointment)
     {
+        if (!BeAValidDate(appointment.AppointmentStartDate))
+        {
+            throw new InvalidDate(Messages.InvalidDate);
+        }
+
+        if (!BeInValidTimeSlot(appointment.AppointmentStartDate))
+        {
+            throw new DateOutOfRange(Messages.DateOutOfRange);
+        }
+
+
         if (await DoctorAvailable(appointment.DoctorId, appointment.AppointmentStartDate))
         {
             await _appointmentRepository.AddAsync(appointment);
         }
         else
         {
-            throw new CoreBusinessException("Fecha no disponible");
+            throw new DateNotAvailable(Messages.DateNotAvailable);
         }
     }
 
@@ -136,6 +147,16 @@ public class AppointmentService
         {
             if (newDate.HasValue)
             {
+                if (!BeAValidDate(newDate.Value))
+                {
+                    throw new DateNotAvailable(Messages.DateNotAvailable);
+                }
+
+                if (!BeInValidTimeSlot(newDate.Value))
+                {
+                    throw new DateOutOfRange(Messages.DateOutOfRange);
+                }
+
                 appointmentSearched.RescheduleAppointment(newDate.Value);
             }
         }
@@ -145,7 +166,7 @@ public class AppointmentService
         }
         else
         {
-            throw new CoreBusinessException("No se puede cambiar el estado a una cita ya atendida");
+            throw new CannotChangeTheAlreadyAttendedStatus(Messages.CannotChangeTheAlreadyAttendedStatus);
         }
 
         await _appointmentRepository.UpdateAsync(appointmentSearched);
@@ -162,5 +183,16 @@ public class AppointmentService
             );
 
         return !existingAppointments.Any();
+    }
+
+    private bool BeAValidDate(DateTime date)
+    {
+        return !date.Equals(default(DateTime));
+    }
+
+    private bool BeInValidTimeSlot(DateTime date)
+    {
+        return (date.Hour >= 8 && date.Hour < 12 && date.Minute % 30 == 0) ||
+               (date.Hour >= 14 && date.Hour < 18 && date.Minute % 30 == 0);
     }
 }

@@ -21,4 +21,7 @@
     <data name="EntityNotFound" xml:space="preserve">
         <value>Entidad no encontrada</value>
     </data>
+    <data name="IdDoNotMatch" xml:space="preserve">
+        <value>Los Id son diferentes</value>
+    </data>
 </root>

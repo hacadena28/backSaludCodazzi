@@ -54,4 +54,22 @@
     <data name="TheDateIsNotValid" xml:space="preserve">
         <value>La fecha no es valida</value>
     </data>
+    <data name="registorarcarro" xml:space="preserve">
+        <value>carroo registrado</value>
+    </data>
+    <data name="EntityCanNotBeNull" xml:space="preserve">
+        <value>La entidad no puede ser nula</value>
+    </data>
+    <data name="InvalidDate" xml:space="preserve">
+        <value>Fecha no valida</value>
+    </data>
+    <data name="DateOutOfRange" xml:space="preserve">
+        <value>Fecha fuera de rango</value>
+    </data>
+    <data name="DateNotAvailable" xml:space="preserve">
+        <value>Fecha no disponible</value>
+    </data>
+    <data name="CannotChangeTheAlreadyAttendedStatus" xml:space="preserve">
+        <value>no se puede cambiar el estado ya atendido</value>
+    </data>
 </root>

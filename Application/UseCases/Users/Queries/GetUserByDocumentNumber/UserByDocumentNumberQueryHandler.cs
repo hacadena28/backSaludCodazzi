@@ -1,3 +1,4 @@
+using Application.Common.Exceptions;
 using Application.UseCases.Users.Queries.GetPaginationUser;
 using Application.UseCases.Users.Queries.GetUserByID;
 using Domain.Entities;
@@ -27,7 +28,7 @@ public class UserByDocumentNumberQueryHandler : IRequestHandler<UserByDocumentNu
             userFilterById = await _userServices.GetUsersPatientByDocumentNumber(request.DocumentNumber);
         if (userFilterById == null)
         {
-            throw new CoreBusinessException("usuario no encontrado");
+            throw new EntityNotFound(Messages.EntityNotFound);
         }
 
         var data = _mapper.Map<UserDto>(userFilterById);

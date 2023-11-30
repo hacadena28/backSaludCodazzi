@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Common.Exceptions;
+using Domain.Entities;
 using Domain.Enums;
 using Domain.Exceptions;
 using Domain.Ports;
@@ -29,7 +30,7 @@ public class UserCreatePatientCommandHandler : IRequestHandler<UserCreatePatient
         var eps = await _epsRepository.GetByIdAsync(request.Patient.EpsId);
         if (eps == null)
         {
-            throw new CoreBusinessException("Eps no encontrada");
+            throw new EntityNotFound(Messages.EntityNotFound);
         }
 
         var patient = new Patient(
@@ -49,7 +50,7 @@ public class UserCreatePatientCommandHandler : IRequestHandler<UserCreatePatient
         var searchedDoctor = await _patientService.GetPatientByDocumentNumber(request.Patient.DocumentNumber);
         if (searchedDoctor != null)
         {
-            throw new CoreBusinessException("El usuario ya esta registrado en la base de datos");
+            throw new AlreadyExistException(Domain.Messages.AlredyExistException);
         }
 
         var user = new User(request.Password, Role.Patient, patient);
