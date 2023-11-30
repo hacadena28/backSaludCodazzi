@@ -72,4 +72,16 @@
     <data name="CannotChangeTheAlreadyAttendedStatus" xml:space="preserve">
         <value>no se puede cambiar el estado ya atendido</value>
     </data>
+    <data name="NotAuthorized" xml:space="preserve">
+        <value>Usted no esta autorizado</value>
+    </data>
+    <data name="YouDontHavePermissions" xml:space="preserve">
+        <value>Usted no tiene permiso sobre este recurso</value>
+    </data>
+    <data name="UserNotExist" xml:space="preserve">
+        <value>El usuario no existe</value>
+    </data>
+    <data name="IncorrectCredentials" xml:space="preserve">
+        <value>Credenciales incorrectas</value>
+    </data>
 </root>

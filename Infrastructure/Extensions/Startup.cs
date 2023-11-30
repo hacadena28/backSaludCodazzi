@@ -1,4 +1,6 @@
+using Domain.Services;
 using Infrastructure.Extensions.Cors;
+using Infrastructure.Extensions.Jwt;
 using Infrastructure.Extensions.Log;
 using Infrastructure.Extensions.Mapper;
 using Infrastructure.Extensions.Mediator;
@@ -28,7 +30,8 @@ public static class Startup
             .AddLogger()
             .AddPersistence(config)
             .AddDomainServices()
-            .AddRabbitSupport(config);
+            .AddRabbitSupport(config)
+            .AddJwtSettings(config);
     }
 
     public static void UseInfrastructure(this IApplicationBuilder builder, IWebHostEnvironment env)

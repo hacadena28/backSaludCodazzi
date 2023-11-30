@@ -26,6 +26,8 @@ public class UserByDocumentNumberQueryHandler : IRequestHandler<UserByDocumentNu
             userFilterById = await _userServices.GetUsersDoctorByDocumentNumber(request.DocumentNumber);
         else if (request.role == Role.Patient)
             userFilterById = await _userServices.GetUsersPatientByDocumentNumber(request.DocumentNumber);
+        else if (request.role == Role.Admin)
+            userFilterById = await _userServices.GetUsersAdminByDocumentNumber(request.DocumentNumber);
         if (userFilterById == null)
         {
             throw new EntityNotFound(Messages.EntityNotFound);

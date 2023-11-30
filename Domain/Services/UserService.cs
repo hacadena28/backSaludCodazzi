@@ -12,13 +12,15 @@ public class UserService
     private readonly IGenericRepository<User> _userRepository;
     private readonly IGenericRepository<Doctor> _doctorRepository;
     private readonly IGenericRepository<Patient> _patientRepository;
+    private readonly IGenericRepository<Admin> _adminRepository;
 
     public UserService(IGenericRepository<User> userRepository, IGenericRepository<Doctor> doctorRepository,
-        IGenericRepository<Patient> patientRepository)
+        IGenericRepository<Patient> patientRepository, IGenericRepository<Admin> adminRepository)
     {
         _userRepository = userRepository;
         _doctorRepository = doctorRepository;
         _patientRepository = patientRepository;
+        _adminRepository = adminRepository;
     }
 
     public async Task CreateUser(User user)
@@ -51,6 +53,24 @@ public class UserService
 
         var searchedUser = await _userRepository.GetAsync(
             filter: u => u.PersonId == searchedDoctor.Records.FirstOrDefault().Id,
+            orderBy: null,
+            includeStringProperties: "Person",
+            isTracking: false
+        );
+
+        return searchedUser.FirstOrDefault();
+    }
+
+    public async Task<User> GetUsersAdminByDocumentNumber(string documentNumber)
+    {
+        var searchedAdmin = await _adminRepository.GetPagedFilterAsync(page: 1, pageSize: 20,
+            filter: d => d.DocumentNumber == documentNumber,
+            orderBy: null,
+            includeStringProperties: "",
+            isTracking: false);
+
+        var searchedUser = await _userRepository.GetAsync(
+            filter: u => u.PersonId == searchedAdmin.Records.FirstOrDefault().Id,
             orderBy: null,
             includeStringProperties: "Person",
             isTracking: false

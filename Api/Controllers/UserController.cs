@@ -3,6 +3,7 @@ using Api.Filters;
 using Application;
 using Application.Common.Exceptions;
 using Application.Common.Helpers.Pagination;
+using Application.UseCases.Users.Commands.UserCreateAdmin;
 using Application.UseCases.Users.Commands.UserCreateDoctor;
 using Application.UseCases.Users.Commands.UserUpdate;
 using Application.UseCases.Users.Commands.UserCreatePatient;
@@ -34,6 +35,18 @@ public class UserController
     {
         await _mediator.Send(command);
     }
+
+    [HttpPost("admin")]
+    [SwaggerRequestExample(typeof(UserCreateAdminCommand), typeof(UserCreateAdminCommandExample))]
+    [SwaggerResponseExample(StatusCodes.Status200OK, typeof(UserCreateResponseExample))]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+    public async Task CreateUserAdmin(UserCreateAdminCommand command)
+    {
+        await _mediator.Send(command);
+    }
+
 
     [HttpPost("doctor")]
     [SwaggerRequestExample(typeof(UserCreateDoctorCommand), typeof(UserCreateDoctorCommandExample))]
@@ -100,6 +113,7 @@ public class UserController
         {
             throw new ConflictException(Messages.IdDoNotMatch);
         }
+
         await _mediator.Send(command);
     }
 

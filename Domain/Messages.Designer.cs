@@ -114,11 +114,29 @@ namespace Domain {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Credenciales incorrectas.
+        /// </summary>
+        public static string IncorrectCredentials {
+            get {
+                return ResourceManager.GetString("IncorrectCredentials", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Fecha no valida.
         /// </summary>
         public static string InvalidDate {
             get {
                 return ResourceManager.GetString("InvalidDate", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Usted no esta autorizado.
+        /// </summary>
+        public static string NotAuthorized {
+            get {
+                return ResourceManager.GetString("NotAuthorized", resourceCulture);
             }
         }
 
@@ -195,6 +213,15 @@ namespace Domain {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to El usuario no existe.
+        /// </summary>
+        public static string UserNotExist {
+            get {
+                return ResourceManager.GetString("UserNotExist", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to El pais no es correcto debe ser colombia.
         /// </summary>
         public static string WrongCountryException {
@@ -218,6 +245,15 @@ namespace Domain {
         public static string YouCannotEnableItIsAlreadyEnabled {
             get {
                 return ResourceManager.GetString("YouCannotEnableItIsAlreadyEnabled", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Usted no tiene permiso sobre este recurso.
+        /// </summary>
+        public static string YouDontHavePermissions {
+            get {
+                return ResourceManager.GetString("YouDontHavePermissions", resourceCulture);
             }
         }
     }

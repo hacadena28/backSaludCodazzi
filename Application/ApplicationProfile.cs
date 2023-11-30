@@ -1,3 +1,4 @@
+using Application.UseCases.Admins.Queries.GetAdmin;
 using Application.UseCases.Appointments.Queries.GetAppointments;
 using Application.UseCases.Epses.Queries.GetEps;
 using Application.UseCases.MedicalHistorys.Queries.GetMedicalHistory;
@@ -15,6 +16,7 @@ public class ApplicationProfile : Profile
         CreateMap<Appointment, AppointmentDto>().ReverseMap();
         CreateMap<MedicalHistory, MedicalHistoryDto>().ReverseMap();
         CreateMap<Doctor, DoctorDto>().ReverseMap();
+        CreateMap<Admin, AdminDto>().ReverseMap();
         CreateMap<Eps, EpsDto>().ReverseMap();
         CreateMap<Patient, PatientDto>().ReverseMap();
         CreateMap<User, UserDto>().ReverseMap();

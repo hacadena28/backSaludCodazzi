@@ -84,7 +84,7 @@ public class AppointmentController
         });
     }
 
-    [HttpGet("day")]
+    [HttpGet("day/{date:datetime}")]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
@@ -94,23 +94,13 @@ public class AppointmentController
         );
     }
 
-    [HttpGet("week")]
+    [HttpGet("month/{date:datetime}")]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
-    public async Task<List<AppointmentDto>> GetAppointmentsForDoctorByWeekQuery(Guid doctorId, int year, int weekNumber)
+    public async Task<List<AppointmentDto>> GetAppointmentsForDoctorByMonthQuery(Guid doctorId, DateTime date)
     {
-        return await _mediator.Send(new AppointmentsForDoctorByWeekQuery(doctorId, year, weekNumber)
-        );
-    }
-
-    [HttpGet("month")]
-    [SwaggerResponseExample(400, typeof(ErrorResponse))]
-    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
-    public async Task<List<AppointmentDto>> GetAppointmentsForDoctorByMonthQuery(Guid doctorId, int year, int month)
-    {
-        return await _mediator.Send(new AppointmentsForDoctorByMonthQuery(doctorId, year, month)
+        return await _mediator.Send(new AppointmentsForDoctorByMonthQuery(doctorId,date)
         );
     }
 
