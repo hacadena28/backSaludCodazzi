@@ -185,6 +185,13 @@ public class AppointmentService
         return !existingAppointments.Any();
     }
 
+    public async Task RecordMedicalHistory(Guid appointmentId, MedicalHistory medicalHistory)
+    {
+        var existingAppointments = await _appointmentRepository.GetByIdAsync(appointmentId);
+        existingAppointments.RecordMedicalHistory(medicalHistory);
+        await _appointmentRepository.UpdateAsync(existingAppointments);
+    }
+
     private bool BeAValidDate(DateTime date)
     {
         return !date.Equals(default(DateTime));

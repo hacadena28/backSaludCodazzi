@@ -43,6 +43,17 @@ public class Appointment : EntityBase<Guid>
     }
 
 
+    public void RecordMedicalHistory(MedicalHistory medicalHistory)
+    {
+        if (medicalHistory.Equals(null))
+        {
+            throw new ArgumentException(Messages.EntityCanNotBeNull);
+        }
+
+        MedicalHistory = medicalHistory;
+        MedicalHistoryId = medicalHistory.Id;
+    }
+
     public void RescheduleAppointment(DateTime newDate)
     {
         if (State.Equals(AppointmentState.Scheduled))

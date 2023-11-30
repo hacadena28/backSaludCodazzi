@@ -1,3 +1,4 @@
+using System.Data;
 using Domain.Enums;
 
 namespace Domain.Entities;
@@ -32,5 +33,12 @@ public class MedicalHistory : EntityBase<Guid>
 
     public MedicalHistory()
     {
+    }
+
+    public void Update(string? description, string? diagnosis, string? treatment)
+    {
+        if (description != null && !Description.Equals(description) && description != "") Description = description;
+        if (diagnosis != null && !Diagnosis.Equals(diagnosis) && diagnosis != "") Diagnosis = diagnosis;
+        if (treatment != null && !Treatment.Equals(treatment) && treatment != "") Treatment = treatment;
     }
 }
