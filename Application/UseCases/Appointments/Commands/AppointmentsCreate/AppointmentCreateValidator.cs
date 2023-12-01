@@ -11,7 +11,7 @@ public class AppointmentCreateValidator : AbstractValidator<AppointmentCreateCom
             .WithMessage("La fecha debe ser en el futuro.");
         RuleFor(_ => _.Type).NotNull().Must(type => Enum.IsDefined(typeof(TypeAppointment), type));
         RuleFor(_ => _.Description).NotNull().NotEmpty().MinimumLength(1).MaximumLength(250);
-        RuleFor(_ => _.PatientId).NotNull();
+        RuleFor(_ => _.UserId).NotNull();
         RuleFor(_ => _.DoctorId).NotNull();
     }
 

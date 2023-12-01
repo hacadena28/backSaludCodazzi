@@ -9,33 +9,33 @@ namespace Application.UseCases.Appointments.Commands.AppointmentsCreate;
 public class AppointmentCreateCommandHandler : IRequestHandler<AppointmentCreateCommand>
 {
     private readonly AppointmentService _serviceAppointment;
-    private readonly IGenericRepository<Patient> _patientRepository;
+    private readonly IGenericRepository<User> _userRepository;
     private readonly IGenericRepository<Doctor> _doctorRepository;
 
     public AppointmentCreateCommandHandler(AppointmentService serviceAppointment,
-        IGenericRepository<Patient> patientRepository, IGenericRepository<Doctor> doctorRepository)
+        IGenericRepository<User> patientRepository, IGenericRepository<Doctor> doctorRepository)
     {
         _serviceAppointment = serviceAppointment ?? throw new ArgumentNullException(nameof(serviceAppointment));
         _doctorRepository = doctorRepository ?? throw new ArgumentNullException(nameof(doctorRepository));
-        _patientRepository = patientRepository ?? throw new ArgumentNullException(nameof(patientRepository));
+        _userRepository = patientRepository ?? throw new ArgumentNullException(nameof(patientRepository));
     }
 
     public async Task<Unit> Handle(AppointmentCreateCommand request, CancellationToken cancellationToken)
     {
-        var patient = await _patientRepository.GetByIdAsync(request.PatientId);
+        var user = (await _userRepository.GetAsync(x => x.Id == request.UserId, includeStringProperties: "Person")).FirstOrDefault();
         var doctor = await _doctorRepository.GetByIdAsync(request.DoctorId);
 
-        if (doctor == null || patient == null)
+        if (doctor == null || user == null)
         {
             throw new NotFoundException(Domain.Messages.ResourceNotFoundException);
         }
 
-        var appointment = new Domain.Entities.Appointment
+        var appointment = new Appointment
         (
             request.AppointmentStartDate,
             request.Type,
             request.Description,
-            request.PatientId,
+            user.Person.Id,
             request.DoctorId
         );
 

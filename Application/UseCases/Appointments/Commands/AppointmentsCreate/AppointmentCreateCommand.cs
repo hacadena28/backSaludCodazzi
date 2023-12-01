@@ -6,6 +6,6 @@ public record AppointmentCreateCommand(
     DateTime AppointmentStartDate,
     TypeAppointment Type,
     string Description,
-    Guid PatientId,
+    Guid UserId,
     Guid DoctorId
 ) : IRequest;
