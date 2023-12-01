@@ -6,6 +6,5 @@ public class AuthenticationValidator : AbstractValidator<AuthenticationCommand>
     {
         RuleFor(_ => _.DocumentNumber).NotNull().MinimumLength(6).MaximumLength(10);
         RuleFor(_ => _.Password).NotNull().NotEmpty().MinimumLength(8).MaximumLength(50);
-        RuleFor(_ => _.Role).NotNull();
     }
 }

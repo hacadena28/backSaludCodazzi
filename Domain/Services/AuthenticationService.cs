@@ -9,38 +9,23 @@ namespace Domain.Services;
 public class AuthenticationService
 {
     private readonly UserService _userService;
+    private readonly IGenericRepository<User> _repository;
 
-    public AuthenticationService(UserService userService)
+    public AuthenticationService(UserService userService, IGenericRepository<User> repository)
     {
         _userService = userService;
+        _repository = repository;
     }
 
-    public async Task<User> ValidateUserCredentials(string documentNumber, string password, Role role)
+    public async Task<User> ValidateUserCredentials(string documentNumber, string password)
     {
-        User userSearched;
-        if (role is Role.Admin)
-        {
-            userSearched = await _userService.GetUsersAdminByDocumentNumber(documentNumber);
-        }
-        else if (role is Role.Doctor)
-        {
-            userSearched = await _userService.GetUsersDoctorByDocumentNumber(documentNumber);
-        }
-        else if (role is Role.Patient)
-        {
-            userSearched = await _userService.GetUsersPatientByDocumentNumber(documentNumber);
-        }
-        else
-        {
-            throw new UserNotExist(Messages.UserNotExist);
-        }
-
-        if (
-            userSearched.Password != password)
+        var user = (await _repository.GetAsync(
+            x => x.Person.DocumentNumber == documentNumber && x.Password == password,
+            includeStringProperties: "Person")).FirstOrDefault();
+        if (user ==  null)
         {
             throw new IncorrectCredentials(Messages.IncorrectCredentials);
         }
-
-        return userSearched;
+        return user;
     }
 }

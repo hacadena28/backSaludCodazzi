@@ -32,20 +32,6 @@ public class GenericRepository<E> : IGenericRepository<E> where E : DomainEntity
         }
 
         entity.SetDelete();
-
-        if (deleteCascade)
-        {
-            var relatedEntities = entity.GetType()
-                .GetProperties()
-                .Where(prop => typeof(ISoftDelete).IsAssignableFrom(prop.PropertyType))
-                .Select(prop => prop.GetValue(entity) as ISoftDelete);
-
-            foreach (var relatedEntity in relatedEntities)
-            {
-                if (relatedEntity is { DeletedOn: null }) await DeleteAsync(relatedEntity);
-            }
-        }
-
         await CommitAsync();
     }
 
