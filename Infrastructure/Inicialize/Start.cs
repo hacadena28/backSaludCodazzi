@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Context;
 
 namespace Infrastructure.Inicialize
@@ -14,6 +15,34 @@ namespace Infrastructure.Inicialize
 
         public void Inicializar()
         {
+            if (_context.Users.Any(u => u.Role == Role.Admin))
+            {
+                return;
+            }
+
+            var defaultAdmin = new Admin
+            (
+                "User",
+                "Admin",
+                "User",
+                "Admin",
+                TypeDocument.IdentificationCard,
+                "123456789",
+                "adminDefault@mail.com",
+                "123456789",
+                "Address",
+                DateTime.UtcNow
+            );
+
+            var defaultUser = new User
+            (
+                "adminDefault",
+                Role.Admin,
+                defaultAdmin
+            );
+
+            _context.Users.Add(defaultUser);
+            _context.SaveChanges();
         }
     }
 }
