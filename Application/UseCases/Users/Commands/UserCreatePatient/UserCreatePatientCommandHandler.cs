@@ -42,7 +42,7 @@ public class UserCreatePatientCommandHandler : IRequestHandler<UserCreatePatient
             request.Patient.Email.Trim(),
             request.Patient.Phone.Trim(),
             request.Patient.Address.Trim(),
-            request.Patient.Birthdate,
+            request.Patient.Birthdate.AddYears(-19),
             request.Patient.EpsId
         );
 

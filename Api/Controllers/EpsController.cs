@@ -8,6 +8,7 @@ using Application.UseCases.Epses.Commands.EpsUpdate;
 using Application.UseCases.Epses.Queries.GetEps;
 using Application.UseCases.Epses.Queries.GetEpsByID;
 using Application.UseCases.Epses.Queries.GetEpsByName;
+using Application.UseCases.Epses.Queries.GetEpsNormal;
 using Application.UseCases.Users.Queries.GetPaginationUser;
 
 namespace Api.Controllers;
@@ -58,6 +59,15 @@ public class EpsController
     public async Task<EpsDto> GetByName(string name)
     {
         return await _mediator.Send(new EpsByNameQuery(name));
+    }
+    
+    [HttpGet("all")]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+    public async Task<IEnumerable<EpsNormalDto>> GetAll()
+    {
+        return await _mediator.Send(new GetAllEpsQuery());
     }
 
 

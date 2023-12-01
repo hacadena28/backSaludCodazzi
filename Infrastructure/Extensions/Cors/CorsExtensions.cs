@@ -15,11 +15,14 @@ public static class CorsExtensions
         if (corsSettings.Angular is not null)
             origins.AddRange(corsSettings.Angular.Split(';', StringSplitOptions.RemoveEmptyEntries));
 
-        return services.AddCors(opt =>
-            opt.AddPolicy(CorsPolicy, policy =>
-                policy.AllowAnyHeader()
+        return services.AddCors(options =>
+        {
+            options.AddPolicy(CorsPolicy,
+                builder => builder
+                    .AllowAnyOrigin() // Permitir cualquier origen
                     .AllowAnyMethod()
-                    .WithOrigins(origins.ToArray())));
+                    .AllowAnyHeader());
+        });
     }
 
     public static IApplicationBuilder UseCorsPolicy(this IApplicationBuilder app) =>

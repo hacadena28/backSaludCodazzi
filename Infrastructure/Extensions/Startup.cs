@@ -24,7 +24,6 @@ public static class Startup
             .AddMediator()
             .AddMapper()
             .AddContextDatabase(config)
-            .AddCors()
             .AddLogger()
             .AddPersistence(config)
             .AddDomainServices()
@@ -34,7 +33,6 @@ public static class Startup
     public static void UseInfrastructure(this IApplicationBuilder builder, IWebHostEnvironment env)
     {
         builder
-            .UseOpenApiDocumentation(env)
-            .UseCorsPolicy();
+            .UseOpenApiDocumentation(env);
     }
 }
