@@ -30,7 +30,7 @@ public class AppointmentCreateCommandHandler : IRequestHandler<AppointmentCreate
             throw new NotFoundException(Domain.Messages.ResourceNotFoundException);
         }
 
-        var appointment = new Appointment
+        var appointment = new Domain.Entities.Appointment
         (
             request.AppointmentStartDate,
             request.Type,
