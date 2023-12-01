@@ -23,8 +23,7 @@ public class
         CancellationToken cancellationToken)
     {
         var appointmentFilterByPatientId =
-            await _appointmentServices.GetAppointmentsForDoctorByMonth(request.DoctorId, request.Date.Year,
-                request.Date.Month);
+            await _appointmentServices.GetAppointmentsForDoctorByMonth(request.DoctorId, request.Date);
         var data = _mapper.Map<List<AppointmentDto>>(appointmentFilterByPatientId);
 
         return data;
