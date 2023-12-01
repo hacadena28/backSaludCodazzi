@@ -6,9 +6,6 @@ public class AppointmentCreateValidator : AbstractValidator<AppointmentCreateCom
 {
     public AppointmentCreateValidator()
     {
-        RuleFor(_ => _.Date).NotNull().Must(BeAValidDate).WithMessage("Ingrese una fecha válida.")
-            .GreaterThan(DateTime.Today)
-            .WithMessage("La fecha debe ser en el futuro.");
         RuleFor(_ => _.AppointmentStartDate).NotNull().Must(BeAValidDate).WithMessage("Ingrese una fecha válida.")
             .GreaterThan(DateTime.Today)
             .WithMessage("La fecha debe ser en el futuro.");

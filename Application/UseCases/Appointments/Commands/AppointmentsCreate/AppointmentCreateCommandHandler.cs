@@ -29,9 +29,9 @@ public class AppointmentCreateCommandHandler : IRequestHandler<AppointmentCreate
             throw new CoreBusinessException("La etidad patient o doctor no existe");
         }
 
-        var appointment = new Domain.Entities.Appointment
+        var appointment = new Appointment
         (
-            request.Date,
+            DateTime.Now, 
             request.AppointmentStartDate,
             request.Type,
             request.Description,

@@ -5,6 +5,7 @@ using Application.UseCases.Medics.Commands.DoctorUpdate;
 using Application.UseCases.Medics.Queries.GetDoctor;
 using Application.UseCases.Medics.Queries.GetDoctorByDocumentNumber;
 using Application.UseCases.Medics.Queries.GetDoctorByID;
+using Application.UseCases.Medics.Queries.GetEpsNormal;
 using Application.UseCases.Users.Queries.GetPaginationUser;
 
 namespace Api.Controllers;
@@ -29,6 +30,15 @@ public class DoctorController
             Page = page,
             RecordsPerPage = recordsPerPage
         });
+    }
+    
+    [HttpGet("all")]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(DoctorDto), StatusCodes.Status200OK)]
+    public async Task<IEnumerable<DoctorNormalDto>> GetAll()
+    {
+        return await _mediator.Send(new GetAllDoctorQuery());
     }
 
     [HttpGet("{id:guid}")]
