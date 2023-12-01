@@ -1,5 +1,4 @@
 using Application.UseCases.Appointments.Queries.GetAppointments;
-using Application.UseCases.Appointments.Queries.GetAppointmentsForDoctorByWeek;
 using Domain.Entities;
 using Domain.Ports;
 using Domain.Services;

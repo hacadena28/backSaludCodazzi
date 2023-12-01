@@ -11,7 +11,6 @@ using Application.UseCases.Appointments.Queries.GetAppointmentByPatientId;
 using Application.UseCases.Appointments.Queries.GetAppointments;
 using Application.UseCases.Appointments.Queries.GetAppointmentsForDoctorByDay;
 using Application.UseCases.Appointments.Queries.GetAppointmentsForDoctorByMonth;
-using Application.UseCases.Appointments.Queries.GetAppointmentsForDoctorByWeek;
 using Domain;
 using Domain.Enums;
 using Messages = Application.Messages;
@@ -98,9 +97,9 @@ public class AppointmentController
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
-    public async Task<List<AppointmentDto>> GetAppointmentsForDoctorByMonthQuery(Guid doctorId, DateTime date)
+    public async Task<List<AppointmentDto>> GetAppointmentsForDoctorByMonthQuery(Guid id, DateTime date)
     {
-        return await _mediator.Send(new AppointmentsForDoctorByMonthQuery(doctorId,date)
+        return await _mediator.Send(new AppointmentsForDoctorByMonthQuery(id,date)
         );
     }
 
