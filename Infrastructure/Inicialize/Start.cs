@@ -1,4 +1,5 @@
-﻿using Infrastructure.Context;
+﻿using Domain.Entities;
+using Infrastructure.Context;
 
 namespace Infrastructure.Inicialize
 {
@@ -13,7 +14,6 @@ namespace Infrastructure.Inicialize
 
         public void Inicializar()
         {
-            Console.WriteLine("inicializando");
         }
     }
 }
