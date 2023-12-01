@@ -51,7 +51,7 @@ public class AppointmentService
             pageSize: pageSize,
             filter: e => e.PatientId == patientId,
             orderBy: null,
-            includeStringProperties: "",
+            includeStringProperties: "Doctor,Patient",
             isTracking: false);
 
         return result;

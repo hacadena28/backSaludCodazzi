@@ -73,7 +73,7 @@ public class AppointmentController
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
-    public async Task<ResponsePagination<AppointmentDto>> GetAppointmentByPatinetId(Guid id, int page = 1,
+    public async Task<ResponsePagination<AppointmentNamesDto>> GetAppointmentByPatinetId(Guid id, int page = 1,
         int recordsPerPage = 20)
     {
         return await _mediator.Send(new AppointmentByPatientIdQuery(id)

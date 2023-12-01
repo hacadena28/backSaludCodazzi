@@ -8,10 +8,12 @@ namespace Application.UseCases.Appointments.Queries.GetAppointmentByPatientId;
 
 public class
     AppointmentByPatientIdQueryHandler : IRequestHandler<AppointmentByPatientIdQuery,
-        ResponsePagination<AppointmentDto>>
+        ResponsePagination<AppointmentNamesDto>>
 {
     private readonly IGenericRepository<User> _repository;
     private readonly AppointmentService _appointmentServices;
+    private readonly IGenericRepository<User> _userRepository;
+    private readonly IGenericRepository<Doctor> _doctorRepository;
     private readonly IMapper _mapper;
 
     public AppointmentByPatientIdQueryHandler(IGenericRepository<User> repository,
@@ -19,19 +21,24 @@ public class
         IMapper mapper) =>
         (_repository, _appointmentServices, _mapper) = (repository, appointmentServices, mapper);
 
-    public async Task<ResponsePagination<AppointmentDto>> Handle(AppointmentByPatientIdQuery request,
+    public async Task<ResponsePagination<AppointmentNamesDto>> Handle(AppointmentByPatientIdQuery request,
         CancellationToken cancellationToken)
     {
-        var user = (await _repository.GetAsync(x => x.Id == request.PatientId, includeStringProperties: "Person")).FirstOrDefault();
-    
+        var user = (await _repository.GetAsync(x => x.Id == request.PatientId, includeStringProperties: "Person"))
+            .FirstOrDefault();
+
         var appointmentFilterByPatientId =
             await _appointmentServices.GetByPatientId(user!.Person.Id, request.Page, request.RecordsPerPage);
-        var data = _mapper.Map<List<AppointmentDto>>(appointmentFilterByPatientId.Records);
 
-        return new ResponsePagination<AppointmentDto>
+        // var dataPaginated = _mapper.Map<List<AppointmentNamesDto>>(appointmentFilterByPatientId.Records);
+        var dataPaginated = appointmentFilterByPatientId.Records.Select(
+            x => _mapper.Map<AppointmentNamesDto>(x)
+        ).ToList();
+
+        return new ResponsePagination<AppointmentNamesDto>
         {
             Page = request.Page,
-            Records = data,
+            Records = dataPaginated,
             TotalPages = appointmentFilterByPatientId.TotalPages,
             TotalRecords = appointmentFilterByPatientId.TotalRecords
         };

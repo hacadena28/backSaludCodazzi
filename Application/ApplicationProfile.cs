@@ -23,6 +23,12 @@ public class ApplicationProfile : Profile
         CreateMap<Patient, PatientDto>().ReverseMap();
         CreateMap<User, UserDto>().ReverseMap();
         CreateMap<Eps, EpsNormalDto>().ReverseMap();
+        CreateMap<Appointment, AppointmentNamesDto>()
+            .ForMember(dest => dest.PatientFullName,
+                opt => opt.MapFrom(src => $"{src.Patient.FirstName} {src.Patient.LastName}"))
+            .ForMember(dest => dest.DoctorFullName,
+                opt => opt.MapFrom(src => $"{src.Doctor.FirstName} {src.Doctor.LastName}"));
+
         CreateMap<Doctor, DoctorNormalDto>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FirstName + " " + src.SecondLastName));
     }
