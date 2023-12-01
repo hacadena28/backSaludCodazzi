@@ -10,7 +10,6 @@ public class MedicalHistoryCreateValidator : AbstractValidator<MedicalHistoryCre
         RuleFor(_ => _.Description).NotNull().NotEmpty().MinimumLength(1).MaximumLength(250);
         RuleFor(_ => _.Diagnosis).NotNull().NotEmpty().MinimumLength(1).MaximumLength(250);
         RuleFor(_ => _.Treatment).NotNull().NotEmpty().MinimumLength(1).MaximumLength(250);
-        RuleFor(_ => _.DoctorId).NotNull();
         RuleFor(_ => _.PatientId).NotNull();
     }
 

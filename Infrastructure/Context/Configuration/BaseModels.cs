@@ -104,8 +104,8 @@ public class MedicalHistoryConfig : IEntityTypeConfiguration<MedicalHistory>
             .HasMaxLength(255);
         builder
             .HasOne(x => x.Patient)
-            .WithOne()
-            .HasForeignKey<MedicalHistory>(x => x.PatientId)
+            .WithMany()
+            .HasForeignKey(x => x.PatientId)
             .IsRequired();
     }
 }
