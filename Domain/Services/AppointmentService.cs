@@ -73,8 +73,7 @@ public class AppointmentService
     public async Task<IEnumerable<Appointment>> GetAppointmentsForDoctorByMonth(Guid doctorId, DateTime date)
     {
         DateTime startdate = new DateTime(date.Year, date.Month, date.Day);
-        startdate.AddMonths(1);
-        DateTime endDate = startdate.AddMonths(1).AddDays(-1);
+        DateTime endDate = startdate.AddMonths(1).AddDays(-1).AddHours(23);
 
 
         var result = await _appointmentRepository.GetAsync(
