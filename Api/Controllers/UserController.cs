@@ -3,6 +3,8 @@ using Api.Filters;
 using Application;
 using Application.Common.Exceptions;
 using Application.Common.Helpers.Pagination;
+using Application.UseCases.Auth.Commands.Authentication;
+using Application.UseCases.Auth.Queries;
 using Application.UseCases.Users.Commands.UserCreateAdmin;
 using Application.UseCases.Users.Commands.UserCreateDoctor;
 using Application.UseCases.Users.Commands.UserUpdate;
@@ -24,6 +26,16 @@ public class UserController
     private readonly IMediator _mediator;
 
     public UserController(IMediator mediator) => _mediator = mediator;
+
+
+    [HttpPost("Auth")]
+    [SwaggerResponseExample(400, typeof(ErrorResponse))]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+    public async Task<AuthenticationDto> Authentication(AuthenticationCommand command)
+    {
+        return await _mediator.Send(command);
+    }
 
     [HttpPost("patient")]
     [SwaggerRequestExample(typeof(UserCreatePatientCommand), typeof(UserCreatePatientCommandExample))]

@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Exceptions;
 using Domain.Ports;
 
@@ -14,14 +15,18 @@ public class AuthenticationService
         _userService = userService;
     }
 
-    public async Task<bool> ValidateUserCredentials(string documentNumber, string password)
+    public async Task<User> ValidateUserCredentials(string documentNumber, string password, Role role)
     {
-        var userSearched = await _userService.GetUsersAdminByDocumentNumber(documentNumber);
-        if (userSearched == null)
+        User userSearched;
+        if (role is Role.Admin)
+        {
+            userSearched = await _userService.GetUsersAdminByDocumentNumber(documentNumber);
+        }
+        else if (role is Role.Doctor)
         {
             userSearched = await _userService.GetUsersDoctorByDocumentNumber(documentNumber);
         }
-        else if (userSearched == null)
+        else if (role is Role.Patient)
         {
             userSearched = await _userService.GetUsersPatientByDocumentNumber(documentNumber);
         }
@@ -36,6 +41,6 @@ public class AuthenticationService
             throw new IncorrectCredentials(Messages.IncorrectCredentials);
         }
 
-        return true;
+        return userSearched;
     }
 }

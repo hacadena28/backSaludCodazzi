@@ -51,6 +51,10 @@ public class UserService
             includeStringProperties: "",
             isTracking: false);
 
+        if (searchedDoctor is null)
+        {
+            throw new UserNotExist(Messages.UserNotExist);
+        }
         var searchedUser = await _userRepository.GetAsync(
             filter: u => u.PersonId == searchedDoctor.Records.FirstOrDefault().Id,
             orderBy: null,
@@ -69,6 +73,10 @@ public class UserService
             includeStringProperties: "",
             isTracking: false);
 
+        if (searchedAdmin is null)
+        {
+            throw new UserNotExist(Messages.UserNotExist);
+        }
         var searchedUser = await _userRepository.GetAsync(
             filter: u => u.PersonId == searchedAdmin.Records.FirstOrDefault().Id,
             orderBy: null,
@@ -86,7 +94,10 @@ public class UserService
             orderBy: null,
             includeStringProperties: "",
             isTracking: false);
-
+        if (searchedPatient is null)
+        {
+            throw new UserNotExist(Messages.UserNotExist);
+        }
         var searchedUser = await _userRepository.GetAsync(
             filter: u => u.PersonId == searchedPatient.Records.FirstOrDefault().Id,
             orderBy: null,
