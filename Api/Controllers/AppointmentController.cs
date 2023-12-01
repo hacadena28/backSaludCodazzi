@@ -70,7 +70,7 @@ public class AppointmentController
         });
     }
 
-    [HttpGet("patient/{id:guid}")]
+    [HttpGet("user/{id:guid}")]
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
