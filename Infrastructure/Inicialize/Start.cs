@@ -28,7 +28,7 @@ namespace Infrastructure.Inicialize
                     "adminDefault@mail.com",
                     "123456789",
                     "Address",
-                    DateTime.UtcNow
+                    DateTime.Now.AddYears(-18)
                 );
 
                 var defaultUser = new User
