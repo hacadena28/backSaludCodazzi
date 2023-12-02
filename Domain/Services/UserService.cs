@@ -67,24 +67,9 @@ public class UserService
 
     public async Task<User> GetUsersAdminByDocumentNumber(string documentNumber)
     {
-        var searchedAdmin = await _adminRepository.GetPagedFilterAsync(page: 1, pageSize: 20,
-            filter: d => d.DocumentNumber == documentNumber,
-            orderBy: null,
-            includeStringProperties: "",
-            isTracking: false);
-
-        if (searchedAdmin is null)
-        {
-            throw new UserNotExist(Messages.UserNotExist);
-        }
-        var searchedUser = await _userRepository.GetAsync(
-            filter: u => u.PersonId == searchedAdmin.Records.FirstOrDefault().Id,
-            orderBy: null,
-            includeStringProperties: "Person",
-            isTracking: false
-        );
-
-        return searchedUser.FirstOrDefault();
+        return (await _userRepository.GetAsync(x => x.Person.DocumentNumber == documentNumber,
+                includeStringProperties: "Person"))
+            .FirstOrDefault();
     }
 
     public async Task<User> GetUsersPatientByDocumentNumber(string documentNumber)

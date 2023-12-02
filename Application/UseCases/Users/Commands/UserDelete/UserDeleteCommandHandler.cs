@@ -9,19 +9,19 @@ namespace Application.UseCases.Users.Commands.UserDelete
     {
         private readonly UserService _userService;
         private readonly IGenericRepository<Patient> _patientRepository;
-        private readonly IGenericRepository<User> _userRepository;
+        private readonly IGenericRepository<Admin> _adminRepository;
         private readonly IGenericRepository<Doctor> _doctorRepository;
 
 
         public UserDeleteCommandCommandHandler(
             UserService userService,
-            IGenericRepository<User> userRepository,
+            IGenericRepository<Admin> adminRepository,
             IGenericRepository<Patient> patientRepository,
             IGenericRepository<Doctor> doctorRepository,
             IMapper mapper)
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
-            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _adminRepository = adminRepository ?? throw new ArgumentNullException(nameof(adminRepository));
             _patientRepository = patientRepository ?? throw new ArgumentNullException(nameof(patientRepository));
             _doctorRepository = doctorRepository ?? throw new ArgumentNullException(nameof(doctorRepository));
         }
@@ -39,9 +39,10 @@ namespace Application.UseCases.Users.Commands.UserDelete
                 var patient = await _patientRepository.GetByIdAsync(user.PersonId);
                 await _patientRepository.DeleteAsync(patient);
             }
-            else
+            else if (user.Role == Role.Admin)
             {
-                
+                var patient = await _adminRepository.GetByIdAsync(user.PersonId);
+                await _adminRepository.DeleteAsync(patient);
             }
 
             await _userService.DeleteUser(user);
