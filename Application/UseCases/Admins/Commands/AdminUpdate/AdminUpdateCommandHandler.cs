@@ -1,25 +1,24 @@
-using Application.UseCases.Medics.Commands.DoctorUpdate;
 using Domain.Entities;
 using Domain.Ports;
 using Domain.Services;
 
 namespace Application.UseCases.Admins.Commands.AdminUpdate
 {
-    public class AdminUpdateCommandHandler : IRequestHandler<DoctorUpdateCommand>
+    public class AdminUpdateCommandHandler : IRequestHandler<AdminUpdateCommand,Unit>
     {
-        private readonly DoctorService _doctorService;
-        private readonly IGenericRepository<Doctor> _doctorRepository;
+        private readonly AdminService _adminService;
+        private readonly IGenericRepository<Admin> _adminRepository;
 
-        public AdminUpdateCommandHandler(DoctorService doctorService,
-            IGenericRepository<Doctor> doctorRepository)
+        public AdminUpdateCommandHandler(AdminService adminService,
+            IGenericRepository<Admin> adminRepository)
         {
-            _doctorService = doctorService ?? throw new ArgumentNullException(nameof(doctorService));
-            _doctorRepository = doctorRepository ?? throw new ArgumentNullException(nameof(doctorRepository));
+            _adminService = adminService ?? throw new ArgumentNullException(nameof(adminService));
+            _adminRepository = adminRepository ?? throw new ArgumentNullException(nameof(adminRepository));
         }
 
-        public async Task<Unit> Handle(DoctorUpdateCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AdminUpdateCommand request, CancellationToken cancellationToken)
         {
-            await _doctorService.UpdateDoctor(request.Id,
+            await _adminService.UpdateAdmin(request.Id,
                 request.FirstName?.Trim(),
                 request.SecondName?.Trim(),
                 request.LastName?.Trim(),
