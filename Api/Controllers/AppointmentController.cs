@@ -87,7 +87,7 @@ public class AppointmentController
     [SwaggerResponseExample(400, typeof(ErrorResponse))]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status200OK)]
-    public async Task<List<AppointmentDto>> GetAppointmentsForDoctorByDayQuery(Guid id, DateTime date)
+    public async Task<List<AppointmentNamesDto>> GetAppointmentsForDoctorByDayQuery(Guid id, DateTime date)
     {
         return await _mediator.Send(new AppointmentsForDoctorByDayQuery(id, date)
         );

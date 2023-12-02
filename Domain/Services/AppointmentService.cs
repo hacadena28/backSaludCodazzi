@@ -94,7 +94,8 @@ public class AppointmentService
         var result = await _appointmentRepository.GetAsync(filter: a =>
             a.DoctorId == doctorId &&
             a.AppointmentStartDate >= startDate &&
-            a.AppointmentStartDate <= endDate, isTracking: true);
+            a.AppointmentStartDate <= endDate, isTracking: true,
+            includeStringProperties: "Doctor,Patient");
         return result;
     }
 

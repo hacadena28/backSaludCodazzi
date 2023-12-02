@@ -1,4 +1,3 @@
-using Domain.Entities;
 using Domain.Enums;
 
 namespace Application.UseCases.Appointments.Queries.GetAppointments;
